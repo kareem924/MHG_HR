@@ -139,8 +139,8 @@ namespace mhg_internalnet2.Controllers
                     file?.SaveAs(Path.Combine(Server.MapPath("~/Content/ProfileImages"), model.ProfilePicPath + ".jpg"));
                 }
                 _useresRolesServices.InsertUser(user);
-                ViewBag.SucessMessage = model.FirstName+" "+"Has been Add successfuly";
-                return RedirectToAction("Index","Users");
+                ViewBag.SucessMessage = model.FirstName + " " + "Has been Add successfuly";
+                return RedirectToAction("Index", "Users");
             }
             ViewBag.Departments = new SelectList(_departmentsService.GetAllDepartments(), "Id", "Name");
             ViewBag.JobPlaces = new SelectList(_branchService.GetAllBranches(), "StoreId", "StoreName");
@@ -152,9 +152,9 @@ namespace mhg_internalnet2.Controllers
             ViewBag.Departments = new SelectList(_departmentsService.GetAllDepartments(), "Id", "Name");
             ViewBag.JobPlaces = new SelectList(_branchService.GetAllBranches(), "StoreId", "StoreName");
             var user = _useresRolesServices.GetUser(userId);
-            var model=new EditUserViewModel()
+            var model = new EditUserViewModel()
             {
-                UserId=user.Id,
+                UserId = user.Id,
                 FirstName = user.Employee.FirstName,
                 MobilePhone = user.Employee.MobilePhone,
                 Address = user.Employee.Address,
@@ -172,8 +172,8 @@ namespace mhg_internalnet2.Controllers
                 FingerPrintNumber = user.Employee.FingerPrintNumber,
                 NationalId = user.Employee.IdNumber,
                 ShortDescription = user.Employee.ShortDescription,
-                
-                
+
+
             };
 
             return View(model);
@@ -184,7 +184,7 @@ namespace mhg_internalnet2.Controllers
             ViewBag.Departments = new SelectList(_departmentsService.GetAllDepartments(), "Id", "Name");
             ViewBag.JobPlaces = new SelectList(_branchService.GetAllBranches(), "StoreId", "StoreName");
             ViewBag.jobs = new SelectList(_jobService.GetAllJobs(), "Id", "Name");
-           
+
             if (ModelState.IsValid)
             {
                 var userToupdate = _useresRolesServices.GetUser(model.UserId);
@@ -206,7 +206,7 @@ namespace mhg_internalnet2.Controllers
                 userToupdate.Employee.IsMale = model.IsMale;
                 userToupdate.Employee.BankAccount = model.BankAccount;
                 userToupdate.Employee.FingerPrintNumber = model.FingerPrintNumber;
-              
+
                 if (Request.Files.Count > 0)
                 {
                     var file = Request.Files[0];
@@ -218,7 +218,7 @@ namespace mhg_internalnet2.Controllers
                 return RedirectToAction("Index", "Users");
             }
             return View(model);
-   
+
         }
         public ActionResult RemoveFromRole(string userId, string roleName)
         {
@@ -258,6 +258,23 @@ namespace mhg_internalnet2.Controllers
         {
             var jobs = _jobService.GetAllJobsByDepartment(id);
             return Json(jobs, JsonRequestBehavior.AllowGet);
+
+        }
+        [HttpPost]
+        public ActionResult UpdateActive(string UserId)
+        {
+           
+            var user = _useresRolesServices.GetUser(UserId);
+            if (user.IsActive)
+            {
+                user.IsActive = false;
+            }
+            else
+            {
+                user.IsActive = true;
+            }
+            _useresRolesServices.UpdateUser(user);
+           return RedirectToAction("Index", "Users");
 
         }
     }
