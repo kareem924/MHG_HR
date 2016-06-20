@@ -18,24 +18,32 @@ namespace Domain
         }
         public bool IsActive { get; set; }
         public virtual Employee Employee { get; set; }
-        
+
     }
     public class MhgHrDataContext : IdentityDbContext<ApplicationUser>
     {
         public MhgHrDataContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
-           
-           
+
+
         }
         public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Departments> Departments { get; set; }
+        public IDbSet<Branch> Branches { get; set; }
+        public IDbSet<Brand> Brands { get; set; }
+        public IDbSet<Job>  jobs { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
 
             // Add other non-cascading FK declarations here
             builder.Entity<ApplicationUser>().HasOptional(u => u.Employee)
                 .WithRequired(s => s.User).Map(a => a.MapKey("UserId"));
+
+            builder.Entity<Branch>()
+                  .HasRequired<Brand>(s => s.Brand)
+                  .WithMany(s => s.branshes)
+                  .HasForeignKey(s => s.BrandId);
             Database.SetInitializer<MhgHrDataContext>(null);
             base.OnModelCreating(builder);
         }

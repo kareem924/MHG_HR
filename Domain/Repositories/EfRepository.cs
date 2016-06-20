@@ -151,9 +151,11 @@ namespace Domain.Repositories
             {
                 if (entity == null)
                     throw new ArgumentNullException("entity");
-
+                if (!Entities.Local.Contains(entity))
+                {
+                    Entities.Attach(entity);
+                }
                 Entities.Remove(entity);
-
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)

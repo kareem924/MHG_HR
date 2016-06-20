@@ -1,0 +1,55 @@
+﻿@model mhg_internalnet2.ViewModel.RoleViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<link href="../../Content/uniform.default.css" rel="stylesheet" type="text/css" />
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="@Url.Action("Index","Home")">Home</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "Roles")">Roles</a>
+        </li>
+        <li>
+            <a href="#">create new Role</a>
+        </li>
+    </ul>
+
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-settings font-green-haze"></i>
+                    <span class="caption-subject bold uppercase"> create new Role</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+
+                @using (Html.BeginForm("Create", "Roles", FormMethod.Post, new { @class = "form-inline margin-bottom-40", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group form-md-line-input has-success">
+
+                        @Html.ValidationSummary(true)
+                        <input type="text" class="form-control" placeholder="Role Name" name="RoleName">
+                        @Html.ValidationMessageFor(model => model.RoleName)
+                        <div class="form-control-focus">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Create</button>
+                }
+
+            </div>
+        </div>
+    </div>
+    <!-- END SAMPLE FORM PORTLET-->
+</div>

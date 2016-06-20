@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Domain;
 using Domain.Entities;
 using Domain.Repositories;
 using Domain.Service;
 using Domain.Service.Abstract;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Ninject;
 
 namespace mhg_internalnet2.Infrastructure
@@ -30,6 +32,16 @@ namespace mhg_internalnet2.Infrastructure
             // put bindings here
             kernel.Bind<IRepository<Departments>>().To<EfRepository<Departments>>();
             kernel.Bind<IDepartmentsService>().To<DepartmentsService>();
+            kernel.Bind<IRepository<ApplicationUser>>().To<EfRepository<ApplicationUser>>();
+            kernel.Bind<IUseresRolesServices>().To<UserRolesService>();
+            kernel.Bind<IRepository<IdentityRole>>().To<EfRepository<IdentityRole>>();
+            kernel.Bind<IRolesService>().To<RolesSerivce>();
+            kernel.Bind<IRepository<Job>>().To<EfRepository<Job>>();
+            kernel.Bind<IJobService>().To<JobsService>();
+            kernel.Bind<IRepository<Branch>>().To<EfRepository<Branch>>();
+            kernel.Bind<IBranchService>().To<BranchService>();
+            kernel.Bind<IRepository<Brand>>().To<EfRepository<Brand>>();
+            kernel.Bind<IBrandService>().To<BrandService>();
         }
     }
 }

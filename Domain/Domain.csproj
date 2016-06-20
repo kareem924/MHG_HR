@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Domain</RootNamespace>
     <AssemblyName>Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,13 +86,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Branch.cs" />
+    <Compile Include="Entities\Brand.cs" />
     <Compile Include="Entities\Departments.cs" />
     <Compile Include="Entities\Employee.cs" />
+    <Compile Include="Entities\Job.cs" />
     <Compile Include="MhgHrDataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Service\Abstract\IBranchService.cs" />
+    <Compile Include="Service\Abstract\IBrandService.cs" />
     <Compile Include="Service\Abstract\IDepartmentsService.cs" />
+    <Compile Include="Service\Abstract\IJobService.cs" />
+    <Compile Include="Service\Abstract\IRolesService.cs" />
+    <Compile Include="Service\Abstract\IUseresRolesServices.cs" />
+    <Compile Include="Service\BranchService.cs" />
+    <Compile Include="Service\BrandService.cs" />
+    <Compile Include="Service\JobsService.cs" />
+    <Compile Include="Service\RolesSerivce.cs" />
+    <Compile Include="Service\UserRolesService.cs" />
     <Compile Include="Service\DepartmentsService.cs" />
   </ItemGroup>
   <ItemGroup />

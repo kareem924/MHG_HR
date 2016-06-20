@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace mhg_internalnet2.Models
@@ -66,11 +67,31 @@ namespace mhg_internalnet2.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
         public string Email { get; set; }
-
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        public string FirstName { get; set; }
+        [Required]
+        public string MiddleName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string NationalId { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public bool IsMale { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string Address { get; set; }
+        public int? JobId { get; set; }
+        public int? DepartmentId { get; set; }
+        public int FingerPrintNumber { get; set; }
+        public DateTime? HireDate { get; set; }
+        public int? StoreId { get; set; }
+        public string ShortDescription { get; set; }
+        public string Color { get; set; }
+        public string BankAccount { get; set; }
+        public string ProfilePicPath { get; set; }
+        [Required]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -79,8 +100,38 @@ namespace mhg_internalnet2.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+
     }
 
+    public class EditUserViewModel
+    {
+        public string UserId { get; set; }
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string MiddleName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string NationalId { get; set; }
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public bool IsMale { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string Address { get; set; }
+        public int? JobId { get; set; }
+        public int FingerPrintNumber { get; set; }
+        public DateTime? HireDate { get; set; }
+        public int? StoreId { get; set; }
+        public string ShortDescription { get; set; }
+        public string Color { get; set; }
+        public string BankAccount { get; set; }
+        public string ProfilePicPath { get; set; }
+    }
     public class ResetPasswordViewModel
     {
         [Required]

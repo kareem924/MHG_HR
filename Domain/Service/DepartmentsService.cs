@@ -5,22 +5,24 @@ using Domain.Service.Abstract;
 
 namespace Domain.Service
 {
-   public class DepartmentsService : IDepartmentsService
+    public class DepartmentsService : IDepartmentsService
     {
         #region fields
-
         private readonly IRepository<Departments> _departmentRepository;
-
+        #endregion
+        #region ctor
         public DepartmentsService(IRepository<Departments> departmentRepository)
         {
             _departmentRepository = departmentRepository;
         }
 
-       #endregion
-
+        #endregion
+        #region Methods
         public IQueryable<Departments> GetAllDepartments()
         {
-           return _departmentRepository.Table;
+            return _departmentRepository.Table;
         }
+        #endregion
+
     }
 }

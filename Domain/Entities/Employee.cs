@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities
@@ -6,6 +7,7 @@ namespace Domain.Entities
     [Table("Employees")]
     public class Employee
     {
+       
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -23,7 +25,7 @@ namespace Domain.Entities
         public DateTime? BirthDate { get; set; }
         public DateTime? HireDate { get; set; }
         public bool? IsMale { get; set; }
-        public byte? BranchId { get; set; }
+        public int? BranchId { get; set; }
         public byte? WorkPlaceId { get; set; }
         public string ShortDescription { get; set; }
         public string Color { get; set; }

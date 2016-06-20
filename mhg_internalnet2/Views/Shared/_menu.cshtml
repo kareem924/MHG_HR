@@ -1,0 +1,44 @@
+﻿<li class="start active open">
+    <a href="javascript:;">
+        <i class="icon-users"></i>
+        <span class="title">Manage Users</span>
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="active">
+            <a href="@Url.Action("Index","Users")">
+                <i class="icon-user-following"></i>
+                All Employee
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("CreateUser","Users")">
+                <i class="icon-user"></i>
+                Create new Employee
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("index","Roles")">
+                <i class="icon-settings"></i>
+                Roles
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="start">
+    <a href="javascript:;">
+        <i class="fa fa-building-o"></i>
+        <span class="title">Company</span>
+
+        <span class="arrow open"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="active">
+            <a href="@Url.Action("Index","Branch")">
+                <i class="fa fa-database"></i>
+                Branches
+            </a>
+        </li>
+
+    </ul>
+</li>

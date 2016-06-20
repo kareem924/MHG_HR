@@ -8,7 +8,7 @@ namespace Domain.Entities
     public class Departments
     {
         [Key]
-        public byte Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }
