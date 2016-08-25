@@ -42,6 +42,14 @@ namespace mhg_internalnet2.Infrastructure
             kernel.Bind<IBranchService>().To<BranchService>();
             kernel.Bind<IRepository<Brand>>().To<EfRepository<Brand>>();
             kernel.Bind<IBrandService>().To<BrandService>();
+            kernel.Bind<IRepository<UserDocuments>>().To<EfRepository<UserDocuments>>();
+            kernel.Bind<IUserDocumentsService>().To<UserDocumentsService>();
+            kernel.Bind<IRepository<OfficalHolidays>>().To<EfRepository<OfficalHolidays>>();
+            kernel.Bind<IOfficalHolidaysService>().To<OfficalHolidayService>();
+            kernel.Bind<IRepository<Borrow>>().To<EfRepository<Borrow>>();
+            kernel.Bind<IBorrowService>().To<BorrowService>();
+            kernel.Bind<IRepository<Employee>>().To<EfRepository<Employee>>();
+
         }
     }
 }

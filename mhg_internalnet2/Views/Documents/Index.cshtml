@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@Html.Hidden("UserId", (object)ViewBag.userId)
+@(Html.Kendo().Grid<mhg_internalnet2.ViewModel.UserDocumentsViewModel>()
+        .Name("grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.FileName).Width(120);
+            columns.Bound(p => p.DocumentName).Hidden(true);
+            columns.Command(command => { command.Destroy(); command.Custom("ViewImage").Click("showDetails"); }).Width(200);
+        })
+        .ToolBar(toolbar => toolbar.Create())
+        .Editable(editable => editable.Mode(GridEditMode.PopUp))
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Editable(ed => ed.Mode(GridEditMode.PopUp).TemplateName("userDocument"))
+        .HtmlAttributes(new { style = "height:550px;" })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model =>
+        {
+            model.Id(p => p.DocumentId);
+            model.Field(p => p.DocumentId).Editable(false);
+         
+
+        })
+    .Create(update => update.Action("Create", "Documents", new { userId = ViewBag.userId }))
+    .Read(read => read.Action("Read", "Documents", new { userId = ViewBag.userId }))
+     .Destroy(update => update.Action("Destroy", "Documents"))
+
+    )
+)
+@(Html.Kendo().Window().Name("Details")
+    .Title("Employee File")
+    .Visible(false)
+    .Modal(true)
+    .Draggable(true)
+ 
+)
+<script type="text/x-kendo-template" id="template">
+    <div id="details-container">
+
+        <img src="../../Img/UserDocuments/#= DocumentName #"/>
+    </div>
+</script>
+
+<script type="text/javascript">
+    var detailsTemplate = kendo.template($("#template").html());
+
+    function showDetails(e) {
+        e.preventDefault();
+
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        var wnd = $("#Details").data("kendoWindow");
+
+        wnd.content(detailsTemplate(dataItem));
+        wnd.center().open();
+    }
+</script>
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>
+
+
+

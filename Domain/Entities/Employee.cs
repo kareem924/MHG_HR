@@ -7,7 +7,7 @@ namespace Domain.Entities
     [Table("Employees")]
     public class Employee
     {
-       
+
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -29,6 +29,7 @@ namespace Domain.Entities
         public byte? WorkPlaceId { get; set; }
         public string ShortDescription { get; set; }
         public string Color { get; set; }
+
         public virtual ApplicationUser User { get; set; }
     }
 }

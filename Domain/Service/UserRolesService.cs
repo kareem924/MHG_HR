@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using Domain.Entities;
 using Domain.Repositories;
 using Domain.Service.Abstract;
 
@@ -11,10 +11,12 @@ namespace Domain.Service
         #region fields
 
         private readonly IRepository<ApplicationUser> _usersRepository;
+        private readonly IRepository<Employee> _employeeRepository;
 
-        public UserRolesService(IRepository<ApplicationUser> usersRepository)
+        public UserRolesService(IRepository<ApplicationUser> usersRepository, IRepository<Employee> employeeRepository)
         {
             _usersRepository = usersRepository;
+            _employeeRepository = employeeRepository;
         }
 
         public void DeleteUser(ApplicationUser user)
@@ -28,6 +30,10 @@ namespace Domain.Service
             return _usersRepository.Table;
         }
 
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return _employeeRepository.Table;
+        }
         public ApplicationUser GetUser(string userId)
         {
             return _usersRepository.GetById(userId);

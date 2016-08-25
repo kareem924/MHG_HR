@@ -61,7 +61,7 @@ namespace mhg_internalnet2.Controllers
         {
             if (store != null && ModelState.IsValid)
             {
-                var branch = new Branch() { Address = store.Address, StoreName = store.StoreName, ClosingTime = DateTime.Now, Color = store.Color, OpenningTime = DateTime.Now, MobilePhone = store.MobilePhone, Telephone = store.Telephone, BrandId = store.BrandId };
+                var branch = new Branch() { Address = store.Address, StoreName = store.StoreName, ClosingTime = store.ClosingTime, Color = store.Color, OpenningTime = store.OpenningTime, MobilePhone = store.MobilePhone, Telephone = store.Telephone, BrandId = store.BrandId };
                 _branchService.InsertBranch(branch);
             }
             return Json(new[] { store }.ToDataSourceResult(request, ModelState));
