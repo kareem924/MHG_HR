@@ -1,16 +1,23 @@
-﻿@using Kendo.Mvc.UI
+﻿
+
 
 @{
     ViewBag.Title = "Index";
 }
 
-@(Html.Kendo().Grid<mhg_internalnet2.ViewModel.OfficalVacationsViewModel>()
+@(Html.Kendo().Grid<mhg_internalnet2.ViewModel.BranchModel>()
         .Name("grid")
         .Columns(columns =>
         {
-            columns.Bound(p => p.Description).Width(120);
-            columns.Bound(p => p.Day).Width(180);
-           
+            columns.Bound(p => p.StoreName).Width(120);
+            columns.Bound(p => p.Address).Width(180);
+            columns.Bound(p => p.Telephone).Width(110);
+            columns.Bound(p => p.OpenningTime).Width(110);
+            columns.Bound(p => p.ClosingTime).Width(110);
+            columns.Bound(p => p.MobilePhone).Width(110);
+            columns.ForeignKey(p => p.BrandId, (System.Collections.IEnumerable)ViewData["brands"], "BrandId", "BrandName")
+              .Title("Brand").Width(100);
+            columns.Bound(p => p.Color).Width(75).HtmlAttributes(new { id = "colorpick" });
             columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
         })
         .ToolBar(toolbar => toolbar.Create())
@@ -25,14 +32,14 @@
         .Events(events => events.Error("error_handler"))
         .Model(model =>
         {
-            model.Id(p => p.OfficialVactionId);
-            model.Field(p => p.OfficialVactionId).Editable(false);
-
+            model.Id(p => p.StoreId);
+            model.Field(p => p.StoreId).Editable(false);
+            model.Field(p => p.BrandId).DefaultValue(1);
         })
-    .Create(update => update.Action("Create", "OfficalVacation"))
-    .Read(read => read.Action("Read", "OfficalVacation"))
-    .Update(update => update.Action("Update", "OfficalVacation"))
-    .Destroy(update => update.Action("Destroy", "OfficalVacation"))
+    .Create(update => update.Action("Create", "Branch"))
+    .Read(read => read.Action("Read", "Branch"))
+    .Update(update => update.Action("Update", "Branch"))
+    .Destroy(update => update.Action("Destroy", "Branch"))
     )
 )
 
@@ -51,4 +58,6 @@
         }
     }
 </script>
+
+
 

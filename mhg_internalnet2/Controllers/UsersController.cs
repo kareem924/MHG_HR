@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Domain;
 using Domain.Entities;
 using Domain.Service.Abstract;
+using Kendo.Mvc.Extensions;
 using mhg_internalnet2.Models;
 using mhg_internalnet2.ViewModel;
 using Microsoft.AspNet.Identity;
@@ -260,10 +261,16 @@ namespace mhg_internalnet2.Controllers
             return Json(jobs, JsonRequestBehavior.AllowGet);
 
         }
+
+
+        public ViewResult CompanyEmoloyees()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult UpdateActive(string UserId)
         {
-           
+
             var user = _useresRolesServices.GetUser(UserId);
             if (user.IsActive)
             {
@@ -274,7 +281,7 @@ namespace mhg_internalnet2.Controllers
                 user.IsActive = true;
             }
             _useresRolesServices.UpdateUser(user);
-           return RedirectToAction("Index", "Users");
+            return RedirectToAction("Index", "Users");
 
         }
     }

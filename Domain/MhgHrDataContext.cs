@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -14,6 +15,7 @@ namespace Domain
         public ApplicationUser()
         {
             this.userDocuemts = new HashSet<UserDocuments>();
+          
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -25,6 +27,7 @@ namespace Domain
         public bool IsActive { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual ICollection<UserDocuments> userDocuemts { get; set; }
+     
 
     }
     public class MhgHrDataContext : IdentityDbContext<ApplicationUser>
@@ -40,6 +43,9 @@ namespace Domain
         public IDbSet<Branch> Branches { get; set; }
         public IDbSet<Brand> Brands { get; set; }
         public IDbSet<Job> jobs { get; set; }
+        public IDbSet<Agenda> Agendas { get; set; }
+        public IDbSet<DependencyAgenda> DependencyAgendas { get; set; }
+        public IDbSet<Tasks> Tasks { get; set; }
         public IDbSet<UserDocuments> UsersDocument { get; set; }
         public IDbSet<OfficalHolidays> OfficalHolidays { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
@@ -48,20 +54,22 @@ namespace Domain
             // Add other non-cascading FK declarations here
             builder.Entity<ApplicationUser>().HasOptional(u => u.Employee)
                 .WithRequired(s => s.User).Map(a => a.MapKey("UserId"));
-
+            //Userdocuments users declarations
             builder.Entity<UserDocuments>()
                   .HasRequired<ApplicationUser>(s => s.user)
                   .WithMany(s => s.userDocuemts)
                   .HasForeignKey(s => s.UserId);
+            //Branch brands  declarations
             builder.Entity<Branch>()
                  .HasRequired<Brand>(s => s.Brand)
                  .WithMany(s => s.branshes)
                  .HasForeignKey(s => s.BrandId);
+            //Borrow BorrowDistribution  declarations
             builder.Entity<BorrowDistribution>()
                 .HasRequired<Borrow>(s => s.Borrow)
                 .WithMany(s => s.BorrowDistributions)
                 .HasForeignKey(s => s.BorrowId);
-            Database.SetInitializer<MhgHrDataContext>(null);
+           
             base.OnModelCreating(builder);
         }
         public static MhgHrDataContext Create()

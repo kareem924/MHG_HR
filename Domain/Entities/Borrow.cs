@@ -23,7 +23,10 @@ namespace Domain.Entities
         public int PaymentNumber { get; set; }
         public decimal MonthlyInstallment { get; set; }
         public string UserId { get; set; }
+        public string CreatedBy { get; set; }
+        public DateTime CreatedAt { get; set; }
 
+     
         public virtual ICollection<BorrowDistribution> BorrowDistributions { get; set; }
     }
 }

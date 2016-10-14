@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,7 +8,10 @@ namespace Domain.Entities
     [Table("Employees")]
     public class Employee
     {
-
+        public Employee()
+        {
+        
+        }
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
@@ -29,7 +33,10 @@ namespace Domain.Entities
         public byte? WorkPlaceId { get; set; }
         public string ShortDescription { get; set; }
         public string Color { get; set; }
-
+        [ForeignKey("RealtedEmployees")]
+        public int? ReportsTo { get; set; }
+        public virtual ICollection<Employee> RealtedEmployees { get; set; }
         public virtual ApplicationUser User { get; set; }
+
     }
 }

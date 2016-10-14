@@ -1,0 +1,59 @@
+﻿@using mhg_internalnet2.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@(Html.Kendo().Scheduler<TaskViewModel>()
+    .Name("scheduler")
+    .Date(new DateTime(2013, 6, 13))
+    .StartTime(new DateTime(2013, 6, 13, 7, 00, 00))
+    .Height(600)
+    .Views(views =>
+    {
+        views.DayView();
+        views.WorkWeekView(workWeekView => workWeekView.Selected(true));
+        views.WeekView();
+        views.MonthView();
+        views.AgendaView();
+        views.TimelineView();
+    })
+    .Timezone("Etc/UTC")
+    .Resources(resource =>
+    {
+        resource.Add(m => m.UserId)
+            .Title("Owner")
+            .DataTextField("FirstName")
+            .DataValueField("UserId")
+            .DataColorField("Color")
+            .Multiple(true)
+            .DataSource(
+            source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("GetEmployees", "Borrow");
+                })
+               .ServerFiltering(true);
+            }
+            );
+    })
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.TaskId);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.Field(f => f.UserId).DefaultValue(1);
+            m.Field(f => f.Title).DefaultValue("No title");
+            m.RecurrenceId(f => f.RecurrenceId);
+        })
+        .Read("Read", "Schedule")
+        .Create("Create", "Schedule")
+        .Destroy("Destroy", "Schedule")
+        .Update("Update", "Schedule")
+
+    )
+)
+
+

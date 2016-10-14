@@ -49,7 +49,12 @@ namespace mhg_internalnet2.Infrastructure
             kernel.Bind<IRepository<Borrow>>().To<EfRepository<Borrow>>();
             kernel.Bind<IBorrowService>().To<BorrowService>();
             kernel.Bind<IRepository<Employee>>().To<EfRepository<Employee>>();
-
+            kernel.Bind<IRepository<Agenda>>().To<EfRepository<Agenda>>();
+            kernel.Bind<IRepository<Tasks>>().To<EfRepository<Tasks>>();
+            kernel.Bind<ITasksService>().To<TasksService>();
+            kernel.Bind<IAgendaService>().To<AgendaService>();
+            kernel.Bind<IDependencyAgendaService>().To<DependencyAgendaService>();
+            kernel.Bind<IRepository<DependencyAgenda>>().To<EfRepository<DependencyAgenda>>();
         }
     }
 }

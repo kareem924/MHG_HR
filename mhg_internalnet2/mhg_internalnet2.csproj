@@ -196,13 +196,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
     <Compile Include="Controllers\BorrowController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
+    <Compile Include="Controllers\EmployeeDirectoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OfficalVacationController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -212,13 +215,16 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\AgendaViewModel.cs" />
     <Compile Include="ViewModel\BorrowDistributionViewModel.cs" />
     <Compile Include="ViewModel\BorrowViewModel.cs" />
     <Compile Include="ViewModel\BranchModel.cs" />
     <Compile Include="ViewModel\BrandViewModel.cs" />
     <Compile Include="ViewModel\Department.cs" />
+    <Compile Include="ViewModel\DependencyViewModel.cs" />
     <Compile Include="ViewModel\OfficalVacationsViewModel.cs" />
     <Compile Include="ViewModel\RoleViewModel.cs" />
+    <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="ViewModel\UserDocumentsViewModel.cs" />
     <Compile Include="ViewModel\UserRoleViewModel.cs" />
   </ItemGroup>
@@ -428,6 +434,11 @@
     <Content Include="Img\sidebar_toggler_icon_grey.png" />
     <Content Include="Img\sidebar_toggler_icon_light.png" />
     <Content Include="Img\sidebar_toggler_icon_light2.png" />
+    <Content Include="Img\sort_asc.png" />
+    <Content Include="Img\sort_asc_disabled.png" />
+    <Content Include="Img\sort_both.png" />
+    <Content Include="Img\sort_desc.png" />
+    <Content Include="Img\sort_desc_disabled.png" />
     <Content Include="Img\syncfusion-icons-white.png" />
     <Content Include="Img\syncfusion-icons.png" />
     <Content Include="fonts\fontawesome-webfontd41d.eot" />
@@ -931,6 +942,11 @@
     <Content Include="Views\Shared\EditorTemplates\userDocument.cshtml" />
     <Content Include="Views\OfficalVacation\Index.cshtml" />
     <Content Include="Views\Borrow\Create.cshtml" />
+    <Content Include="Views\Borrow\Index.cshtml" />
+    <Content Include="Views\Agenda\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Users\CompanyEmoloyees.cshtml" />
+    <Content Include="Views\EmployeeDirectory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UserDocuments\" />

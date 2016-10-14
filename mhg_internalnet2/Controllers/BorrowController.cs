@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Domain.Entities;
 using Domain.Service.Abstract;
 using mhg_internalnet2.Models;
+using mhg_internalnet2.ViewModel;
 
 namespace mhg_internalnet2.Controllers
 {
@@ -22,27 +24,79 @@ namespace mhg_internalnet2.Controllers
         // GET: Borrow
         public ActionResult Index()
         {
-            return View();
+            var allLoans = _borrowService.GetAllBorrows().Select(loan => new BorrowViewModel()
+            {
+                EmployeeName = GetEmployeesName(loan.UserId),
+                Amount = loan.Amount,
+                BorrowDate = loan.BorrowDate,
+                BorrowId = loan.BorrowId,
+            });
+            return View(allLoans);
         }
 
         public ActionResult Create()
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult Create(BorrowViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var borrowDisrtibution = new List<BorrowDistribution>();
+                for (DateTime date = model.FromDate; date.Date <= model.ToDate.Date; date = date.AddMonths(1))
+                {
+                    var borrowDistrbuted = new BorrowDistribution()
+                    {
+                        Amount = model.MonthlyInstallment,
+                        Date = date
+                    };
 
+                    borrowDisrtibution.Add(borrowDistrbuted);
+                }
+                _borrowService.InsertBorrow(new Borrow()
+                {
+                    PaymentNumber = model.PaymentNumber,
+                    Amount = model.Amount,
+                    BorrowDate = DateTime.Now,
+                    Describtion = model.Describtion,
+                    UserId = model.UserId,
+                    FromDate = model.FromDate,
+                    ToDate = model.ToDate,
+                    MonthlyInstallment = model.MonthlyInstallment,
+                    BorrowDistributions = borrowDisrtibution
+                });
+
+
+                return RedirectToAction("Index", "Borrow");
+            }
+            return View(model);
+        }
         public JsonResult GetEmployees(string text)
         {
-            var emps = _useresRolesServices.GetAllEmployees().Select(user => new RegisterViewModel
-            {
-                FirstName = user.FirstName,
-                UserId = user.User.Id
-
-            } );
+            var emps = _useresRolesServices.GetAllEmployees();
             if (!string.IsNullOrEmpty(text))
             {
                 emps = emps.Where(p => p.FirstName.Contains(text));
             }
-            return Json(emps, JsonRequestBehavior.AllowGet);
+            return Json(emps.Select(user => new EmpCombox()
+            {
+                FirstName = user.FirstName + " " + user.LastName,
+                UserId = user.EmployeeId.ToString(),
+                Color = user.Color
+
+            }), JsonRequestBehavior.AllowGet);
         }
+
+        public string GetEmployeesName(string userId)
+        {
+            var emps = _useresRolesServices.GetAllEmployees().FirstOrDefault(x => x.EmployeeId == int.Parse(userId));
+            if (emps != null) return emps.FirstName + " " + emps.LastName;
+            return String.Empty;
+        }
+
+        #region functions 
+
+        #endregion
     }
 }

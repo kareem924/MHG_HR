@@ -104,6 +104,16 @@ namespace mhg_internalnet2.Models
         public string UserId { get; set; }
     }
 
+    public class EmpCombox
+    {
+        public string UserId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Position { get; set; }
+        public string Color { get; set; }
+        public int? ReportsTo { get; set; }
+        public bool HasChildren { get; set; }
+    }
     public class EditUserViewModel
     {
         public string UserId { get; set; }
