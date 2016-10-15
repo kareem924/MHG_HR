@@ -553,7 +553,7 @@ intellisense.annotate(instance, {
     cancelChanges: function(model) {
         /// <signature>
         /// <summary>
-        /// Cancels any pending changes in the data source. Deleted data items are restored, new data items are removed and updated data items are restored to their initial state.
+        /// Cancels any pending changes in the data source. Deleted data items are restored, new data items are removed and updated data items are restored to their initial state. All data item uid's will be reset.
         /// </summary>
         /// <param name="model" type="kendo.data.Model" >The optional data item (model). If specified only the changes of this data item will be discarded. If omitted all changes will be discarded.</param>
         /// </signature>
@@ -585,7 +585,7 @@ intellisense.annotate(instance, {
         /// Gets or sets the filter configuration.
         /// </summary>
         /// <param name="value" type="Object" >The filter configuration. Accepts the same values as the filter option (check there for more examples).</param>
-        /// <returns type="Object">the current filter configuration.</returns>
+        /// <returns type="Object">the current filter configuration. Returns null if no filter criteria are currently applied. Returns undefined if the DataSource instance has not performed filtering so far.</returns>
         /// </signature>
     },
     get: function(id) {
@@ -730,13 +730,21 @@ intellisense.annotate(instance, {
         /// <param name="model" type="kendo.data.Model" >The data item which should be removed.</param>
         /// </signature>
     },
+    skip: function() {
+        /// <signature>
+        /// <summary>
+        /// Gets the current skip parameter of the dataSource. The skip parameter indicates the number of data items that should be skipped when a new page is formed.
+        /// </summary>
+        /// <returns type="Number">the current skip parameter.</returns>
+        /// </signature>
+    },
     sort: function(value) {
         /// <signature>
         /// <summary>
         /// Gets or sets the sort order which will be applied over the data items.
         /// </summary>
         /// <param name="value" type="Object" >The sort configuration. Accepts the same values as the sort option.</param>
-        /// <returns type="Array">the current sort configuration.</returns>
+        /// <returns type="Array">The current sort configuration. Returns undefined instead of an empty array, if the DataSource instance has not performed any sorting so far.</returns>
         /// </signature>
     },
     sync: function() {
@@ -1709,6 +1717,115 @@ return wrapper;
 
 
 intellisense.annotate(kendo.data, {
+    Query: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.data.Query</summary>
+        /// </signature>
+    }
+});
+
+kendo.data.Query = (function() {
+var original = kendo.data.Query;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
+    toArray: function() {
+        /// <signature>
+        /// <summary>
+        /// Returns the internal data collection
+        /// </summary>
+        /// <returns type="Array">Returns plain JavaScript array which represents the internal data collection</returns>
+        /// </signature>
+    },
+    skip: function(count) {
+        /// <signature>
+        /// <summary>
+        /// Skip a given amount it items
+        /// </summary>
+        /// <param name="count" type="Number" >The number of items that should be skipped</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query with the first count elements of the list skipped</returns>
+        /// </signature>
+    },
+    take: function(count) {
+        /// <signature>
+        /// <summary>
+        /// Take a given amount it items
+        /// </summary>
+        /// <param name="count" type="Number" >The number of items that should be taken</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing only the first count elements of the list</returns>
+        /// </signature>
+    },
+    select: function(selector) {
+        /// <signature>
+        /// <summary>
+        /// Maps over the data items
+        /// </summary>
+        /// <param name="selector" type="Function" >A function that is applied to each of the items</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the mapped collection</returns>
+        /// </signature>
+    },
+    order: function(selector) {
+        /// <signature>
+        /// <summary>
+        /// Returns a copy of the list sorted according to the direction
+        /// </summary>
+        /// <param name="selector" type="" >The current sort configuration.</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the sorted collection</returns>
+        /// </signature>
+    },
+    filter: function(expression) {
+        /// <signature>
+        /// <summary>
+        /// Returns a copy of the list filtered according to the expression
+        /// </summary>
+        /// <param name="expression" type="Object" >The filter configuration. Accepts the same values as the filter option (check there for more examples).</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the filtered collection</returns>
+        /// </signature>
+    },
+    groupBy: function(descriptor) {
+        /// <signature>
+        /// <summary>
+        /// Returns a copy of the list grouped according to the descriptor
+        /// </summary>
+        /// <param name="descriptor" type="Object" >The grouping configuration. Accepts the same values as the group option.</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the grouped collection</returns>
+        /// </signature>
+    },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.data, {
     SchedulerDataSource: function() {
         /// <signature>
         /// <summary>Constructor of kendo.data.SchedulerDataSource</summary>
@@ -2085,6 +2202,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     geometry: function(value) {
         /// <signature>
         /// <summary>
@@ -2220,6 +2346,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     geometry: function(value) {
         /// <signature>
         /// <summary>
@@ -2350,6 +2485,15 @@ intellisense.annotate(instance, {
         /// Returns the bounding box of the element with clipping and transformations applied.This is the rectangle that will fit around the actual rendered element.
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping and transformations applied.</returns>
+        /// </signature>
+    },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
         /// </signature>
     },
     opacity: function(opacity) {
@@ -2620,6 +2764,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     insert: function(position,element) {
         /// <signature>
         /// <summary>
@@ -2737,6 +2890,15 @@ intellisense.annotate(instance, {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+        /// </signature>
+    },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
         /// </signature>
     },
     opacity: function(opacity) {
@@ -3019,6 +3181,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.drawing.MultiPath">The current instance to allow chaining.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     curveTo: function(controlOut,controlIn,endPoint) {
         /// <signature>
         /// <summary>
@@ -3296,6 +3467,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.drawing.Path">The current instance to allow chaining.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     curveTo: function(controlOut,controlIn,endPoint) {
         /// <signature>
         /// <summary>
@@ -3537,6 +3717,15 @@ intellisense.annotate(instance, {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+        /// </signature>
+    },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
         /// </signature>
     },
     geometry: function(value) {
@@ -3792,12 +3981,28 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.drawing.Element">The target drawing element, if any.</returns>
         /// </signature>
     },
+    hideTooltip: function() {
+        /// <signature>
+        /// <summary>
+        /// Hides the surface tooltip.
+        /// </summary>
+        /// </signature>
+    },
     resize: function(force) {
         /// <signature>
         /// <summary>
         /// Resizes the surface to match the size of the container.
         /// </summary>
         /// <param name="force" type="Boolean" >Whether to proceed with resizing even if the container dimensions have not changed.</param>
+        /// </signature>
+    },
+    showTooltip: function(element,options) {
+        /// <signature>
+        /// <summary>
+        /// Shows the surface tooltip for the passed shape.
+        /// </summary>
+        /// <param name="element" type="kendo.drawing.Element" >The element for which the tooltip should be shown.</param>
+        /// <param name="options" type="Object" >Options for the tooltip.</param>
         /// </signature>
     },
 
@@ -3875,6 +4080,15 @@ intellisense.annotate(instance, {
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
         /// </signature>
     },
+    containsPoint: function(point) {
+        /// <signature>
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+        /// </signature>
+    },
     content: function(value) {
         /// <signature>
         /// <summary>
@@ -3944,6 +4158,53 @@ intellisense.annotate(instance, {
         /// <returns type="Boolean">true if the element is visible; false otherwise.</returns>
         /// </signature>
     },
+
+    bind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+        /// </signature>
+    },
+
+    unbind: function(event, callback) {
+        /// <signature>
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+        /// </signature>
+    }
+
+});
+
+return instance;
+
+};
+
+intellisense.redirectDefinition(wrapper, original);
+
+return wrapper;
+
+})();
+
+
+intellisense.annotate(kendo.drawing, {
+    TooltipOptions: function() {
+        /// <signature>
+        /// <summary>Constructor of kendo.drawing.TooltipOptions</summary>
+        /// </signature>
+    }
+});
+
+kendo.drawing.TooltipOptions = (function() {
+var original = kendo.drawing.TooltipOptions;
+var wrapper = function() {
+var instance = new original();
+intellisense.annotate(instance, {
 
     bind: function(event, callback) {
         /// <signature>
@@ -5163,13 +5424,13 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.ActionSheet widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;cancel — String (default: "Cancel")
+        /// &#10;cancel - String (default: "Cancel")
         /// &#10;The text of the cancel button.
         /// &#10;
-        /// &#10;popup — Object 
+        /// &#10;popup - Object 
         /// &#10;The popup configuration options (tablet only).
         /// &#10;
-        /// &#10;type — String (default: auto)
+        /// &#10;type - String (default: auto)
         /// &#10;By default, the actionsheet opens as a full screen dialog on a phone device or as a popover if a tablet is detected. Setting the type to "phone" or "tablet" will force the looks of the widget regardless of the device.
         /// &#10;
         /// </summary>
@@ -5355,17 +5616,17 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Button widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;badge — String 
+        /// &#10;badge - String 
         /// &#10;The badge of the button.
         /// &#10;
-        /// &#10;clickOn — String (default: default "up")
+        /// &#10;clickOn - String (default: default "up")
         /// &#10;Configures the DOM event used to trigger the button click event/navigate in the mobile application. Can be set to "down" as an alias for touchstart, mousedown, MSPointerDown, and PointerDown vendor specific events.
 /// &#10;Setting the clickOn to down usually makes sense for buttons in the header or in non-scrollable views for increased responsiveness.By default, buttons trigger click/navigate when the user taps the button (a press + release action sequence occurs).
         /// &#10;
-        /// &#10;enable — Boolean (default: true)
+        /// &#10;enable - Boolean (default: true)
         /// &#10;If set to false the widget will be disabled and will not allow the user to click it. The widget is enabled by default.
         /// &#10;
-        /// &#10;icon — String 
+        /// &#10;icon - String 
         /// &#10;The icon of the button. It can be either one of the built-in icons, or a custom one.
         /// &#10;
         /// </summary>
@@ -5485,13 +5746,13 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.ButtonGroup widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;enable — Boolean (default: true)
+        /// &#10;enable - Boolean (default: true)
         /// &#10;Defines if the widget is initially enabled or disabled.
         /// &#10;
-        /// &#10;index — Number 
+        /// &#10;index - Number 
         /// &#10;Defines the initially selected Button (zero based index).
         /// &#10;
-        /// &#10;selectOn — String (default: default "down")
+        /// &#10;selectOn - String (default: default "down")
         /// &#10;Sets the DOM event used to select the button. Accepts "up" as an alias for touchend, mouseup and MSPointerUp vendor specific events.By default, buttons are selected immediately after the user presses the button (on touchstart or mousedown or MSPointerDown, depending on the mobile device).
 /// &#10;However, if the widget is placed in a scrollable view, the user may accidentally press the button when scrolling. In such cases, it is recommended to set this option to "up".
         /// &#10;
@@ -5609,19 +5870,19 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Collapsible widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;animation — Boolean (default: true)
+        /// &#10;animation - Boolean (default: true)
         /// &#10;Turns on or off the animation of the widget.
         /// &#10;
-        /// &#10;collapsed — Boolean (default: true)
+        /// &#10;collapsed - Boolean (default: true)
         /// &#10;If set to false the widget content will be expanded initially. The content of the widget is collapsed by default.
         /// &#10;
-        /// &#10;expandIcon — String (default: "plus")
+        /// &#10;expandIcon - String (default: "plus")
         /// &#10;Sets the icon for the header of the collapsible widget when it is in a expanded state.
         /// &#10;
-        /// &#10;iconPosition — String (default: "left")
+        /// &#10;iconPosition - String (default: "left")
         /// &#10;Sets the icon position in the header of the collapsible widget. Possible values are "left", "right", "top".
         /// &#10;
-        /// &#10;inset — Boolean (default: "false")
+        /// &#10;inset - Boolean (default: "false")
         /// &#10;Forses inset appearance - the collapsible panel is padded from the View and receives rounded corners.
         /// &#10;
         /// </summary>
@@ -5804,23 +6065,23 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Drawer widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;container — jQuery 
+        /// &#10;container - jQuery 
         /// &#10;Specifies the content element to shift when the drawer appears. Required if the drawer is used outside of a mobile application.
         /// &#10;
-        /// &#10;position — String (default: 'left')
+        /// &#10;position - String (default: 'left')
         /// &#10;The position of the drawer. Can be left (default) or right.
         /// &#10;
-        /// &#10;swipeToOpen — Boolean (default: true)
+        /// &#10;swipeToOpen - Boolean (default: true)
         /// &#10;If set to false, swiping the view will not activate the drawer. In this case, the drawer will only be open by a designated button
         /// &#10;
-        /// &#10;swipeToOpenViews — Array 
+        /// &#10;swipeToOpenViews - Array 
         /// &#10;A list of the view ids on which the drawer will appear when the view is swiped. If omitted, the swipe gesture will work on all views.
 /// &#10;The option has effect only if swipeToOpen is set to true.
         /// &#10;
-        /// &#10;title — String 
+        /// &#10;title - String 
         /// &#10;The text to display in the Navbar title (if present).
         /// &#10;
-        /// &#10;views — Array 
+        /// &#10;views - Array 
         /// &#10;A list of the view ids on which the drawer will appear. If omitted, the drawer will work on any view in the application.
         /// &#10;
         /// </summary>
@@ -5899,10 +6160,10 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Layout widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;id — String (default: null)
+        /// &#10;id - String (default: null)
         /// &#10;The id of the layout. Required
         /// &#10;
-        /// &#10;platform — String 
+        /// &#10;platform - String 
         /// &#10;The specific platform this layout targets. By default, layouts are displayed
 /// &#10;on all platforms.
         /// &#10;
@@ -6053,54 +6314,54 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.ListView widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;appendOnRefresh — Boolean (default: false)
+        /// &#10;appendOnRefresh - Boolean (default: false)
         /// &#10;Used in combination with pullToRefresh. If set to true, newly loaded data will be appended on top when refreshing. Notice: not applicable if ListView is in a virtual mode.
         /// &#10;
-        /// &#10;autoBind — Boolean (default: true)
+        /// &#10;autoBind - Boolean (default: true)
         /// &#10;Indicates whether the listview will call read on the DataSource initially. If set to false, the listview will be bound after the DataSource instance fetch method is called.
         /// &#10;
-        /// &#10;dataSource — kendo.data.DataSource|Object 
+        /// &#10;dataSource - kendo.data.DataSource|Object 
         /// &#10;Instance of DataSource or the data that the mobile ListView will be bound to.
         /// &#10;
-        /// &#10;endlessScroll — Boolean (default: false)
+        /// &#10;endlessScroll - Boolean (default: false)
         /// &#10;If set to true, the listview gets the next page of data when the user scrolls near the bottom of the view.
         /// &#10;
-        /// &#10;fixedHeaders — Boolean (default: false)
+        /// &#10;fixedHeaders - Boolean (default: false)
         /// &#10;If set to true, the group headers will persist their position when the user scrolls through the listview.
 /// &#10;Applicable only when the type is set to group, or when binding to grouped DataSource.Notice: fixed headers are not supported in virtual mode.
         /// &#10;
-        /// &#10;headerTemplate — String|Function (default: "#:value#")
+        /// &#10;headerTemplate - String|Function (default: "#:value#")
         /// &#10;The header item template (applicable when the type is set to group).
         /// &#10;
-        /// &#10;loadMore — Boolean (default: false)
+        /// &#10;loadMore - Boolean (default: false)
         /// &#10;If set to true, a button is rendered at the bottom of the listview. Tapping it fetches and displays the items from the next page of the DataSource.
         /// &#10;
-        /// &#10;messages — Object 
+        /// &#10;messages - Object 
         /// &#10;Defines the text of the ListView messages. Used primary for localization.
         /// &#10;
-        /// &#10;pullToRefresh — Boolean (default: false)
+        /// &#10;pullToRefresh - Boolean (default: false)
         /// &#10;If set to true, the listview will reload its data when the user pulls the view over the top limit.
         /// &#10;
-        /// &#10;pullParameters — Function 
+        /// &#10;pullParameters - Function 
         /// &#10;A callback function used when the 'pullToRefresh' option is enabled. The result of the function will be send as additional parameters to the DataSource's next method.Notice: When the listview is in a virtual mode, the pull to refresh action removes the previously loaded items in the listview (instead of appending new records at the top).
 /// &#10;Previously loaded pages in the DataSource are also discarded.
         /// &#10;
-        /// &#10;style — String (default: "")
+        /// &#10;style - String (default: "")
         /// &#10;The style of the widget. Can be either empty string(""), or inset.
         /// &#10;
-        /// &#10;template — String|Function (default: "#:data#")
+        /// &#10;template - String|Function (default: "#:data#")
         /// &#10;The item template.
         /// &#10;
-        /// &#10;type — String (default: "flat")
+        /// &#10;type - String (default: "flat")
         /// &#10;The type of the control. Can be either flat (default) or group. Determined automatically in databound mode.
         /// &#10;
-        /// &#10;filterable — Boolean (default: false)
+        /// &#10;filterable - Boolean (default: false)
         /// &#10;Indicates whether the filter input must be visible or not.
         /// &#10;
-        /// &#10;filterable — Object (default: false)
+        /// &#10;filterable - Object (default: false)
         /// &#10;Indicates whether the filter input must be visible or not.
         /// &#10;
-        /// &#10;virtualViewSize — Number 
+        /// &#10;virtualViewSize - Number 
         /// &#10;Used when virtualization of local data is used. This configuration is needed to determine the items displayed, since the datasource does not (and should not) have paging set.
         /// &#10;
         /// </summary>
@@ -6291,13 +6552,13 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.ModalView widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;height — Number 
+        /// &#10;height - Number 
         /// &#10;The height of the ModalView container in pixels. If not set, the element style is used.
         /// &#10;
-        /// &#10;modal — Boolean (default: true)
+        /// &#10;modal - Boolean (default: true)
         /// &#10;When set to false, the ModalView will close when the user taps outside of its element.
         /// &#10;
-        /// &#10;width — Number 
+        /// &#10;width - Number 
         /// &#10;The width of the ModalView container in pixels. If not set, the element style is used.
         /// &#10;
         /// </summary>
@@ -6514,22 +6775,22 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Pane widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;collapsible — Boolean (default: false)
+        /// &#10;collapsible - Boolean (default: false)
         /// &#10;Applicable when the pane is inside a SplitView. If set to true, the pane will be hidden when the device is in portrait position. The expandPanes SplitView method displays the hidden panes.The id of the initial mobile View to display.
         /// &#10;
-        /// &#10;initial — String 
+        /// &#10;initial - String 
         /// &#10;The id of the initial mobile View to display.
         /// &#10;
-        /// &#10;layout — String 
+        /// &#10;layout - String 
         /// &#10;The id of the default Pane Layout.
         /// &#10;
-        /// &#10;loading — String (default: "Loading...")
+        /// &#10;loading - String (default: "Loading...")
         /// &#10;The text displayed in the loading popup. Setting this value to false will disable the loading popup.
         /// &#10;
-        /// &#10;portraitWidth — Number 
+        /// &#10;portraitWidth - Number 
         /// &#10;Sets the pane width in pixels when the device is in portrait position.
         /// &#10;
-        /// &#10;transition — String 
+        /// &#10;transition - String 
         /// &#10;The default View transition.
         /// &#10;
         /// </summary>
@@ -6630,10 +6891,10 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.PopOver widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;pane — Object 
+        /// &#10;pane - Object 
         /// &#10;The pane configuration options.
         /// &#10;
-        /// &#10;popup — Object 
+        /// &#10;popup - Object 
         /// &#10;The popup configuration options.
         /// &#10;
         /// </summary>
@@ -6774,40 +7035,40 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.ScrollView widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;autoBind — Boolean (default: true)
+        /// &#10;autoBind - Boolean (default: true)
         /// &#10;If set to false the widget will not bind to the DataSource during initialization. In this case data binding will occur when the change event of the data source is fired. By default the widget will bind to the DataSource specified in the configuration.Applicable only in data bound mode.
         /// &#10;
-        /// &#10;bounceVelocityThreshold — Number (default: 1.6)
+        /// &#10;bounceVelocityThreshold - Number (default: 1.6)
         /// &#10;The velocity threshold after which a swipe will result in a bounce effect.
         /// &#10;
-        /// &#10;contentHeight — Number|String (default: "auto")
+        /// &#10;contentHeight - Number|String (default: "auto")
         /// &#10;The height of the ScrollView content. Supports 100% if the ScrollView is embedded in a stretched view and the ScrollView element is an immediate child of the view element.
         /// &#10;
-        /// &#10;dataSource — kendo.data.DataSource|Object 
+        /// &#10;dataSource - kendo.data.DataSource|Object 
         /// &#10;Instance of DataSource that the mobile ScrollView will be bound to. If DataSource is set, the widget will operate in data bound mode.
         /// &#10;
-        /// &#10;duration — Number (default: 400)
+        /// &#10;duration - Number (default: 400)
         /// &#10;The milliseconds that take the ScrollView to snap to the current page after released.
         /// &#10;
-        /// &#10;emptyTemplate — String (default: "")
+        /// &#10;emptyTemplate - String (default: "")
         /// &#10;The template which is used to render the pages without content. By default the ScrollView renders a blank page.Applicable only in data bound mode.
         /// &#10;
-        /// &#10;enablePager — Boolean (default: true)
+        /// &#10;enablePager - Boolean (default: true)
         /// &#10;If set to true the ScrollView will display a pager. By default pager is enabled.
         /// &#10;
-        /// &#10;itemsPerPage — Number (default: 1)
+        /// &#10;itemsPerPage - Number (default: 1)
         /// &#10;Determines how many data items will be passed to the page template.Applicable only in data bound mode.
         /// &#10;
-        /// &#10;page — Number (default: 0)
+        /// &#10;page - Number (default: 0)
         /// &#10;The initial page to display.
         /// &#10;
-        /// &#10;pageSize — Number (default: 1)
+        /// &#10;pageSize - Number (default: 1)
         /// &#10;Multiplier applied to the snap amount of the ScrollView. By default, the widget scrolls to the next screen when swipe. If the pageSize property is set to 0.5, the ScrollView will scroll by half of the widget width.Not applicable in data bound mode.
         /// &#10;
-        /// &#10;template — String (default: "#:data#")
+        /// &#10;template - String (default: "#:data#")
         /// &#10;The template which is used to render the content of pages. By default the ScrollView renders a div element for every page.Applicable only in data bound mode.
         /// &#10;
-        /// &#10;velocityThreshold — Number (default: 0.8)
+        /// &#10;velocityThreshold - Number (default: 0.8)
         /// &#10;The velocity threshold after which a swipe will navigate to the next page (as opposed to snapping back to the current page).
         /// &#10;
         /// </summary>
@@ -6975,28 +7236,28 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Scroller widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;elastic — Boolean (default: true)
+        /// &#10;elastic - Boolean (default: true)
         /// &#10;Weather or not to allow out of bounds dragging and easing.
         /// &#10;
-        /// &#10;messages — Object 
+        /// &#10;messages - Object 
         /// &#10;Defines the text of the Scroller pull to refresh messages. Used primary for localization.
         /// &#10;
-        /// &#10;pullOffset — Number (default: 140)
+        /// &#10;pullOffset - Number (default: 140)
         /// &#10;The threshold below which releasing the scroller will trigger the pull event.
 /// &#10;Has effect only when the pullToRefresh option is set to true.
         /// &#10;
-        /// &#10;pullToRefresh — Boolean (default: false)
+        /// &#10;pullToRefresh - Boolean (default: false)
         /// &#10;If set to true, the scroller will display a hint when the user pulls the container beyond its top limit.
 /// &#10;If a pull beyond the specified pullOffset occurs, a pull event will be triggered.
         /// &#10;
-        /// &#10;useNative — Boolean (default: false)
+        /// &#10;useNative - Boolean (default: false)
         /// &#10;If set to true, the scroller will use the native scrolling available in the current platform. This should help with form issues on some platforms (namely Android and WP8).
 /// &#10;Native scrolling is only enabled on platforms that support it: iOS > 4, Android > 2, WP8. BlackBerry devices do support it, but the native scroller is flaky.
         /// &#10;
-        /// &#10;visibleScrollHints — Boolean (default: false)
+        /// &#10;visibleScrollHints - Boolean (default: false)
         /// &#10;If set to true, the scroller scroll hints will always be displayed.
         /// &#10;
-        /// &#10;zoom — Boolean (default: false)
+        /// &#10;zoom - Boolean (default: false)
         /// &#10;If set to true, the user can zoom in/out the contents of the widget using the pinch/zoom gesture.
         /// &#10;
         /// </summary>
@@ -7096,7 +7357,7 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.SplitView widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;style — String (default: "horizontal")
+        /// &#10;style - String (default: "horizontal")
         /// &#10;Defines the SplitView style - horizontal or vertical.
         /// &#10;
         /// </summary>
@@ -7213,16 +7474,16 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.Switch widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;checked — Boolean (default: false)
+        /// &#10;checked - Boolean (default: false)
         /// &#10;The checked state of the widget.
         /// &#10;
-        /// &#10;enable — Boolean (default: true)
+        /// &#10;enable - Boolean (default: true)
         /// &#10;If set to false the widget will be disabled and will not allow the user to change its checked state. The widget is enabled by default.
         /// &#10;
-        /// &#10;offLabel — String (default: "OFF")
+        /// &#10;offLabel - String (default: "OFF")
         /// &#10;The OFF label.
         /// &#10;
-        /// &#10;onLabel — String (default: "ON")
+        /// &#10;onLabel - String (default: "ON")
         /// &#10;The ON label.
         /// &#10;
         /// </summary>
@@ -7349,7 +7610,7 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.TabStrip widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;selectedIndex — Number (default: 0)
+        /// &#10;selectedIndex - Number (default: 0)
         /// &#10;The index of the initially selected tab.
         /// &#10;
         /// </summary>
@@ -7450,27 +7711,27 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.mobile.ui.View widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;model — String (default: null)
+        /// &#10;model - String (default: null)
         /// &#10;The MVVM model to bind to. If a string is passed, The view will try to resolve a reference to the view model variable in the global scope.
         /// &#10;
-        /// &#10;reload — Boolean (default: false)
+        /// &#10;reload - Boolean (default: false)
         /// &#10;Applicable to remote views only. If set to true, the remote view contents will be reloaded from the server (using Ajax) each time the view is navigated to.
         /// &#10;
-        /// &#10;scroller — Object (default: null)
+        /// &#10;scroller - Object (default: null)
         /// &#10;Configuration options to be passed to the scroller instance instantiated by the view. For more details, check the scroller configuration options.
         /// &#10;
-        /// &#10;stretch — Boolean (default: false)
+        /// &#10;stretch - Boolean (default: false)
         /// &#10;If set to true, the view will stretch its child contents to occupy the entire view, while disabling kinetic scrolling.
 /// &#10;Useful if the view contains an image or a map.
         /// &#10;
-        /// &#10;title — String 
+        /// &#10;title - String 
         /// &#10;The text to display in the NavBar title (if present) and the browser title.
         /// &#10;
-        /// &#10;useNativeScrolling — Boolean (default: false)
+        /// &#10;useNativeScrolling - Boolean (default: false)
         /// &#10;If set to true, the view will use the native scrolling available in the current platform. This should help with form issues on some platforms (namely Android and WP8).
 /// &#10;Native scrolling is only enabled on platforms that support it: iOS > 5+, Android > 3+, WP8. BlackBerry devices do support it, but the native scroller is flaky.
         /// &#10;
-        /// &#10;zoom — Boolean (default: false)
+        /// &#10;zoom - Boolean (default: false)
         /// &#10;If set to true, the user can zoom in/out the contents of the view using the pinch/zoom gesture.
         /// &#10;
         /// </summary>
@@ -7619,6 +7880,7 @@ return wrapper;
 })();
 
 
+
 intellisense.annotate(kendo.ui, {
     Touch: function() {
         /// <signature>
@@ -7701,32 +7963,32 @@ intellisense.annotate(jQuery.fn, {
         /// Instantiates a kendo.ui.Touch widget based the DOM elements that match the selector.
         /// &#10;Accepts an object with the following configuration options:
         /// &#10;
-        /// &#10;filter — String 
+        /// &#10;filter - String 
         /// &#10;jQuery selector that specifies child elements that are touchable if a widget is attached to a container.
         /// &#10;
-        /// &#10;surface — jQuery (default: null)
+        /// &#10;surface - jQuery (default: null)
         /// &#10;If specified, the user drags will be tracked within the surface boundaries.
 /// &#10;This option is useful if the widget is instantiated on small DOM elements like buttons, or thin list items.
         /// &#10;
-        /// &#10;multiTouch — Boolean (default: false)
+        /// &#10;multiTouch - Boolean (default: false)
         /// &#10;If set to true, the widget will capture and trigger the gesturestart, gesturechange, and gestureend events when the user touches the element with two fingers.
         /// &#10;
-        /// &#10;enableSwipe — Boolean (default: false)
+        /// &#10;enableSwipe - Boolean (default: false)
         /// &#10;If set to true, the Touch widget will recognize horizontal swipes and trigger the swipe event.Notice: if the enableSwipe option is set to true, the dragstart, drag and dragend events will not be triggered.
         /// &#10;
-        /// &#10;minXDelta — Number (default: 30)
+        /// &#10;minXDelta - Number (default: 30)
         /// &#10;The minimum horizontal distance in pixels the user should swipe before the swipe event is triggered.
         /// &#10;
-        /// &#10;maxYDelta — Number (default: 20)
+        /// &#10;maxYDelta - Number (default: 20)
         /// &#10;The maximum vertical deviation in pixels of the swipe event. Swipes with higher deviation are discarded.
         /// &#10;
-        /// &#10;maxDuration — Number (default: 1000)
+        /// &#10;maxDuration - Number (default: 1000)
         /// &#10;The maximum amount of time in milliseconds the swipe event can last. Slower swipes are discarded.
         /// &#10;
-        /// &#10;minHold — Number (default: 800)
+        /// &#10;minHold - Number (default: 800)
         /// &#10;The timeout in milliseconds before the hold event is fired.Notice: the hold event will be triggered after the time passes, not after the user lifts his/hers finger.
         /// &#10;
-        /// &#10;doubleTapTimeout — Number (default: 400)
+        /// &#10;doubleTapTimeout - Number (default: 400)
         /// &#10;The maximum period (in milliseconds) between two consecutive taps which will trigger the doubletap event.
         /// &#10;
         /// </summary>

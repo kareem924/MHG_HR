@@ -19,9 +19,9 @@ namespace Domain.Service
         {
             _borrowRepository.Delete(borrow);
         }
-        public IEnumerable<Borrow> GetAllBorrowByUserId(string userId)
+        public IEnumerable<Borrow> GetAllBorrowByUserId(int userId)
         {
-            return _borrowRepository.Table.Where(x => x.UserId == userId);
+            return _borrowRepository.Table.Where(x => x.UserId == userId.ToString());
         }
 
         public IEnumerable<Borrow> GetAllBorrows()

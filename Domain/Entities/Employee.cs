@@ -36,6 +36,7 @@ namespace Domain.Entities
         [ForeignKey("RealtedEmployees")]
         public int? ReportsTo { get; set; }
         public virtual ICollection<Employee> RealtedEmployees { get; set; }
+        public virtual ICollection<Vacation> Vacations { get; set; }
         public virtual ApplicationUser User { get; set; }
 
     }

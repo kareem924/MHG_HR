@@ -13,6 +13,7 @@ namespace mhg_internalnet2.ViewModel
         public decimal Amount { get; set; }
         public bool IsPaid { get; set; }
         public bool IsExempt { get; set; }
+        public string  EmpName { get; set; }
         public BorrowViewModel Borrow { get; set; }
     }
 }

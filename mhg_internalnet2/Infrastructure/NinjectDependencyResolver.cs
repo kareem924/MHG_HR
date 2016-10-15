@@ -55,6 +55,8 @@ namespace mhg_internalnet2.Infrastructure
             kernel.Bind<IAgendaService>().To<AgendaService>();
             kernel.Bind<IDependencyAgendaService>().To<DependencyAgendaService>();
             kernel.Bind<IRepository<DependencyAgenda>>().To<EfRepository<DependencyAgenda>>();
+            kernel.Bind<IVacationService>().To<VacationService>();
+            kernel.Bind<IRepository<Vacation>>().To<EfRepository<Vacation>>();
         }
     }
 }

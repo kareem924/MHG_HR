@@ -98,11 +98,13 @@
     <Compile Include="Entities\OfficalHolidays.cs" />
     <Compile Include="Entities\Tasks.cs" />
     <Compile Include="Entities\UserDocuments.cs" />
+    <Compile Include="Entities\Vacation.cs" />
     <Compile Include="MhgHrDataContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Service\Abstract\IVacationService.cs" />
     <Compile Include="Service\DependencyAgendaService.cs" />
     <Compile Include="Service\Abstract\IAgendaService.cs" />
     <Compile Include="Service\Abstract\IBorrowService.cs" />
@@ -127,6 +129,7 @@
     <Compile Include="Service\UserDocumentsService.cs" />
     <Compile Include="Service\UserRolesService.cs" />
     <Compile Include="Service\DepartmentsService.cs" />
+    <Compile Include="Service\VacationService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

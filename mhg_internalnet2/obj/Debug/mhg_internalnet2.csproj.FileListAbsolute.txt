@@ -408,3 +408,6 @@ C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\zh-CN\Kendo.Mvc.resourc
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.csprojResolveAssemblyReference.cache
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.pdb
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Kendo.Mvc.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\fr-CA\Kendo.Mvc.resources.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\sk-SK\Kendo.Mvc.resources.dll

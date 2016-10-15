@@ -30,6 +30,7 @@ namespace mhg_internalnet2.Controllers
                 Amount = loan.Amount,
                 BorrowDate = loan.BorrowDate,
                 BorrowId = loan.BorrowId,
+                UserId = loan.UserId
             });
             return View(allLoans);
         }
@@ -64,13 +65,31 @@ namespace mhg_internalnet2.Controllers
                     FromDate = model.FromDate,
                     ToDate = model.ToDate,
                     MonthlyInstallment = model.MonthlyInstallment,
-                    BorrowDistributions = borrowDisrtibution
+                    BorrowDistributions = borrowDisrtibution,
+                    CreatedAt = DateTime.Now
                 });
 
 
                 return RedirectToAction("Index", "Borrow");
             }
             return View(model);
+        }
+
+        public ActionResult LoanDetail(int userid)
+        {
+            
+            var entity = _borrowService.GetBorrowById(userid);
+            List<BorrowDistributionViewModel> model = new List<BorrowDistributionViewModel>();
+            if (entity.BorrowDistributions!= null)
+            {
+                model.AddRange(entity.BorrowDistributions.Select(borrowDistribution => new BorrowDistributionViewModel()
+                {
+                    Amount = borrowDistribution.Amount, Date = borrowDistribution.Date, IsPaid = borrowDistribution.IsPaid
+                }));
+            }
+
+            return PartialView("_LoanDetails",model);
+        
         }
         public JsonResult GetEmployees(string text)
         {

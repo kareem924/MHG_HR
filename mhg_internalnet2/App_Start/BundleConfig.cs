@@ -18,8 +18,8 @@ namespace mhg_internalnet2
         ));
 
             bundles.Add(new StyleBundle("~/Content/kendo/css").Include(
-               "~/Content/kendo/kendo.common-bootstrap.min.css",
-               "~/Content/kendo/kendo.bootstrap.min.css"));
+               "~/Content/kendo/2016.2.714/kendo.common-bootstrap.min.css",
+               "~/Content/kendo/2016.2.714/kendo.bootstrap.min.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

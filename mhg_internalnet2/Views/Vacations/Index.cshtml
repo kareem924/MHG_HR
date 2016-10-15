@@ -1,0 +1,128 @@
+﻿@model IEnumerable<mhg_internalnet2.ViewModel.VacationsModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    My Vacations
+</h2>
+<div id="replacetarget">
+
+    <div class="portlet box green">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-cogs"></i>My Vacations
+            </div>
+
+        </div>
+
+        <div class="portlet-body flip-scroll">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="btn-group">
+                        @Html.ActionLink("Ask Vacation", "Create", "Vacations", new { data_modal = "", @class = "btn btn-default" })
+                    </div>
+                </div>
+
+            </div>
+            <table class="table table-bordered table-striped table-condensed flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th class="text-center">
+                            <i class="fa fa-calendar"></i> Vacation Date
+                        </th>
+                        <th class="text-center">
+                            <i class="fa fa-bookmark"></i> Status
+                        </th>
+                        <th class="text-center">
+                            <i class="fa fa-comment"></i> Reason
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vacationDetail in Model)
+                {
+                        <tr>
+                            <td class="text-center">
+                                @vacationDetail.CreatedAt
+                            </td>
+                            <td class="text-center">
+                                @if (vacationDetail.IsApproved)
+                            {
+
+                                    <span class="label label-sm label-success">
+                                        Yes
+                                    </span>
+
+                            }
+                            else
+                            {
+                                    <span class="label label-sm label-danger">
+                                        NO
+                                    </span>
+                            }
+                            </td>
+                            <td>
+                                @vacationDetail.Reason
+                            </td>
+                        </tr>
+                }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<div id='myModal' class='modal fade in'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id='myModalContent'></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // modalform.js
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+
+        $("a[data-modal]").on("click", function (e) {
+            // hide dropdown if any (this is used wehen invoking modal from link in bootstrap dropdown )
+            //$(e.target).closest('.btn-group').children('.dropdown-toggle').dropdown('toggle');
+
+            $('#myModalContent').load(this.href, function () {
+                $('#myModal').modal({
+                    /*backdrop: 'static',*/
+                    keyboard: true
+                }, 'show');
+                bindForm(this);
+            });
+            return false;
+        });
+    });
+
+    function bindForm(dialog) {
+        $('form', dialog).submit(function () {
+            $.ajax({
+                url: this.action,
+                type: this.method,
+                data: $(this).serialize(),
+                success: function (result) {
+                    if (result.success) {
+                        $('#myModal').modal('hide');
+                        $('#replacetarget').load(result.url); //  Load data from the server and place the returned HTML into the matched element
+                    } else {
+                        $('#myModalContent').html(result);
+                        bindForm(dialog);
+                    }
+                }
+            });
+            return false;
+        });
+    }
+</script>

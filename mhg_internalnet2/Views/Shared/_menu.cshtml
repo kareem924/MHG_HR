@@ -12,9 +12,15 @@
             </a>
         </li>
         <li>
-            <a href="@Url.Action("CreateUser","Users")">
+            <a href="@Url.Action("CreateUser", "Users")">
                 <i class="icon-user"></i>
                 Create new Employee
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("CompanyEmoloyees","Users")">
+                <i class="icon-user"></i>
+                Company Emoloyees
             </a>
         </li>
         <li>
@@ -34,11 +40,40 @@
     </a>
     <ul class="sub-menu">
         <li class="active">
-            <a href="@Url.Action("Index","Branch")">
+            <a href="@Url.Action("Index", "Branch")">
                 <i class="fa fa-database"></i>
                 Branches
             </a>
-        </li>
 
+        </li>
+        <li >
+            <a href="@Url.Action("Index", "Agenda")">
+                <i class="fa fa-database"></i>
+                Agenda
+            </a>
+
+        </li>
+        <li >
+            <a href="@Url.Action("Index", "Schedule")">
+                <i class="fa fa-database"></i>
+            Schedule
+            </a>
+
+        </li>
+        <li >
+            <a href="@Url.Action("Index", "OfficalVacation")">
+                <i class="fa fa-database"></i>
+                Offical Vacations
+            </a>
+
+        </li>
+        <li >
+            <a href="@Url.Action("Index", "Vacations")">
+                <i class="fa fa-database"></i>
+                Vacations
+            </a>
+
+        </li>
+      
     </ul>
 </li>

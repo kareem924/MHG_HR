@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain
 {
@@ -14,7 +12,7 @@ namespace Domain
     {
         public ApplicationUser()
         {
-            this.userDocuemts = new HashSet<UserDocuments>();
+            userDocuemts = new HashSet<UserDocuments>();
           
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -42,12 +40,13 @@ namespace Domain
         public IDbSet<Departments> Departments { get; set; }
         public IDbSet<Branch> Branches { get; set; }
         public IDbSet<Brand> Brands { get; set; }
-        public IDbSet<Job> jobs { get; set; }
+        public IDbSet<Job> Jobs { get; set; }
         public IDbSet<Agenda> Agendas { get; set; }
         public IDbSet<DependencyAgenda> DependencyAgendas { get; set; }
         public IDbSet<Tasks> Tasks { get; set; }
         public IDbSet<UserDocuments> UsersDocument { get; set; }
         public IDbSet<OfficalHolidays> OfficalHolidays { get; set; }
+        public IDbSet<Vacation> Vacations { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
 

@@ -21,11 +21,18 @@ namespace mhg_internalnet2.Controllers
         // GET: EmployeeDirectory
         public JsonResult Index([DataSourceRequest] DataSourceRequest request, int? id)
         {
-            var result = GetDirectory().ToTreeDataSourceResult(request,
-                e => e.UserId,
-                e => e.ReportsTo,
-                e => id.HasValue ? e.ReportsTo == id : e.ReportsTo == null,
-                e => e
+            var result = _useresRolesServices.GetAllEmployees().ToTreeDataSourceResult(request,
+              employee => employee.EmployeeId,
+            employee => employee.ReportsTo,
+            employee => new EmpCombox()
+            {
+                UserId = employee.EmployeeId.ToString(),
+                ReportsTo = employee.ReportsTo,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Position = "CEO",
+                HasChildren = employee.RealtedEmployees.Any()
+            }
             );
 
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -33,58 +40,23 @@ namespace mhg_internalnet2.Controllers
 
         public JsonResult All([DataSourceRequest] DataSourceRequest request)
         {
-            var result = GetDirectory().ToTreeDataSourceResult(request,
-                e => e.UserId,
-                e => e.ReportsTo,
-                e => e
+            var result = _useresRolesServices.GetAllEmployees().ToTreeDataSourceResult(request,
+              employee => employee.EmployeeId,
+            employee => employee.ReportsTo,
+            employee => new EmpCombox()
+            {
+                UserId = employee.EmployeeId.ToString(),
+                ReportsTo = employee.ReportsTo,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                Position = "CEO",
+                HasChildren = employee.RealtedEmployees.Any()
+            }
             );
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        private IEnumerable<EmpCombox> GetDirectory()
-        {
-            var emps = _useresRolesServices.GetAllEmployees().Select(x => new EmpCombox()
-            {
-                ReportsTo = x.ReportsTo,
-                UserId = x.User.Id,
-                FirstName = x.FirstName,
-                Position = "CEO",
-                Color = x.Color,
-                HasChildren = x.RealtedEmployees.Any(),
-                LastName = x.LastName
-                
-            });
-
-            return emps;
-        }
-        //public JsonResult Destroy([DataSourceRequest] DataSourceRequest request, EmployeeDirectoryModel employee)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        employeeDirectory.Delete(employee, ModelState);
-        //    }
-
-        //    return Json(new[] { employee }.ToTreeDataSourceResult(request, ModelState));
-        //}
-
-        //public JsonResult Create([DataSourceRequest] DataSourceRequest request, EmployeeDirectoryModel employee)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        employeeDirectory.Insert(employee, ModelState);
-        //    }
-
-        //    return Json(new[] { employee }.ToTreeDataSourceResult(request, ModelState));
-        //}
-
-        //public JsonResult Update([DataSourceRequest] DataSourceRequest request, EmployeeDirectoryModel employee)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        employeeDirectory.Update(employee, ModelState);
-        //    }
-
-        //    return Json(new[] { employee }.ToTreeDataSourceResult(request, ModelState));
-        //}
+      
     }
 }

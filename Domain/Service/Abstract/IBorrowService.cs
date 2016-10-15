@@ -14,6 +14,6 @@ namespace Domain.Service.Abstract
         void InsertBorrow(Borrow borrow);
         void UpdateBorrow(Borrow borrow);
         IEnumerable<Borrow> GetAllBorrows();
-        IEnumerable<Borrow> GetAllBorrowByUserId(string userId);
+        IEnumerable<Borrow> GetAllBorrowByUserId(int userId);
     }
 }

@@ -394,16 +394,16 @@ $.fn.kendoRouter = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;ignoreCase — Boolean (default: true)
+    /// &#10;ignoreCase - Boolean (default: true)
     /// &#10;Introduced with Q3 2014. If set to false, the router instance will perform case sensitive match of the url against the defined routes.
     /// &#10;
-    /// &#10;pushState — Boolean (default: false)
+    /// &#10;pushState - Boolean (default: false)
     /// &#10;If set to true, the router will use the history pushState API.
     /// &#10;
-    /// &#10;root — String (default: "/")
+    /// &#10;root - String (default: "/")
     /// &#10;Applicable if pushState is used and the application is deployed to a path different than /. If the application start page is hosted on http://foo.com/myapp/, the root option should be set to /myapp/.
     /// &#10;
-    /// &#10;hashBang — Boolean (default: false)
+    /// &#10;hashBang - Boolean (default: false)
     /// &#10;Introduced in the 2014 Q1 Service Pack 1 release. If set to true, the hash based navigation will parse and prefix the fragment value with !,
 /// &#10;which should be SEO friendly, and allows non-prefixed anchor links to work as expected.
     /// &#10;
@@ -470,13 +470,13 @@ $.fn.kendoView = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;evalTemplate — Boolean (default: false)
+    /// &#10;evalTemplate - Boolean (default: false)
     /// &#10;If set to true, the view template will be treated as kendo template and evaluated against the provided model instance.
     /// &#10;
-    /// &#10;tagName — String (default: "div")
+    /// &#10;tagName - String (default: "div")
     /// &#10;The tag used for the root element of the view.
     /// &#10;
-    /// &#10;wrap — Boolean (default: true)
+    /// &#10;wrap - Boolean (default: true)
     /// &#10;If set to false, the view will not wrap its contents in a root element. In that case, the view element will point to the root element in the template. If false, the view template should have a single root element.
     /// &#10;
     /// </summary>
@@ -586,7 +586,7 @@ kendo.data.DataSource.prototype = {
 
     cancelChanges: function(model) {
         /// <summary>
-        /// Cancels any pending changes in the data source. Deleted data items are restored, new data items are removed and updated data items are restored to their initial state.
+        /// Cancels any pending changes in the data source. Deleted data items are restored, new data items are removed and updated data items are restored to their initial state. All data item uid's will be reset.
         /// </summary>
         /// <param name="model" type="kendo.data.Model" >The optional data item (model). If specified only the changes of this data item will be discarded. If omitted all changes will be discarded.</param>
 
@@ -621,7 +621,7 @@ kendo.data.DataSource.prototype = {
         /// Gets or sets the filter configuration.
         /// </summary>
         /// <param name="value" type="Object" >The filter configuration. Accepts the same values as the filter option (check there for more examples).</param>
-        /// <returns type="Object">the current filter configuration.</returns>
+        /// <returns type="Object">the current filter configuration. Returns null if no filter criteria are currently applied. Returns undefined if the DataSource instance has not performed filtering so far.</returns>
 
     },
 
@@ -784,12 +784,21 @@ kendo.data.DataSource.prototype = {
     },
 
 
+    skip: function() {
+        /// <summary>
+        /// Gets the current skip parameter of the dataSource. The skip parameter indicates the number of data items that should be skipped when a new page is formed.
+        /// </summary>
+        /// <returns type="Number">the current skip parameter.</returns>
+
+    },
+
+
     sort: function(value) {
         /// <summary>
         /// Gets or sets the sort order which will be applied over the data items.
         /// </summary>
         /// <param name="value" type="Object" >The sort configuration. Accepts the same values as the sort option.</param>
-        /// <returns type="Array">the current sort configuration.</returns>
+        /// <returns type="Array">The current sort configuration. Returns undefined instead of an empty array, if the DataSource instance has not performed any sorting so far.</returns>
 
     },
 
@@ -861,60 +870,60 @@ $.fn.kendoDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;aggregate — Array 
+    /// &#10;aggregate - Array 
     /// &#10;The aggregate(s) which are calculated when the data source populates with data. The supported aggregates are "average", "count", "max", "min" and "sum".
     /// &#10;
-    /// &#10;autoSync — Boolean (default: false)
+    /// &#10;autoSync - Boolean (default: false)
     /// &#10;If set to true the data source would automatically save any changed data items by calling the sync method. By default changes are not automatically saved.
     /// &#10;
-    /// &#10;batch — Boolean (default: false)
+    /// &#10;batch - Boolean (default: false)
     /// &#10;If set to true the data source will batch CRUD operation requests. For example updating two data items would cause one HTTP request instead of two. By default the data source
 /// &#10;makes a HTTP request for every CRUD operation.
     /// &#10;
-    /// &#10;data — Array|String 
+    /// &#10;data - Array|String 
     /// &#10;The array of data items which the data source contains. The data source will wrap those items as kendo.data.ObservableObject or kendo.data.Model (if schema.model is set).Can be set to a string value if the schema.type option is set to "xml".
     /// &#10;
-    /// &#10;filter — Array|Object 
+    /// &#10;filter - Array|Object 
     /// &#10;The filter(s) which is (are) applied over the data items. By default no filter is applied.
     /// &#10;
-    /// &#10;group — Array|Object 
+    /// &#10;group - Array|Object 
     /// &#10;The grouping configuration of the data source. If set the data items will be grouped when the data source is populated. By default grouping is not applied.
     /// &#10;
-    /// &#10;offlineStorage — String|Object 
+    /// &#10;offlineStorage - String|Object 
     /// &#10;The offline storage key or custom offline storage implementation.
     /// &#10;
-    /// &#10;page — Number 
+    /// &#10;page - Number 
     /// &#10;The page of data which the data source will return when the view method is invoked or request from the remote service.
     /// &#10;
-    /// &#10;pageSize — Number 
-    /// &#10;The number of data items per page.
+    /// &#10;pageSize - Number 
+    /// &#10;The number of data items per page. The property has no default value, that's why if paging should be used, make sure some pageSize is set.
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The configuration used to parse the remote service response.
     /// &#10;
-    /// &#10;serverAggregates — Boolean (default: false)
-    /// &#10;If set to true the data source will leave the aggregate calculation to the remote service. By default the data source calculates aggregates client-side.
+    /// &#10;serverAggregates - Boolean (default: false)
+    /// &#10;If set to true, the data source will leave the aggregate calculation to the remote service. By default, the data source calculates aggregates client-side.For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
     /// &#10;
-    /// &#10;serverFiltering — Boolean (default: false)
-    /// &#10;If set to true the data source will leave the filtering implementation to the remote service. By default the data source performs filtering client-side.By default the filter is sent to the server following jQuery's conventions.For example the filter { logic: "and", filters: [ { field: "name", operator: "startswith", value: "Jane" } ] } is sent as:Use the parameterMap option to send the filter option in a different format.
+    /// &#10;serverFiltering - Boolean (default: false)
+    /// &#10;If set to true, the data source will leave the filtering implementation to the remote service. By default, the data source performs filtering client-side.By default, the filter is sent to the server following jQuery's conventions.For example, the filter { logic: "and", filters: [ { field: "name", operator: "startswith", value: "Jane" } ] } is sent as:Use the parameterMap option to send the filter option in a different format.For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
     /// &#10;
-    /// &#10;serverGrouping — Boolean (default: false)
-    /// &#10;If set to true the data source will leave the grouping implementation to the remote service. By default the data source performs grouping client-side.By default the group is sent to the server following jQuery's conventions.For example the group { field: "category", dir: "desc" } is sent as:Use the parameterMap option to send the group option in a different format.
+    /// &#10;serverGrouping - Boolean (default: false)
+    /// &#10;If set to true, the data source will leave the grouping implementation to the remote service. By default, the data source performs grouping client-side.By default, the group is sent to the server following jQuery's conventions.For example, the group { field: "category", dir: "desc" } is sent as:Use the parameterMap option to send the group option in a different format.For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
     /// &#10;
-    /// &#10;serverPaging — Boolean (default: false)
-    /// &#10;If set to true the data source will leave the data item paging implementation to the remote service. By default the data source performs paging client-side.The following options are sent to the server when server paging is enabled:Use the parameterMap option to send the paging options in a different format.
+    /// &#10;serverPaging - Boolean (default: false)
+    /// &#10;If set to true, the data source will leave the data item paging implementation to the remote service. By default, the data source performs paging client-side.The following options are sent to the server when server paging is enabled:Use the parameterMap option to send the paging options in a different format.For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
     /// &#10;
-    /// &#10;serverSorting — Boolean (default: false)
-    /// &#10;If set to true the data source will leave the data item sorting implementation to the remote service. By default the data source performs sorting client-side.By default the sort is sent to the server following jQuery's conventions.For example the sort { field: "age", dir: "desc" } is sent as:Use the parameterMap option to send the paging options in a different format.
+    /// &#10;serverSorting - Boolean (default: false)
+    /// &#10;If set to true, the data source will leave the data item sorting implementation to the remote service. By default, the data source performs sorting client-side.By default, the sort is sent to the server following jQuery's conventions.For example, the sort { field: "age", dir: "desc" } is sent as:Use the parameterMap option to send the paging options in a different format.For more information and tips about client and server data operations, refer to the introductory article on the DataSource.
     /// &#10;
-    /// &#10;sort — Array|Object 
+    /// &#10;sort - Array|Object 
     /// &#10;The sort order which will be applied over the data items. By default the data items are not sorted.
     /// &#10;
-    /// &#10;transport — Object 
+    /// &#10;transport - Object 
     /// &#10;The configuration used to load and save the data items. A data source is remote or local based on the way of it retrieves data items.Remote data sources load and save data items from and to a remote end-point (a.k.a. remote service or server). The transport option describes the remote service configuration - URL, HTTP verb, HTTP headers etc.
 /// &#10;The transport option can also be used to implement custom data loading and saving.Local data sources are bound to a JavaScript array via the data option.
     /// &#10;
-    /// &#10;type — String 
+    /// &#10;type - String 
     /// &#10;If set the data source will use a predefined transport and/or schema.
 /// &#10;The supported values are "odata" which supports the OData v.2 protocol, "odata-v4" which partially supports
 /// &#10;odata version 4 and "signalr".
@@ -1033,7 +1042,7 @@ $.fn.kendoGanttDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration of the GanttDataSource.
     /// &#10;
     /// </summary>
@@ -1080,16 +1089,16 @@ $.fn.kendoGanttDependency = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;id — String|Number|Object 
+    /// &#10;id - String|Number|Object 
     /// &#10;The mandatory unique identifier of the dependency.
     /// &#10;
-    /// &#10;predecessorId — String|Number|Object 
+    /// &#10;predecessorId - String|Number|Object 
     /// &#10;The  mandatory 'id' of the predecessor task.
     /// &#10;
-    /// &#10;successorId — String|Number|Object 
+    /// &#10;successorId - String|Number|Object 
     /// &#10;The  mandatory 'id' of the successor task.
     /// &#10;
-    /// &#10;type — String|Number|Object 
+    /// &#10;type - String|Number|Object 
     /// &#10;The type of the dependency. The type is a value between 0 and 3, representing the four different dependency types: 0 - Finish-Finish, 1 - Finish-Start, 2 - Start-Finish, 3 - Start-Start.
     /// &#10;
     /// </summary>
@@ -1166,7 +1175,7 @@ $.fn.kendoGanttDependencyDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration of the GanttDependencyDataSource.
     /// &#10;
     /// </summary>
@@ -1231,31 +1240,31 @@ $.fn.kendoGanttTask = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;end — Date 
+    /// &#10;end - Date 
     /// &#10;The date at which the gantt task ends. The end date is mandatory.
     /// &#10;
-    /// &#10;expanded — Boolean (default: true)
+    /// &#10;expanded - Boolean (default: true)
     /// &#10;If set to true the task is expanded and it's child tasks are visible.
     /// &#10;
-    /// &#10;id — String|Number|Object 
+    /// &#10;id - String|Number|Object 
     /// &#10;The mandatory unique identifier of the task.
     /// &#10;
-    /// &#10;orderId — String|Number|Object (default: 0)
+    /// &#10;orderId - String|Number|Object (default: 0)
     /// &#10;The position of the task relative to its sibling tasks.
     /// &#10;
-    /// &#10;parentId — String|Number|Object (default: null)
+    /// &#10;parentId - String|Number|Object (default: null)
     /// &#10;The 'id' of the parent task. Required for child tasks.
     /// &#10;
-    /// &#10;percentComplete — String|Number|Object (default: 0)
+    /// &#10;percentComplete - String|Number|Object (default: 0)
     /// &#10;The percentage of completion of the task. A value between 0 and 1, representing how much of a task is completed.
     /// &#10;
-    /// &#10;start — Date 
+    /// &#10;start - Date 
     /// &#10;The date at which the gantt task starts. The start date is mandatory.
     /// &#10;
-    /// &#10;summary — Boolean (default: true)
+    /// &#10;summary - Boolean (default: true)
     /// &#10;If set to true the task has child tasks.
     /// &#10;
-    /// &#10;title — String (default: "")
+    /// &#10;title - String (default: "")
     /// &#10;The title of the task which is displayed by the gantt widget.
     /// &#10;
     /// </summary>
@@ -1302,7 +1311,7 @@ $.fn.kendoHierarchicalDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration. See the DataSource.schema configuration for all available options.
     /// &#10;
     /// </summary>
@@ -1899,21 +1908,134 @@ $.fn.kendoPivotDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;columns — Array 
+    /// &#10;columns - Array 
     /// &#10;The configuration of columns axis members. An array of JavaScript objects or strings. A JavaScript objects are interpreted as column descriptors. Strings are interpreted as the hierarchal name of the member.
     /// &#10;
-    /// &#10;measures — Array|Object 
+    /// &#10;measures - Array|Object 
     /// &#10;The configuration of measures. An string array which values are interpreted as the name of the measures to be loaded.
 /// &#10;Measures can be defined as a list of objects with name and type fields:
     /// &#10;
-    /// &#10;rows — Array 
+    /// &#10;rows - Array 
     /// &#10;The configuration of rows axis members. An array of JavaScript objects or strings. A JavaScript objects are interpreted as rows descriptors. Strings are interpreted as the hierarchal name of the member.
     /// &#10;
-    /// &#10;transport — Object 
+    /// &#10;transport - Object 
     /// &#10;The configuration used to load data items and discover schema information.
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration of the PivotDataSource.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.data.Query = function() { };
+
+kendo.data.Query.prototype = {
+
+
+
+
+    toArray: function() {
+        /// <summary>
+        /// Returns the internal data collection
+        /// </summary>
+        /// <returns type="Array">Returns plain JavaScript array which represents the internal data collection</returns>
+
+    },
+
+
+    skip: function(count) {
+        /// <summary>
+        /// Skip a given amount it items
+        /// </summary>
+        /// <param name="count" type="Number" >The number of items that should be skipped</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query with the first count elements of the list skipped</returns>
+
+    },
+
+
+    take: function(count) {
+        /// <summary>
+        /// Take a given amount it items
+        /// </summary>
+        /// <param name="count" type="Number" >The number of items that should be taken</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing only the first count elements of the list</returns>
+
+    },
+
+
+    select: function(selector) {
+        /// <summary>
+        /// Maps over the data items
+        /// </summary>
+        /// <param name="selector" type="Function" >A function that is applied to each of the items</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the mapped collection</returns>
+
+    },
+
+
+    order: function(selector) {
+        /// <summary>
+        /// Returns a copy of the list sorted according to the direction
+        /// </summary>
+        /// <param name="selector" type="" >The current sort configuration.</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the sorted collection</returns>
+
+    },
+
+
+    filter: function(expression) {
+        /// <summary>
+        /// Returns a copy of the list filtered according to the expression
+        /// </summary>
+        /// <param name="expression" type="Object" >The filter configuration. Accepts the same values as the filter option (check there for more examples).</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the filtered collection</returns>
+
+    },
+
+
+    groupBy: function(descriptor) {
+        /// <summary>
+        /// Returns a copy of the list grouped according to the descriptor
+        /// </summary>
+        /// <param name="descriptor" type="Object" >The grouping configuration. Accepts the same values as the group option.</param>
+        /// <returns type="kendo.data.Query">Returns a new instance of kendo.data.Query containing the grouped collection</returns>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoQuery = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.data.Query widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.data.Query">The kendo.data.Query instance (if present).</returns>
+};
+
+$.fn.kendoQuery = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.data.Query widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -1970,7 +2092,7 @@ $.fn.kendoSchedulerDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration of the SchedulerDataSource.
     /// &#10;
     /// </summary>
@@ -2113,37 +2235,37 @@ $.fn.kendoSchedulerEvent = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;description — String (default: "")
+    /// &#10;description - String (default: "")
     /// &#10;The optional event description.
     /// &#10;
-    /// &#10;end — Date 
+    /// &#10;end - Date 
     /// &#10;The date at which the scheduler event ends. The end date is mandatory.
     /// &#10;
-    /// &#10;endTimezone — String (default: undefined)
+    /// &#10;endTimezone - String (default: undefined)
     /// &#10;The timezone of the end date. If not specified the timezone will be used.The complete list of the supported timezones is available in the List of IANA time zones Wikipedia page.
     /// &#10;
-    /// &#10;id — String|Number|Object 
+    /// &#10;id - String|Number|Object 
     /// &#10;The mandatory unique identifier of the event.
     /// &#10;
-    /// &#10;isAllDay — Boolean (default: false)
+    /// &#10;isAllDay - Boolean (default: false)
     /// &#10;If set to true the event is "all day". By default events are not all day.
     /// &#10;
-    /// &#10;recurrenceException — String (default: undefined)
+    /// &#10;recurrenceException - String (default: undefined)
     /// &#10;The recurrence exceptions. A list of semi-colon separated dates formatted using the yyyyMMddTHHmmssZ format string.
     /// &#10;
-    /// &#10;recurrenceId — String|Number|Object (default: undefined)
+    /// &#10;recurrenceId - String|Number|Object (default: undefined)
     /// &#10;The id of the recurrence parent event. Required for events that are recurrence exceptions.
     /// &#10;
-    /// &#10;recurrenceRule — String (default: undefined)
+    /// &#10;recurrenceRule - String (default: undefined)
     /// &#10;The recurrence rule describing the recurring pattern of the event. The format follows the iCal specification.
     /// &#10;
-    /// &#10;start — Date 
+    /// &#10;start - Date 
     /// &#10;The date at which the scheduler event starts. The start date is mandatory.
     /// &#10;
-    /// &#10;startTimezone — String (default: undefined)
+    /// &#10;startTimezone - String (default: undefined)
     /// &#10;The timezone of the start date. If not specified the timezone will be used.The complete list of the supported timezones is available in the List of IANA time zones Wikipedia page.
     /// &#10;
-    /// &#10;title — String (default: "")
+    /// &#10;title - String (default: "")
     /// &#10;The title of the event which is displayed by the scheduler widget.
     /// &#10;
     /// </summary>
@@ -2239,7 +2361,7 @@ $.fn.kendoTreeListDataSource = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;schema — Object 
+    /// &#10;schema - Object 
     /// &#10;The schema configuration of the TreeListDataSource.
     /// &#10;
     /// </summary>
@@ -2317,12 +2439,13 @@ kendo.dataviz.ChartAxis.prototype = {
     },
 
 
-    slot: function(from,to) {
+    slot: function(from,to,limit) {
         /// <summary>
         /// Returns a slot based on the specified from and to values.
         /// </summary>
         /// <param name="from" type="Object" >The slot from value.</param>
         /// <param name="to" type="Object" >The slot to value. If a to value is not specified, then the from value will be used.</param>
+        /// <param name="limit" type="Boolean" >A boolean value indicating whether the slot should be limited to the current range. By default the range is limited.</param>
         /// <returns type="kendo.geometry.Rect|kendo.geometry.Arc">a rectangle or arc(for radar category and polar x axis) representing the slot.</returns>
 
     },
@@ -2355,6 +2478,59 @@ $.fn.getKendoChartAxis = function() {
 $.fn.kendoChartAxis = function(options) {
     /// <summary>
     /// Instantiates a kendo.dataviz.ChartAxis widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.dataviz.Navigator = function() { };
+
+kendo.dataviz.Navigator.prototype = {
+
+
+
+
+    select: function() {
+        /// <summary>
+        /// Gets or sets the Navigator selected date range.
+        /// </summary>
+        /// <returns type="Object">An object with two date fields - from and to.</returns>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoNavigator = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.dataviz.Navigator widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.dataviz.Navigator">The kendo.dataviz.Navigator instance (if present).</returns>
+};
+
+$.fn.kendoNavigator = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.dataviz.Navigator widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
@@ -2431,19 +2607,19 @@ $.fn.kendoCircle = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the circle.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the circle.
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;center — Object 
+    /// &#10;center - Object 
     /// &#10;The center of the circle.
     /// &#10;
-    /// &#10;radius — Number 
+    /// &#10;radius - Number 
     /// &#10;The radius of the circle.
     /// &#10;
     /// </summary>
@@ -2536,10 +2712,11 @@ kendo.dataviz.diagram.Connection.prototype = {
     },
 
 
-    redraw: function() {
+    redraw: function(options) {
         /// <summary>
         /// Redraws the Connection with the given options.
         /// </summary>
+        /// <param name="options" type="Object" >The new options for the connection. This object should follow the configuration structure.</param>
 
     },
 
@@ -2574,40 +2751,52 @@ $.fn.kendoConnection = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;content — Object 
+    /// &#10;content - Object 
     /// &#10;Defines the label displayed on the connection path.
     /// &#10;
-    /// &#10;fromConnector — String (default: "Auto")
+    /// &#10;fromConnector - String (default: "Auto")
     /// &#10;Specifies the name of the source shape connector that should be used by default.
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;fromX - Number 
+    /// &#10;The absolute point (X-coordinate), if any, that the connection is originating from.
+    /// &#10;
+    /// &#10;fromY - Number 
+    /// &#10;The absolute point (Y-coordinate), if any, that the connection is originating from.
+    /// &#10;
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;hover — Object 
+    /// &#10;hover - Object 
     /// &#10;Defines the hover configuration.
     /// &#10;
-    /// &#10;startCap — String 
+    /// &#10;startCap - String 
     /// &#10;The connection start cap configuration or type name.
     /// &#10;
-    /// &#10;startCap — Object 
+    /// &#10;startCap - Object 
     /// &#10;The connection start cap configuration or type name.
     /// &#10;
-    /// &#10;endCap — String 
+    /// &#10;endCap - String 
     /// &#10;The connection end cap configuration or type name.
     /// &#10;
-    /// &#10;endCap — Object 
+    /// &#10;endCap - Object 
     /// &#10;The connection end cap configuration or type name.
     /// &#10;
-    /// &#10;points — Array 
+    /// &#10;points - Array 
     /// &#10;Sets the intermediate points (in global coordinates) of the connection.
     /// &#10;
-    /// &#10;selectable — Boolean (default: true)
+    /// &#10;selectable - Boolean (default: true)
     /// &#10;Specifies if the connection can be selected.
     /// &#10;
-    /// &#10;toConnector — String (default: "Auto")
+    /// &#10;toConnector - String (default: "Auto")
     /// &#10;Specifies the name of the target shape connector that should be used by default.
     /// &#10;
-    /// &#10;type — String 
+    /// &#10;toX - Number 
+    /// &#10;The absolute point (X-coordinate), if any, that the connection is pointing to.
+    /// &#10;
+    /// &#10;toY - Number 
+    /// &#10;The absolute point (Y-coordinate), if any, that the connection is pointing to.
+    /// &#10;
+    /// &#10;type - String 
     /// &#10;Specifies the connection type. The supported values are "polyline" and "cascading".
     /// &#10;
     /// </summary>
@@ -2663,17 +2852,26 @@ $.fn.kendoConnector = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;width — Number (default: 8)
+    /// &#10;width - Number (default: 8)
     /// &#10;Defines the width of the connector.
     /// &#10;
-    /// &#10;height — Number (default: 8)
+    /// &#10;height - Number (default: 8)
     /// &#10;Defines the height of the connector.
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;hover - Object 
+    /// &#10;Defines the hover configuration.
+    /// &#10;
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the connector.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the connector.
+    /// &#10;
+    /// &#10;stroke - String 
+    /// &#10;Defines the stroke options of the connector.
+    /// &#10;
+    /// &#10;stroke - Object 
+    /// &#10;Defines the stroke options of the connector.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -2774,10 +2972,10 @@ $.fn.kendoGroup = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The X position of the top-left corner of the group.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The Y position of the top-left corner of the group.
     /// &#10;
     /// </summary>
@@ -2853,19 +3051,19 @@ $.fn.kendoImage = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;height — Number 
+    /// &#10;height - Number 
     /// &#10;The height of the image.
     /// &#10;
-    /// &#10;width — Number 
+    /// &#10;width - Number 
     /// &#10;The width of the image.
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The X position of the top-left corner of the element.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The Y position of the top-left corner of the element.
     /// &#10;
-    /// &#10;source — String 
+    /// &#10;source - String 
     /// &#10;The source URL of the image.
     /// &#10;
     /// </summary>
@@ -2966,25 +3164,25 @@ $.fn.kendoLayout = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;alignContent — String (default: "start")
+    /// &#10;alignContent - String (default: "start")
     /// &#10;Specifies the alignment of the content.
     /// &#10;
-    /// &#10;alignItems — String (default: "start")
+    /// &#10;alignItems - String (default: "start")
     /// &#10;Specifies the alignment of the items based on each other.
     /// &#10;
-    /// &#10;justifyContent — String (default: "start")
+    /// &#10;justifyContent - String (default: "start")
     /// &#10;Specifies how should the content be justified.
     /// &#10;
-    /// &#10;lineSpacing — Number (default: 0)
+    /// &#10;lineSpacing - Number (default: 0)
     /// &#10;Specifies the distance between the lines for wrapped layout.
     /// &#10;
-    /// &#10;spacing — Number (default: 0)
+    /// &#10;spacing - Number (default: 0)
     /// &#10;Specifies the distance between the elements.
     /// &#10;
-    /// &#10;orientation — String (default: "horizontal")
+    /// &#10;orientation - String (default: "horizontal")
     /// &#10;Specifies the layout orientation. The supported values are:
     /// &#10;
-    /// &#10;wrap — Boolean (default: true)
+    /// &#10;wrap - Boolean (default: true)
     /// &#10;Specifies the behavior when the elements size exceeds the rectangle size. If set to true, the elements will be moved to the next "line". If set to false, the layout will be scaled so that the elements fit in the rectangle.
     /// &#10;
     /// </summary>
@@ -3060,13 +3258,13 @@ $.fn.kendoLine = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;from — Object 
+    /// &#10;from - Object 
     /// &#10;The first point of the line.
     /// &#10;
-    /// &#10;to — Object 
+    /// &#10;to - Object 
     /// &#10;The second point of the line.
     /// &#10;
     /// </summary>
@@ -3133,40 +3331,40 @@ $.fn.kendoPath = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;data — String 
+    /// &#10;data - String 
     /// &#10;The SVG Path data. The format follows the standard SVG format.
     /// &#10;
-    /// &#10;endCap — String 
+    /// &#10;endCap - String 
     /// &#10;The end cap configuration or type name.
     /// &#10;
-    /// &#10;endCap — Object 
+    /// &#10;endCap - Object 
     /// &#10;The end cap configuration or type name.
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the path.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the path.
     /// &#10;
-    /// &#10;height — Number 
+    /// &#10;height - Number 
     /// &#10;Sets the height of the path.
     /// &#10;
-    /// &#10;startCap — String 
+    /// &#10;startCap - String 
     /// &#10;The start cap configuration or type name.
     /// &#10;
-    /// &#10;startCap — Object 
+    /// &#10;startCap - Object 
     /// &#10;The start cap configuration or type name.
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;width — Number 
+    /// &#10;width - Number 
     /// &#10;Sets the width of the path.
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The X position of the top-left corner of the path.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The Y position of the top-left corner of the path.
     /// &#10;
     /// </summary>
@@ -3212,12 +3410,6 @@ $.fn.kendoPoint = function(options) {
     /// Instantiates a kendo.dataviz.diagram.Point widget based the DOM elements that match the selector.
 
     /// &#10;Accepts an object with the following configuration options:
-    /// &#10;
-    /// &#10;x — Number 
-    /// &#10;Defines the x-coordinate of the point.
-    /// &#10;
-    /// &#10;y — Number 
-    /// &#10;Defines the y-coordinate of the point.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -3283,25 +3475,25 @@ $.fn.kendoPolyline = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;endCap — String 
+    /// &#10;endCap - String 
     /// &#10;The end cap configuration or type name.
     /// &#10;
-    /// &#10;endCap — Object 
+    /// &#10;endCap - Object 
     /// &#10;The end cap configuration or type name.
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the polyline.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the polyline.
     /// &#10;
-    /// &#10;startCap — String 
+    /// &#10;startCap - String 
     /// &#10;The start cap configuration or type name.
     /// &#10;
-    /// &#10;startCap — Object 
+    /// &#10;startCap - Object 
     /// &#10;The start cap configuration or type name.
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
     /// </summary>
@@ -3377,16 +3569,16 @@ $.fn.kendoRect = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;height — Number 
+    /// &#10;height - Number 
     /// &#10;Sets the height of the rectangle.
     /// &#10;
-    /// &#10;width — Number 
+    /// &#10;width - Number 
     /// &#10;Sets the width of the rectangle.
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The x-coordinate of the top-left corner of the rectangle.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The y-coordinate of the top-left corner of the rectangle.
     /// &#10;
     /// </summary>
@@ -3443,25 +3635,25 @@ $.fn.kendoRectangle = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the rectangle.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the rectangle.
     /// &#10;
-    /// &#10;height — Number 
+    /// &#10;height - Number 
     /// &#10;Sets the height of the rectangle.
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;width — Number 
+    /// &#10;width - Number 
     /// &#10;Sets the width of the rectangle.
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The X position of the top-left corner of the rectangle.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The Y position of the top-left corner of the rectangle.
     /// &#10;
     /// </summary>
@@ -3531,9 +3723,18 @@ kendo.dataviz.diagram.Shape.prototype = {
     },
 
 
-    redraw: function() {
+    redraw: function(options) {
         /// <summary>
         /// Renders the shape with the given options. It redefines the options and redraws the shape accordingly.
+        /// </summary>
+        /// <param name="options" type="Object" >The object containing a subset of options to change. Follows the same structure as the configuration.</param>
+
+    },
+
+
+    redrawVisual: function() {
+        /// <summary>
+        /// Redraws the shape visual element and its content
         /// </summary>
 
     },
@@ -3569,65 +3770,68 @@ $.fn.kendoShape = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;id — String 
+    /// &#10;id - String 
     /// &#10;The unique identifier for a Shape.
     /// &#10;
-    /// &#10;editable — Boolean (default: true)
+    /// &#10;editable - Boolean (default: true)
     /// &#10;Defines the shape editable options.
     /// &#10;
-    /// &#10;editable — Object (default: true)
+    /// &#10;editable - Object (default: true)
     /// &#10;Defines the shape editable options.
     /// &#10;
-    /// &#10;path — String 
+    /// &#10;path - String 
     /// &#10;The path option of a Shape is a description of a custom geometry. The format follows the standard SVG format (http://www.w3.org/TR/SVG/paths.html#PathData "SVG Path data.").
     /// &#10;
-    /// &#10;stroke — Object 
+    /// &#10;stroke - Object 
     /// &#10;Defines the stroke configuration.
     /// &#10;
-    /// &#10;type — String (default: "rectangle")
+    /// &#10;type - String (default: "rectangle")
     /// &#10;Specifies the type of the Shape using any of the built-in shape type.
     /// &#10;
-    /// &#10;x — Number (default: 0)
+    /// &#10;x - Number (default: 0)
     /// &#10;Defines the x-coordinate of the shape when added to the diagram.
     /// &#10;
-    /// &#10;y — Number (default: 0)
+    /// &#10;y - Number (default: 0)
     /// &#10;Defines the y-coordinate of the shape when added to the diagram.
     /// &#10;
-    /// &#10;minWidth — Number (default: 20)
+    /// &#10;minWidth - Number (default: 20)
     /// &#10;Defines the minimum width the shape should have, i.e. it cannot be resized to a value smaller than the given one.
     /// &#10;
-    /// &#10;minHeight — Number (default: 20)
+    /// &#10;minHeight - Number (default: 20)
     /// &#10;Defines the minimum height the shape should have, i.e. it cannot be resized to a value smaller than the given one.
     /// &#10;
-    /// &#10;width — Number (default: 100)
+    /// &#10;width - Number (default: 100)
     /// &#10;Defines the width of the shape when added to the diagram.
     /// &#10;
-    /// &#10;height — Number (default: 100)
+    /// &#10;height - Number (default: 100)
     /// &#10;Defines the height of the shape when added to the diagram.
     /// &#10;
-    /// &#10;fill — String 
+    /// &#10;fill - String 
     /// &#10;Defines the fill options of the shape.
     /// &#10;
-    /// &#10;fill — Object 
+    /// &#10;fill - Object 
     /// &#10;Defines the fill options of the shape.
     /// &#10;
-    /// &#10;hover — Object 
+    /// &#10;hover - Object 
     /// &#10;Defines the hover configuration.
     /// &#10;
-    /// &#10;connectors — Array 
+    /// &#10;connectors - Array 
     /// &#10;Defines the connectors the shape owns.
     /// &#10;
-    /// &#10;rotation — Object 
+    /// &#10;rotation - Object 
     /// &#10;The shape rotation settings.
     /// &#10;
-    /// &#10;content — Object 
+    /// &#10;content - Object 
     /// &#10;Defines the shapes content settings.
     /// &#10;
-    /// &#10;selectable — Boolean (default: true)
+    /// &#10;selectable - Boolean (default: true)
     /// &#10;Specifies if the shape can be selected.
     /// &#10;
-    /// &#10;visual — Function 
+    /// &#10;visual - Function 
     /// &#10;A function returning a visual element to render for this shape.
+    /// &#10;
+    /// &#10;connectorDefaults - Object 
+    /// &#10;Defines default options for the shape connectors.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -3712,28 +3916,34 @@ $.fn.kendoTextBlock = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;color — String 
+    /// &#10;color - String 
     /// &#10;The text color of the text block.
     /// &#10;
-    /// &#10;fontFamily — String 
+    /// &#10;fontFamily - String 
     /// &#10;The font family of the text block.
     /// &#10;
-    /// &#10;fontSize — Number 
+    /// &#10;fontSize - Number 
     /// &#10;The font size of the text block.
     /// &#10;
-    /// &#10;height — Number 
+    /// &#10;fontStyle - String 
+    /// &#10;The font style of the text block.
+    /// &#10;
+    /// &#10;fontWeight - String 
+    /// &#10;The font weight of the text block.
+    /// &#10;
+    /// &#10;height - Number 
     /// &#10;The height of the text block.
     /// &#10;
-    /// &#10;text — String 
+    /// &#10;text - String 
     /// &#10;The content of the text block.
     /// &#10;
-    /// &#10;width — Number 
+    /// &#10;width - Number 
     /// &#10;The width of the text block.
     /// &#10;
-    /// &#10;x — Number 
+    /// &#10;x - Number 
     /// &#10;The X position of the top-left corner of the text block.
     /// &#10;
-    /// &#10;y — Number 
+    /// &#10;y - Number 
     /// &#10;The Y position of the top-left corner of the text block.
     /// &#10;
     /// </summary>
@@ -3771,8 +3981,6 @@ kendo.dataviz.map.BingLayer.prototype = {
         /// Sets the preferred imagery set for the map.Available imagery sets:
 /// * "aerial" - Aerial imagery.
 /// * "aerialWithLabels" - Aerial imagery with a road overlay.
-/// * "birdseye" - Bird's eye (oblique-angle) imagery
-/// * "birdseyeWithLabels" - Bird's eye imagery with a road overlay.
 /// * "road" - Roads without additional imagery.
         /// </summary>
 
@@ -3809,11 +4017,11 @@ $.fn.kendoBingLayer = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;baseUrl — String (default: "//dev.virtualearth.net/REST/v1/Imagery/Metadata/")
+    /// &#10;baseUrl - String (default: "//dev.virtualearth.net/REST/v1/Imagery/Metadata/")
     /// &#10;The Bing API end-point.
 /// &#10;The creator of the workbook.
     /// &#10;
-    /// &#10;imagerySet — String (default: "road")
+    /// &#10;imagerySet - String (default: "road")
     /// &#10;The default imagery set of the map.
     /// &#10;
     /// </summary>
@@ -4125,6 +4333,73 @@ $.fn.kendoLocation = function(options) {
 };
 
 
+kendo.dataviz.map.Marker = function() { };
+
+kendo.dataviz.map.Marker.prototype = {
+
+
+
+
+    location: function(location) {
+        /// <summary>
+        /// Gets or sets the Marker location.
+        /// </summary>
+        /// <param name="location" type="Object" >The marker location on the map. Coordinates are listed as [Latitude, Longitude].</param>
+        /// <returns type="kendo.dataviz.map.Location">The current location of the Marker</returns>
+
+    },
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoMarker = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.dataviz.map.Marker widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.dataviz.map.Marker">The kendo.dataviz.map.Marker instance (if present).</returns>
+};
+
+$.fn.kendoMarker = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.dataviz.map.Marker widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
+    /// &#10;
+    /// &#10;location - Array|kendo.dataviz.map.Location 
+    /// &#10;The marker location on the map. Coordinates are listed as [Latitude, Longitude].
+    /// &#10;
+    /// &#10;shape - String (default: "pinTarget")
+    /// &#10;The marker shape. The following pre-defined marker shapes are available:Marker shapes are implemented as CSS classes on the marker element (span.k-marker).
+/// &#10;For example "pinTarget" is rendered as "k-marker-pin-target".
+    /// &#10;
+    /// &#10;title - String (default: "pinTarget")
+    /// &#10;The marker title. Displayed as browser tooltip.
+    /// &#10;
+    /// &#10;tooltip - Object 
+    /// &#10;Kendo UI Tooltip options for this marker.
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
 kendo.dataviz.map.MarkerLayer = function() { };
 
 kendo.dataviz.map.MarkerLayer.prototype = {
@@ -4132,9 +4407,18 @@ kendo.dataviz.map.MarkerLayer.prototype = {
 
 
 
-    show: function() {
+    add: function(marker) {
         /// <summary>
-        /// Shows the layer, if not visible.
+        /// Adds a Marker to the layer.
+        /// </summary>
+        /// <param name="marker" type="kendo.dataviz.map.Marker" >The Marker instance to add.</param>
+
+    },
+
+
+    clear: function() {
+        /// <summary>
+        /// Clears all Markers from the layer.
         /// </summary>
 
     },
@@ -4148,9 +4432,27 @@ kendo.dataviz.map.MarkerLayer.prototype = {
     },
 
 
-    setDataSource: function() {
+    remove: function(marker) {
+        /// <summary>
+        /// Removes a Marker from the layer.
+        /// </summary>
+        /// <param name="marker" type="kendo.dataviz.map.Marker" >The Marker instance to remove.</param>
+
+    },
+
+
+    setDataSource: function(dataSource) {
         /// <summary>
         /// Sets the data source of this layer.
+        /// </summary>
+        /// <param name="dataSource" type="Object" >A live DataSource instance or its configuration object.</param>
+
+    },
+
+
+    show: function() {
+        /// <summary>
+        /// Shows the layer, if not visible.
         /// </summary>
 
     },
@@ -4314,14 +4616,14 @@ $.fn.kendoTileLayer = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;urlTemplate — String 
+    /// &#10;urlTemplate - String 
     /// &#10;The URL template for tile layer. Template variables:
     /// &#10;
-    /// &#10;subdomains — Array 
+    /// &#10;subdomains - Array 
     /// &#10;A list of sub-domains to use for loading tiles.
 /// &#10;Alternating between different subdomains allows more requests to be executed in parallel.
     /// &#10;
-    /// &#10;tileSize — Number (default: 256)
+    /// &#10;tileSize - Number (default: 256)
     /// &#10;The tile size in pixels.
     /// &#10;
     /// </summary>
@@ -4450,40 +4752,40 @@ $.fn.kendoBarcode = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;renderAs — String (default: "svg")
+    /// &#10;renderAs - String (default: "svg")
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Barcode will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;background — String (default: "white")
+    /// &#10;background - String (default: "white")
     /// &#10;The background of the barcode area.
 /// &#10;Any valid CSS color string will work here, including hex and rgb.
     /// &#10;
-    /// &#10;border — Object 
+    /// &#10;border - Object 
     /// &#10;The border of the barcode area.
     /// &#10;
-    /// &#10;checksum — Boolean (default: false)
+    /// &#10;checksum - Boolean (default: false)
     /// &#10;If set to true the barcode will not display the checksum digit next to the value in the text area.
     /// &#10;
-    /// &#10;color — String (default: "black")
+    /// &#10;color - String (default: "black")
     /// &#10;The color of the bar elements.
 /// &#10;Any valid CSS color string will work here, including hex and rgb.
     /// &#10;
-    /// &#10;height — Number (default: 100)
+    /// &#10;height - Number (default: 100)
     /// &#10;The height of the barcode in pixels.  By default the height is 100.
     /// &#10;
-    /// &#10;padding — Object 
+    /// &#10;padding - Object 
     /// &#10;The padding of the barcode.
     /// &#10;
-    /// &#10;text — Object 
+    /// &#10;text - Object 
     /// &#10;Can be set to a JavaScript object which represents the text configuration.
     /// &#10;
-    /// &#10;type — String (default: "code39")
+    /// &#10;type - String (default: "code39")
     /// &#10;The symbology (encoding) the barcode will use.The supported values are:
     /// &#10;
-    /// &#10;value — String 
+    /// &#10;value - String 
     /// &#10;The initial value of the Barcode
     /// &#10;
-    /// &#10;width — Number (default: 300)
+    /// &#10;width - Number (default: 300)
     /// &#10;The width of the barcode in pixels.  By default the width is 300.
     /// &#10;
     /// </summary>
@@ -4632,7 +4934,7 @@ kendo.dataviz.ui.Chart.prototype = {
         /// Toggles the highlight of the series points or a segment for pie, donut and funnel charts.
         /// </summary>
         /// <param name="show" type="Boolean" >A boolean value that specifies if the highlight should be shown or hidden.</param>
-        /// <param name="options" type="String" >A string representing the series name or the category name or an object with the series and category names.</param>
+        /// <param name="options" type="Object" >A string representing the series name or the category name or an object with the series and category names or a function which will be called for each point. The fields available in the function argument are:</param>
 
     },
 
@@ -4667,84 +4969,84 @@ $.fn.kendoChart = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;autoBind — Boolean (default: true)
+    /// &#10;autoBind - Boolean (default: true)
     /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the
 /// &#10;data source is fired. By default the widget will bind to the data source specified in the configuration.
     /// &#10;
-    /// &#10;axisDefaults — Object 
+    /// &#10;axisDefaults - Object 
     /// &#10;The default options for all chart axes. Accepts the options supported by categoryAxis, valueAxis, xAxis and yAxis.
     /// &#10;
-    /// &#10;categoryAxis — Array|Object 
+    /// &#10;categoryAxis - Array|Object 
     /// &#10;The category axis configuration options.
     /// &#10;
-    /// &#10;chartArea — Object 
+    /// &#10;chartArea - Object 
     /// &#10;The chart area configuration options. Represents the entire visible area of the chart.
     /// &#10;
-    /// &#10;dataSource — Object|Array|kendo.data.DataSource 
+    /// &#10;dataSource - Object|Array|kendo.data.DataSource 
     /// &#10;The data source of the chart which is used to display the series. Can be a JavaScript object which represents a valid data source configuration, a JavaScript array or an existing kendo.data.DataSource
 /// &#10;instance.If the dataSource option is set to a JavaScript object or array the widget will initialize a new kendo.data.DataSource instance using that value as data source configuration.If the dataSource option is an existing kendo.data.DataSource instance the widget will use that instance and will not initialize a new one.
     /// &#10;
-    /// &#10;legend — Object 
+    /// &#10;legend - Object 
     /// &#10;The chart legend configuration options.
     /// &#10;
-    /// &#10;panes — Array 
+    /// &#10;panes - Array 
     /// &#10;The chart panes configuration.Panes are used to split the chart in two or more parts. The panes are ordered from top to bottom.Each axis can be associated with a pane by setting its pane option to the name of the desired pane.
 /// &#10;Axis that don't have specified pane are placed in the top (default) pane.Series are moved to the desired pane by associating them with an axis.
     /// &#10;
-    /// &#10;pannable — Boolean (default: false)
+    /// &#10;pannable - Boolean (default: false)
     /// &#10;Specifies if the chart can be panned.
     /// &#10;
-    /// &#10;pannable — Object (default: false)
+    /// &#10;pannable - Object (default: false)
     /// &#10;Specifies if the chart can be panned.
     /// &#10;
-    /// &#10;pdf — Object 
+    /// &#10;pdf - Object 
     /// &#10;Configures the export settings for the saveAsPDF method.
     /// &#10;
-    /// &#10;plotArea — Object 
+    /// &#10;plotArea - Object 
     /// &#10;The plot area configuration options. The plot area is the area which displays the series.
     /// &#10;
-    /// &#10;renderAs — String 
+    /// &#10;renderAs - String 
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Chart will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;series — Array 
+    /// &#10;series - Array 
     /// &#10;The configuration of the chart series.The series type is determined by the value of the type field.
 /// &#10;If a type value is missing, the type is assumed to be the one specified in seriesDefaults.
     /// &#10;
-    /// &#10;seriesColors — Array 
+    /// &#10;seriesColors - Array 
     /// &#10;The default colors for the chart's series. When all colors are used, new colors are pulled from the start again.
     /// &#10;
-    /// &#10;seriesDefaults — Object 
+    /// &#10;seriesDefaults - Object 
     /// &#10;The default options for all series.
     /// &#10;
-    /// &#10;theme — String 
+    /// &#10;theme - String 
     /// &#10;The chart theme.The supported values are:
     /// &#10;
-    /// &#10;title — String 
+    /// &#10;title - String 
     /// &#10;The chart title configuration options or text.
     /// &#10;
-    /// &#10;title — Object 
+    /// &#10;title - Object 
     /// &#10;The chart title configuration options or text.
     /// &#10;
-    /// &#10;tooltip — Object 
+    /// &#10;tooltip - Object 
     /// &#10;The chart series tooltip configuration options.
     /// &#10;
-    /// &#10;transitions — Boolean (default: true)
+    /// &#10;transitions - Boolean (default: true)
     /// &#10;If set to true the chart will play animations when displaying the series. By default animations are enabled.
     /// &#10;
-    /// &#10;valueAxis — Array 
+    /// &#10;valueAxis - Array 
     /// &#10;The value axis configuration options.
     /// &#10;
-    /// &#10;xAxis — Array 
+    /// &#10;xAxis - Array 
     /// &#10;The X-axis configuration options of the scatter chart X-axis. Supports all valueAxis options.
     /// &#10;
-    /// &#10;yAxis — Array 
+    /// &#10;yAxis - Array 
     /// &#10;The y axis configuration options of the scatter chart. Supports all valueAxis options.
     /// &#10;
-    /// &#10;zoomable — Boolean (default: false)
+    /// &#10;zoomable - Boolean (default: false)
     /// &#10;Specifies if the chart can be zoomed.
     /// &#10;
-    /// &#10;zoomable — Object (default: false)
+    /// &#10;zoomable - Object (default: false)
     /// &#10;Specifies if the chart can be zoomed.
     /// &#10;
     /// </summary>
@@ -4968,12 +5270,52 @@ kendo.dataviz.ui.Diagram.prototype = {
     },
 
 
+    getConnectionByModelId: function(id) {
+        /// <summary>
+        /// Returns the connection corresponding to the model with the specified id value.
+        /// </summary>
+        /// <param name="id" type="Object" >The model id value.</param>
+        /// <returns type="kendo.dataviz.diagram.Connection">the connection corresponding to the model.</returns>
+
+    },
+
+
+    getConnectionByModelUid: function(uid) {
+        /// <summary>
+        /// Returns the connection corresponding to the model with the specified uid value.
+        /// </summary>
+        /// <param name="uid" type="String" >The model uid value.</param>
+        /// <returns type="kendo.dataviz.diagram.Connection">the connection corresponding to the model.</returns>
+
+    },
+
+
     getShapeById: function(id) {
         /// <summary>
         /// Returns the shape or connection with the specified identifier.
         /// </summary>
         /// <param name="id" type="String" >The unique identifier of the Shape or Connection</param>
         /// <returns type="Object">the item that has the provided ID.</returns>
+
+    },
+
+
+    getShapeByModelId: function(id) {
+        /// <summary>
+        /// Returns the shape corresponding to the model with the specified id value.
+        /// </summary>
+        /// <param name="id" type="Object" >The model id value.</param>
+        /// <returns type="kendo.dataviz.diagram.Shape">the shape corresponding to the model.</returns>
+
+    },
+
+
+    getShapeByModelUid: function(uid) {
+        /// <summary>
+        /// Returns the shape corresponding to the model with the specified uid value.
+        /// </summary>
+        /// <param name="uid" type="String" >The model uid value.</param>
+        /// <returns type="kendo.dataviz.diagram.Shape">the shape corresponding to the model.</returns>
 
     },
 
@@ -5191,8 +5533,8 @@ kendo.dataviz.ui.Diagram.prototype = {
         /// <summary>
         /// Transforms a point from View coordinates to Page document coordinates. View origin is the diagram container.
         /// </summary>
-        /// <param name="point" type="Object" >The point in Page document coordinates.</param>
-        /// <returns type="Object">the transformed point</returns>
+        /// <param name="point" type="kendo.dataviz.diagram.Point" >The point in Page document coordinates.</param>
+        /// <returns type="kendo.dataviz.diagram.Point">the transformed point</returns>
 
     },
 
@@ -5201,8 +5543,8 @@ kendo.dataviz.ui.Diagram.prototype = {
         /// <summary>
         /// Transforms a point from View coordinates to Model coordinates. Model coordinates are independent coordinates to define Shape bounds.
         /// </summary>
-        /// <param name="point" type="Object" >The point in View coordinates.</param>
-        /// <returns type="Object">the transformed point</returns>
+        /// <param name="point" type="kendo.dataviz.diagram.Point" >The point in View coordinates.</param>
+        /// <returns type="kendo.dataviz.diagram.Point">the transformed point</returns>
 
     },
 
@@ -5211,16 +5553,18 @@ kendo.dataviz.ui.Diagram.prototype = {
         /// <summary>
         /// The bounds of the diagramming canvas.
         /// </summary>
+        /// <returns type="kendo.dataviz.diagram.Rect">as viewport bounds</returns>
 
     },
 
 
     zoom: function(zoom,point) {
         /// <summary>
-        /// Zooms in or out of the diagram.
+        /// Gets or sets the current zoom level of the diagram.
         /// </summary>
         /// <param name="zoom" type="Number" >The zoom factor.</param>
-        /// <param name="point" type="Object" >The point to zoom into or out of.</param>
+        /// <param name="point" type="kendo.dataviz.diagram.Point" >The point to zoom into or out of.</param>
+        /// <returns type="Number">The current zoom level</returns>
 
     },
 
@@ -5255,65 +5599,65 @@ $.fn.kendoDiagram = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;autoBind — Boolean (default: true)
+    /// &#10;autoBind - Boolean (default: true)
     /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the
 /// &#10;data source is fired. By default the widget will bind to the data source specified in the configuration.
     /// &#10;
-    /// &#10;connectionDefaults — Object 
+    /// &#10;connectionDefaults - Object 
     /// &#10;Defines the defaults of the connections. Whenever a connection is created, the specified connectionDefaults will be used and merged with the (optional) configuration passed through the connection creation method.
     /// &#10;
-    /// &#10;connections — Array 
+    /// &#10;connections - Array 
     /// &#10;Defines the connections configuration.
     /// &#10;
-    /// &#10;connectionsDataSource — Object|Array|kendo.data.DataSource 
+    /// &#10;connectionsDataSource - Object|Array|kendo.data.DataSource 
     /// &#10;Defines the data source of the connections.
     /// &#10;
-    /// &#10;dataSource — Object|Array|kendo.data.DataSource 
+    /// &#10;dataSource - Object|Array|kendo.data.DataSource 
     /// &#10;Defines the data source of the diagram.
     /// &#10;
-    /// &#10;editable — Boolean (default: true)
+    /// &#10;editable - Boolean (default: true)
     /// &#10;Defines how the diagram behaves when the user attempts to edit shape content, create new connections, edit connection labels and so on.
     /// &#10;
-    /// &#10;editable — Object (default: true)
+    /// &#10;editable - Object (default: true)
     /// &#10;Defines how the diagram behaves when the user attempts to edit shape content, create new connections, edit connection labels and so on.
     /// &#10;
-    /// &#10;layout — Object 
+    /// &#10;layout - Object 
     /// &#10;The layout of a diagram consists in arranging the shapes (sometimes also the connections) in some fashion in order to achieve an aesthetically pleasing experience to the user. It aims at giving a more direct insight in the information contained within the diagram and its relational structure.On a technical level, layout consists of a multitude of algorithms and optimizations:and various ad-hoc calculations which depend on the type of layout. The criteria on which an algorithm is based vary but the common denominator is:Kendo diagram includes three of the most used layout algorithms which should cover most of your layout needs - tree layout, force-directed layout and layered layout. Please, check the type property for more details regarding each type.The generic way to apply a layout is by calling the layout() method on the diagram. The method has a single parameter options. It is an object, which can contain parameters which are specific to the layout as well as parameters customizing the global grid layout. Parameters which apply to other layout algorithms can be included but are overlooked if not applicable to the chose layout type. This means that you can define a set of parameters which cover all possible layout types and simply pass it in the method whatever the layout define in the first parameter.
     /// &#10;
-    /// &#10;pannable — Boolean (default: true)
+    /// &#10;pannable - Boolean (default: true)
     /// &#10;Defines the pannable options.
     /// &#10;
-    /// &#10;pannable — Object (default: true)
+    /// &#10;pannable - Object (default: true)
     /// &#10;Defines the pannable options.
     /// &#10;
-    /// &#10;pdf — Object 
+    /// &#10;pdf - Object 
     /// &#10;Configures the export settings for the saveAsPDF method.
     /// &#10;
-    /// &#10;selectable — Boolean (default: true)
+    /// &#10;selectable - Boolean (default: true)
     /// &#10;Defines the selectable options.
     /// &#10;
-    /// &#10;selectable — Object (default: true)
+    /// &#10;selectable - Object (default: true)
     /// &#10;Defines the selectable options.
     /// &#10;
-    /// &#10;shapeDefaults — Object 
+    /// &#10;shapeDefaults - Object 
     /// &#10;Defines the shape options.
     /// &#10;
-    /// &#10;shapes — Array 
+    /// &#10;shapes - Array 
     /// &#10;Defines the shape options.
     /// &#10;
-    /// &#10;template — String|Function (default: "")
+    /// &#10;template - String|Function (default: "")
     /// &#10;The template which renders the content of the shape when bound to a dataSource. The names you can use in the template correspond to the properties used in the dataSource. See the dataSource topic below for a concrete example.
     /// &#10;
-    /// &#10;zoom — Number (default: 1)
+    /// &#10;zoom - Number (default: 1)
     /// &#10;The zoom level in percentages.
     /// &#10;
-    /// &#10;zoomMax — Number (default: 2)
+    /// &#10;zoomMax - Number (default: 2)
     /// &#10;The zoom max level in percentages.
     /// &#10;
-    /// &#10;zoomMin — Number (default: 0.1)
+    /// &#10;zoomMin - Number (default: 0.1)
     /// &#10;The zoom min level in percentages.
     /// &#10;
-    /// &#10;zoomRate — Number (default: 0.1)
+    /// &#10;zoomRate - Number (default: 0.1)
     /// &#10;The zoom step when using the mouse-wheel to zoom in or out.
     /// &#10;
     /// </summary>
@@ -5460,21 +5804,21 @@ $.fn.kendoLinearGauge = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;gaugeArea — Object 
+    /// &#10;gaugeArea - Object 
     /// &#10;The gauge area configuration options.
 /// &#10;This is the entire visible area of the gauge.
     /// &#10;
-    /// &#10;pointer — Array 
+    /// &#10;pointer - Array 
     /// &#10;The pointer configuration options. It accepts an Array of pointers, each with it's own configuration options.
     /// &#10;
-    /// &#10;renderAs — String 
+    /// &#10;renderAs - String 
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Gauge will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;scale — Object 
+    /// &#10;scale - Object 
     /// &#10;Configures the scale.
     /// &#10;
-    /// &#10;transitions — Boolean (default: true)
+    /// &#10;transitions - Boolean (default: true)
     /// &#10;A value indicating if transition animations should be played.
     /// &#10;
     /// </summary>
@@ -5675,46 +6019,46 @@ $.fn.kendoMap = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;center — Array|kendo.dataviz.map.Location 
+    /// &#10;center - Array|kendo.dataviz.map.Location 
     /// &#10;The map center. Coordinates are listed as [Latitude, Longitude].
     /// &#10;
-    /// &#10;controls — Object 
+    /// &#10;controls - Object 
     /// &#10;The configuration of built-in map controls.
     /// &#10;
-    /// &#10;layerDefaults — Object 
+    /// &#10;layerDefaults - Object 
     /// &#10;The default configuration for map layers by type.
     /// &#10;
-    /// &#10;layers — Array 
+    /// &#10;layers - Array 
     /// &#10;The configuration of the map layers.
 /// &#10;The layer type is determined by the value of the type field.
     /// &#10;
-    /// &#10;markerDefaults — Object 
+    /// &#10;markerDefaults - Object 
     /// &#10;The default options for all markers.
     /// &#10;
-    /// &#10;markers — Array 
+    /// &#10;markers - Array 
     /// &#10;Static markers to display on the map.
     /// &#10;
-    /// &#10;minZoom — Number (default: 1)
+    /// &#10;minZoom - Number (default: 1)
     /// &#10;The minimum zoom level.
 /// &#10;Typical web maps use zoom levels from 0 (whole world) to 19 (sub-meter features).
     /// &#10;
-    /// &#10;maxZoom — Number (default: 19)
+    /// &#10;maxZoom - Number (default: 19)
     /// &#10;The maximum zoom level.
 /// &#10;Typical web maps use zoom levels from 0 (whole world) to 19 (sub-meter features).
     /// &#10;
-    /// &#10;minSize — Number (default: 256)
+    /// &#10;minSize - Number (default: 256)
     /// &#10;The size of the map in pixels at zoom level 0.
     /// &#10;
-    /// &#10;pannable — Boolean (default: true)
+    /// &#10;pannable - Boolean (default: true)
     /// &#10;Controls whether the user can pan the map.
     /// &#10;
-    /// &#10;wraparound — Boolean (default: true)
+    /// &#10;wraparound - Boolean (default: true)
     /// &#10;Specifies whether the map should wrap around the east-west edges.
     /// &#10;
-    /// &#10;zoom — Number (default: 3)
+    /// &#10;zoom - Number (default: 3)
     /// &#10;The initial zoom level.Typical web maps use zoom levels from 0 (whole world) to 19 (sub-meter features).The map size is derived from the zoom level and minScale options: size = (2 ^ zoom) * minSize
     /// &#10;
-    /// &#10;zoomable — Boolean (default: true)
+    /// &#10;zoomable - Boolean (default: true)
     /// &#10;Controls whether the map zoom level can be changed by the user.
     /// &#10;
     /// </summary>
@@ -5859,34 +6203,34 @@ $.fn.kendoQRCode = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;background — String (default: "#fff")
+    /// &#10;background - String (default: "#fff")
     /// &#10;The background color of the QR code. Accepts a valid CSS color string, including hex and rgb.
     /// &#10;
-    /// &#10;border — Object 
+    /// &#10;border - Object 
     /// &#10;The border of the QR code.
     /// &#10;
-    /// &#10;color — String (default: "#000")
+    /// &#10;color - String (default: "#000")
     /// &#10;The color of the QR code. Accepts a valid CSS color string, including hex and rgb.
     /// &#10;
-    /// &#10;encoding — String (default: "ISO_8859_1")
+    /// &#10;encoding - String (default: "ISO_8859_1")
     /// &#10;The encoding mode used to encode the value.The possible values are:
     /// &#10;
-    /// &#10;errorCorrection — String (default: "L")
+    /// &#10;errorCorrection - String (default: "L")
     /// &#10;The error correction level used to encode the value.The possible values are:
     /// &#10;
-    /// &#10;padding — Number (default: 0)
+    /// &#10;padding - Number (default: 0)
     /// &#10;Sets the minimum distance in pixels that should be left between the border and the QR modules.
     /// &#10;
-    /// &#10;renderAs — String (default: "svg")
+    /// &#10;renderAs - String (default: "svg")
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the QRCode will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;size — Number|String 
+    /// &#10;size - Number|String 
     /// &#10;Specifies the size of a QR code in pixels (i.e. "200px"). Numeric values are treated as pixels.
 /// &#10;If no size is specified, it will be determined from the element width and height.
 /// &#10;In case the element has width or height of zero, a default value of 200 pixels will be used.
     /// &#10;
-    /// &#10;value — Number|String 
+    /// &#10;value - Number|String 
     /// &#10;The value of the QRCode.
     /// &#10;
     /// </summary>
@@ -6033,21 +6377,21 @@ $.fn.kendoRadialGauge = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;gaugeArea — Object 
+    /// &#10;gaugeArea - Object 
     /// &#10;The gauge area configuration options.
 /// &#10;This is the entire visible area of the gauge.
     /// &#10;
-    /// &#10;pointer — Array 
+    /// &#10;pointer - Array 
     /// &#10;The pointer configuration options. It accepts an Array of pointers, each with it's own configuration options.
     /// &#10;
-    /// &#10;renderAs — String 
+    /// &#10;renderAs - String 
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Gauge will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;scale — Object 
+    /// &#10;scale - Object 
     /// &#10;Configures the scale.
     /// &#10;
-    /// &#10;transitions — Boolean (default: true)
+    /// &#10;transitions - Boolean (default: true)
     /// &#10;A value indicating if transition animations should be played.
     /// &#10;
     /// </summary>
@@ -6180,58 +6524,58 @@ $.fn.kendoSparkline = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;axisDefaults — Object 
+    /// &#10;axisDefaults - Object 
     /// &#10;Default options for all chart axes.
     /// &#10;
-    /// &#10;categoryAxis — Array 
+    /// &#10;categoryAxis - Array 
     /// &#10;The category axis configuration options.
     /// &#10;
-    /// &#10;chartArea — Object 
+    /// &#10;chartArea - Object 
     /// &#10;The chart area configuration options.
 /// &#10;This is the entire visible area of the chart.
     /// &#10;
-    /// &#10;data — Array 
+    /// &#10;data - Array 
     /// &#10;The data for the default sparkline series.Will be discareded if series are supplied.
     /// &#10;
-    /// &#10;dataSource — Object 
+    /// &#10;dataSource - Object 
     /// &#10;DataSource configuration or instance.
     /// &#10;
-    /// &#10;autoBind — Boolean (default: true)
+    /// &#10;autoBind - Boolean (default: true)
     /// &#10;Indicates whether the chart will call read on the data source initially.
     /// &#10;
-    /// &#10;plotArea — Object 
+    /// &#10;plotArea - Object 
     /// &#10;The plot area configuration options. This is the area containing the plotted series.
     /// &#10;
-    /// &#10;pointWidth — Number (default: 5)
+    /// &#10;pointWidth - Number (default: 5)
     /// &#10;The width to allocate for each data point.
     /// &#10;
-    /// &#10;renderAs — String 
+    /// &#10;renderAs - String 
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Sparkline will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;series — Array 
+    /// &#10;series - Array 
     /// &#10;Array of series definitions.The series type is determined by the value of the type field.
 /// &#10;If a type value is missing, the type is assumed to be the one specified in seriesDefaults.Each series type has a different set of options.
     /// &#10;
-    /// &#10;seriesColors — Array 
+    /// &#10;seriesColors - Array 
     /// &#10;The default colors for the chart's series. When all colors are used, new colors are pulled from the start again.
     /// &#10;
-    /// &#10;seriesDefaults — Object 
+    /// &#10;seriesDefaults - Object 
     /// &#10;Default values for each series.
     /// &#10;
-    /// &#10;theme — String 
+    /// &#10;theme - String 
     /// &#10;Sets Chart theme. Available themes: default, blueOpal, black.
     /// &#10;
-    /// &#10;tooltip — Object 
+    /// &#10;tooltip - Object 
     /// &#10;The data point tooltip configuration options.
     /// &#10;
-    /// &#10;transitions — Boolean (default: false)
+    /// &#10;transitions - Boolean (default: false)
     /// &#10;A value indicating if transition animations should be played.
     /// &#10;
-    /// &#10;type — String (default: "line")
+    /// &#10;type - String (default: "line")
     /// &#10;The default series type.
     /// &#10;
-    /// &#10;valueAxis — Array 
+    /// &#10;valueAxis - Array 
     /// &#10;The value axis configuration options.
     /// &#10;
     /// </summary>
@@ -6320,6 +6664,15 @@ kendo.dataviz.ui.StockChart.prototype = {
     },
 
 
+    setOptions: function(options) {
+        /// <summary>
+        /// Sets the widget options. Changes are cumulative.
+        /// </summary>
+        /// <param name="options" type="Object" >The chart settings to update.</param>
+
+    },
+
+
     svg: function() {
         /// <summary>
         /// Returns the SVG representation of the chart.
@@ -6372,69 +6725,69 @@ $.fn.kendoStockChart = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;dateField — String (default: "date")
+    /// &#10;dateField - String (default: "date")
     /// &#10;The field containing the point date.
 /// &#10;It is used as a default categoryField for all series.The data item field value must be either:
     /// &#10;
-    /// &#10;navigator — Object 
+    /// &#10;navigator - Object 
     /// &#10;The data navigator configuration options.
     /// &#10;
-    /// &#10;axisDefaults — Object 
+    /// &#10;axisDefaults - Object 
     /// &#10;Default options for all chart axes.
     /// &#10;
-    /// &#10;categoryAxis — Array 
+    /// &#10;categoryAxis - Array 
     /// &#10;The category axis configuration options.
     /// &#10;
-    /// &#10;chartArea — Object 
+    /// &#10;chartArea - Object 
     /// &#10;The chart area configuration options.
 /// &#10;This is the entire visible area of the chart.
     /// &#10;
-    /// &#10;dataSource — Object 
+    /// &#10;dataSource - Object 
     /// &#10;DataSource configuration or instance.
     /// &#10;
-    /// &#10;autoBind — Boolean (default: true)
+    /// &#10;autoBind - Boolean (default: true)
     /// &#10;Indicates whether the chart will call read on the data source initially.
     /// &#10;
-    /// &#10;legend — Object 
+    /// &#10;legend - Object 
     /// &#10;The chart legend configuration options.
     /// &#10;
-    /// &#10;panes — Array 
+    /// &#10;panes - Array 
     /// &#10;The chart panes configuration.Panes are used to split the chart in two or more parts. The panes are ordered from top to bottom.Each axis can be associated with a pane by setting its pane option to the name of the desired pane.
 /// &#10;Axis that don't have specified pane are placed in the top (default) pane.Series are moved to the desired pane by associating them with an axis.
     /// &#10;
-    /// &#10;pdf — Object 
+    /// &#10;pdf - Object 
     /// &#10;Configures the export settings for the saveAsPDF method.
     /// &#10;
-    /// &#10;plotArea — Object 
+    /// &#10;plotArea - Object 
     /// &#10;The plot area configuration options. This is the area containing the plotted series.
     /// &#10;
-    /// &#10;renderAs — String 
+    /// &#10;renderAs - String 
     /// &#10;Sets the preferred rendering engine.
 /// &#10;If it is not supported by the browser, the Chart will switch to the first available mode.The supported values are:
     /// &#10;
-    /// &#10;series — Array 
+    /// &#10;series - Array 
     /// &#10;Array of series definitions.The series type is determined by the value of the type field.
 /// &#10;If a type value is missing, the type is assumed to be the one specified in seriesDefaults.Each series type has a different set of options.
     /// &#10;
-    /// &#10;seriesColors — Array 
+    /// &#10;seriesColors - Array 
     /// &#10;The default colors for the chart's series. When all colors are used, new colors are pulled from the start again.
     /// &#10;
-    /// &#10;seriesDefaults — Object 
+    /// &#10;seriesDefaults - Object 
     /// &#10;Default values for each series.
     /// &#10;
-    /// &#10;theme — String 
+    /// &#10;theme - String 
     /// &#10;Sets Chart theme. Available themes: default, blueOpal, black.
     /// &#10;
-    /// &#10;title — Object 
+    /// &#10;title - Object 
     /// &#10;The chart title configuration options or text.
     /// &#10;
-    /// &#10;tooltip — Object 
+    /// &#10;tooltip - Object 
     /// &#10;The data point tooltip configuration options.
     /// &#10;
-    /// &#10;transitions — Boolean (default: true)
+    /// &#10;transitions - Boolean (default: true)
     /// &#10;A value indicating if transition animations should be played.
     /// &#10;
-    /// &#10;valueAxis — Array 
+    /// &#10;valueAxis - Array 
     /// &#10;The value axis configuration options.
     /// &#10;
     /// </summary>
@@ -6481,34 +6834,34 @@ $.fn.kendoTreeMap = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;dataSource — Object|Array|kendo.data.HierarchicalDataSource 
+    /// &#10;dataSource - Object|Array|kendo.data.HierarchicalDataSource 
     /// &#10;The data source of the treeMap which is used to display the tiles and titles. Can be a JavaScript object which represents a valid data source configuration, a JavaScript array or an existing kendo.data.HierarchicalDataSource
 /// &#10;instance.If the HierarchicalDataSource option is set to a JavaScript object or array the widget will initialize a new kendo.data.HierarchicalDataSource instance using that value as data source configuration.If the HierarchicalDataSource option is an existing kendo.data.HierarchicalDataSource instance the widget will use that instance and will not initialize a new one.
     /// &#10;
-    /// &#10;autoBind — Boolean (default: true)
+    /// &#10;autoBind - Boolean (default: true)
     /// &#10;If set to false the widget will not bind to the data source during initialization. In this case data binding will occur when the change event of the
 /// &#10;data source is fired. By default the widget will bind to the data source specified in the configuration.
     /// &#10;
-    /// &#10;type — String (default: "squarified")
+    /// &#10;type - String (default: "squarified")
     /// &#10;The layout type for the TreeMap.The Supported values are:
     /// &#10;
-    /// &#10;theme — String (default: "default")
+    /// &#10;theme - String (default: "default")
     /// &#10;The theme of the TreeMap.
     /// &#10;
-    /// &#10;valueField — String (default: "value")
+    /// &#10;valueField - String (default: "value")
     /// &#10;The data item field which contains the tile value.
     /// &#10;
-    /// &#10;colorField — String (default: "color")
+    /// &#10;colorField - String (default: "color")
     /// &#10;The data item field which contains the tile color.
     /// &#10;
-    /// &#10;textField — String (default: "text")
+    /// &#10;textField - String (default: "text")
     /// &#10;The data item field which contains the tile title.
     /// &#10;
-    /// &#10;template — String|Function 
+    /// &#10;template - String|Function 
     /// &#10;The template which renders the treeMap tile content.The fields which can be used in the template are:
     /// &#10;
-    /// &#10;colors — Array 
-    /// &#10;The default colors for the treemap tiles. When all colors are used, new colors are pulled from the start again. Can be set to array of specific colors or array of color ranges.
+    /// &#10;colors - Array 
+    /// &#10;The default colors for the TreeMap items (tiles). Can be set to array of specific colors or array of color ranges. For more information on the widget behavior, see the Colors section on the TreeMap Overview page.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -6555,6 +6908,16 @@ kendo.drawing.Arc.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -6655,29 +7018,32 @@ $.fn.kendoArc = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the shape.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the shape.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -6722,6 +7088,16 @@ kendo.drawing.Circle.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -6822,29 +7198,32 @@ $.fn.kendoCircle = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the shape.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the shape.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -6886,6 +7265,16 @@ kendo.drawing.Element.prototype = {
         /// Returns the bounding box of the element with clipping and transformations applied.This is the rectangle that will fit around the actual rendered element.
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping and transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -6950,20 +7339,20 @@ $.fn.kendoElement = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The clipping path for this element.The path instance will be monitored for changes.
 /// &#10;It can be replaced by calling the clip method.
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element CSS cursor.Applicable to SVG and VML outputs.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
     /// &#10;
     /// </summary>
@@ -7075,7 +7464,7 @@ $.fn.kendoGradient = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;stops — Array 
+    /// &#10;stops - Array 
     /// &#10;The color stops of the gradient.
 /// &#10;Can contain either plain objects or GradientStop instances.
     /// &#10;
@@ -7123,18 +7512,18 @@ $.fn.kendoGradientStop = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;offset — Number 
+    /// &#10;offset - Number 
     /// &#10;The stop offset from the start of the element.
 /// &#10;Ranges from 0 (start of gradient) to 1 (end of gradient).
     /// &#10;
-    /// &#10;color — String 
+    /// &#10;color - String 
     /// &#10;The color in any of the following formats.| Format         | Description
 /// &#10;| ---            | --- | ---
 /// &#10;| red            | Basic or Extended CSS Color name
 /// &#10;| #ff0000        | Hex RGB value
 /// &#10;| rgb(255, 0, 0) | RGB valueSpecifying 'none', 'transparent' or '' (empty string) will clear the fill.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The fill opacity.
 /// &#10;Ranges from 0 (completely transparent) to 1 (completely opaque).
     /// &#10;
@@ -7186,6 +7575,16 @@ kendo.drawing.Group.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -7269,26 +7668,29 @@ $.fn.kendoGroup = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The group clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The group cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The group opacity.
 /// &#10;Inherited from Element.opacityThe opacity of any child groups and elements will be multiplied by this value.
     /// &#10;
-    /// &#10;pdf — kendo.drawing.PDFOptions 
+    /// &#10;pdf - kendo.drawing.PDFOptions 
     /// &#10;Page options to apply during PDF export.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this group and its children.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the group and its children are visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -7333,6 +7735,16 @@ kendo.drawing.Image.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -7420,23 +7832,26 @@ $.fn.kendoImage = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -7502,25 +7917,25 @@ $.fn.kendoLayout = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;alignContent — String (default: "start")
+    /// &#10;alignContent - String (default: "start")
     /// &#10;Specifies the alignment of the content. The supported values are:
     /// &#10;
-    /// &#10;alignItems — String (default: "start")
+    /// &#10;alignItems - String (default: "start")
     /// &#10;Specifies the alignment of the items based on the largest one. The supported values are:
     /// &#10;
-    /// &#10;justifyContent — String (default: "start")
+    /// &#10;justifyContent - String (default: "start")
     /// &#10;Specifies how should the content be justified. The supported values are:
     /// &#10;
-    /// &#10;lineSpacing — Number (default: 0)
+    /// &#10;lineSpacing - Number (default: 0)
     /// &#10;Specifies the distance between the lines for wrapped layout.
     /// &#10;
-    /// &#10;spacing — Number (default: 0)
+    /// &#10;spacing - Number (default: 0)
     /// &#10;Specifies the distance between the elements.
     /// &#10;
-    /// &#10;orientation — String (default: "horizontal")
+    /// &#10;orientation - String (default: "horizontal")
     /// &#10;Specifies layout orientation. The supported values are:
     /// &#10;
-    /// &#10;wrap — Boolean (default: true)
+    /// &#10;wrap - Boolean (default: true)
     /// &#10;Specifies the behavior when the elements size exceeds the rectangle size. If set to true, the elements will be moved to the next "line". If set to false, the layout will be scaled so that the elements fit in the rectangle.
     /// &#10;
     /// </summary>
@@ -7610,7 +8025,7 @@ $.fn.kendoLinearGradient = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;stops — Array 
+    /// &#10;stops - Array 
     /// &#10;The color stops of the gradient.
 /// &#10;Can contain either plain objects or GradientStop instances.
     /// &#10;
@@ -7664,6 +8079,16 @@ kendo.drawing.MultiPath.prototype = {
         /// Closes the current sub-path by linking its current end point with its start point.
         /// </summary>
         /// <returns type="kendo.drawing.MultiPath">The current instance to allow chaining.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -7788,29 +8213,32 @@ $.fn.kendoMultiPath = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the shape.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the shape.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -7976,6 +8404,16 @@ kendo.drawing.Path.prototype = {
     },
 
 
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
+
+    },
+
+
     curveTo: function(controlOut,controlIn,endPoint) {
         /// <summary>
         /// Draws a cubic Bézier curve (with two control points).A quadratic Bézier curve (with one control point) can be plotted by making the control point equal.
@@ -8096,29 +8534,32 @@ $.fn.kendoPath = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the shape.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the shape.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -8209,14 +8650,14 @@ $.fn.kendoRadialGradient = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;center — Array|kendo.geometry.Point 
+    /// &#10;center - Array|kendo.geometry.Point 
     /// &#10;The center of the gradient.Coordinates are relative to the shape bounding box.
 /// &#10;For example [0, 0] is top left and [1, 1] is bottom right.
     /// &#10;
-    /// &#10;radius — Number (default: 1)
+    /// &#10;radius - Number (default: 1)
     /// &#10;The radius of the radial gradient relative to the shape bounding box.
     /// &#10;
-    /// &#10;stops — Array 
+    /// &#10;stops - Array 
     /// &#10;The color stops of the gradient.
 /// &#10;Can contain either plain objects or GradientStop instances.
     /// &#10;
@@ -8261,6 +8702,16 @@ kendo.drawing.Rect.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -8361,29 +8812,32 @@ $.fn.kendoRect = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the shape.
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the shape.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
     /// &#10;
@@ -8547,11 +9001,29 @@ kendo.drawing.Surface.prototype = {
     },
 
 
+    hideTooltip: function() {
+        /// <summary>
+        /// Hides the surface tooltip.
+        /// </summary>
+
+    },
+
+
     resize: function(force) {
         /// <summary>
         /// Resizes the surface to match the size of the container.
         /// </summary>
         /// <param name="force" type="Boolean" >Whether to proceed with resizing even if the container dimensions have not changed.</param>
+
+    },
+
+
+    showTooltip: function(element,options) {
+        /// <summary>
+        /// Shows the surface tooltip for the passed shape.
+        /// </summary>
+        /// <param name="element" type="kendo.drawing.Element" >The element for which the tooltip should be shown.</param>
+        /// <param name="options" type="Object" >Options for the tooltip.</param>
 
     },
 
@@ -8586,21 +9058,24 @@ $.fn.kendoSurface = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;type — String 
+    /// &#10;type - String 
     /// &#10;The preferred type of surface to create.
 /// &#10;Supported types (case insensitive):
 /// &#10;- svg
 /// &#10;- canvas
 /// &#10;- vmlThis option will be ignored if not supported by the browser.
-/// &#10;See Supported Browsers
+/// &#10;See Supported Browsers.
     /// &#10;
-    /// &#10;height — String (default: "100%")
+    /// &#10;height - String (default: "100%")
     /// &#10;The height of the surface element.
 /// &#10;By default the surface will expand to fill the height of the first positioned container.
     /// &#10;
-    /// &#10;width — String (default: "100%")
+    /// &#10;width - String (default: "100%")
     /// &#10;The width of the surface element.
 /// &#10;By default the surface will expand to fill the width of the first positioned container.
+    /// &#10;
+    /// &#10;tooltip - Object 
+    /// &#10;Specifies general options for the shapes tooltip.
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -8643,6 +9118,16 @@ kendo.drawing.Text.prototype = {
 /// Inherited from Element.clippedBBox
         /// </summary>
         /// <returns type="kendo.geometry.Rect">The bounding box of the element with clipping transformations applied.</returns>
+
+    },
+
+
+    containsPoint: function(point) {
+        /// <summary>
+        /// Returns true if the shape contains the specified point.
+        /// </summary>
+        /// <param name="point" type="kendo.geometry.Point" >The point that should be checked.</param>
+        /// <returns type="Boolean">value indicating if the shape contains the point.</returns>
 
     },
 
@@ -8753,37 +9238,84 @@ $.fn.kendoText = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;clip — kendo.drawing.Path 
+    /// &#10;clip - kendo.drawing.Path 
     /// &#10;The element clipping path.
 /// &#10;Inherited from Element.clip
     /// &#10;
-    /// &#10;cursor — String 
+    /// &#10;cursor - String 
     /// &#10;The element cursor.
 /// &#10;Inherited from Element.cursor
     /// &#10;
-    /// &#10;fill — kendo.drawing.FillOptions 
+    /// &#10;fill - kendo.drawing.FillOptions 
     /// &#10;The fill options of the text.
     /// &#10;
-    /// &#10;font — String 
+    /// &#10;font - String 
     /// &#10;The font to use for rendering the text.
 /// &#10;Accepts the standard CSS font syntax.Examples of valid font values:
 /// &#10;* Size and family: "2em 'Open Sans', sans-serif"
 /// &#10;* Style, size and family: "italic 2em 'Open Sans', sans-serif"
     /// &#10;
-    /// &#10;opacity — Number 
+    /// &#10;opacity - Number 
     /// &#10;The element opacity.
 /// &#10;Inherited from Element.opacity
     /// &#10;
-    /// &#10;stroke — kendo.drawing.StrokeOptions 
+    /// &#10;stroke - kendo.drawing.StrokeOptions 
     /// &#10;The stroke options of the text.
     /// &#10;
-    /// &#10;transform — kendo.geometry.Transformation 
+    /// &#10;tooltip - kendo.drawing.TooltipOptions 
+    /// &#10;The tooltip options of the shape.
+    /// &#10;
+    /// &#10;transform - kendo.geometry.Transformation 
     /// &#10;The transformation to apply to this element.
 /// &#10;Inherited from Element.transform
     /// &#10;
-    /// &#10;visible — Boolean 
+    /// &#10;visible - Boolean 
     /// &#10;A flag, indicating if the element is visible.
 /// &#10;Inherited from Element.visible
+    /// &#10;
+    /// </summary>
+    /// <param name="options" type="Object">
+    /// The widget configuration options
+    /// </param>
+};
+
+
+kendo.drawing.TooltipOptions = function() { };
+
+kendo.drawing.TooltipOptions.prototype = {
+
+
+
+    bind: function(event, callback) {
+        /// <summary>
+        /// Binds to a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be executed when the event is triggered.</param>
+    },
+
+    unbind: function(event, callback) {
+        /// <summary>
+        /// Unbinds a callback from a widget event.
+        /// </summary>
+        /// <param name="event" type="String">The event name</param>
+        /// <param name="callback" type="Function">The callback to be removed.</param>
+    }
+
+};
+
+$.fn.getKendoTooltipOptions = function() {
+    /// <summary>
+    /// Returns a reference to the kendo.drawing.TooltipOptions widget, instantiated on the selector.
+    /// </summary>
+    /// <returns type="kendo.drawing.TooltipOptions">The kendo.drawing.TooltipOptions instance (if present).</returns>
+};
+
+$.fn.kendoTooltipOptions = function(options) {
+    /// <summary>
+    /// Instantiates a kendo.drawing.TooltipOptions widget based the DOM elements that match the selector.
+
+    /// &#10;Accepts an object with the following configuration options:
     /// &#10;
     /// </summary>
     /// <param name="options" type="Object">
@@ -9875,13 +10407,13 @@ $.fn.kendoWorkbook = function(options) {
 
     /// &#10;Accepts an object with the following configuration options:
     /// &#10;
-    /// &#10;creator — String (default: "Kendo UI")
+    /// &#10;creator - String (default: "Kendo UI")
     /// &#10;The creator of the workbook.
     /// &#10;
-    /// &#10;date — Date 
+    /// &#10;date - Date 
     /// &#10;The date when the workbook is created. The default value is new Date().
     /// &#10;
-    /// &#10;sheets — Array 
+    /// &#10;sheets - Array 
     /// &#10;The sheets of the workbook. Every sheet represents a page from the final Excel file.
     /// &#10;
     /// </summary>
@@ -9890,3 +10422,7 @@ $.fn.kendoWorkbook = function(options) {
     /// </param>
 };
 
+
+if (!kendo.pdf) {
+    kendo.pdf = {};
+}
