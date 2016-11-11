@@ -107,9 +107,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Service\Abstract\IAttendancesService.cs" />
     <Compile Include="Service\Abstract\InotificationService.cs" />
     <Compile Include="Service\Abstract\IVacationService.cs" />
     <Compile Include="Service\Abstract\IVacationTypes.cs" />
+    <Compile Include="Service\AttendancesService.cs" />
     <Compile Include="Service\DependencyAgendaService.cs" />
     <Compile Include="Service\Abstract\IAgendaService.cs" />
     <Compile Include="Service\Abstract\IBorrowService.cs" />

@@ -50,6 +50,7 @@ namespace Domain
         public IDbSet<Vacation> Vacations { get; set; }
         public IDbSet<VacationsType> VacationsType { get; set; }
         public IDbSet<Notifications> Notifications { get; set; }
+        public IDbSet<Attendance> Attendances { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
 

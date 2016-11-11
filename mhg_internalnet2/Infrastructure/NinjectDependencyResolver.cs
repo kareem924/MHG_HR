@@ -61,6 +61,8 @@ namespace mhg_internalnet2.Infrastructure
             kernel.Bind<IRepository<VacationsType>>().To<EfRepository<VacationsType>>();
             kernel.Bind<INotificationService>().To<NotificationService>();
             kernel.Bind<IRepository<Notifications>>().To<EfRepository<Notifications>>();
+            kernel.Bind<IAttendancesService>().To<AttendancesService>();
+            kernel.Bind<IRepository<Attendance>>().To<EfRepository<Attendance>>();
         }
     }
 }
