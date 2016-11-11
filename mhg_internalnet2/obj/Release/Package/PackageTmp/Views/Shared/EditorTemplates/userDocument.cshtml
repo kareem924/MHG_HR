@@ -1,0 +1,21 @@
+﻿@model  mhg_internalnet2.ViewModel.UserDocumentsViewModel
+
+<div class="form-group form-md-line-input has-success">
+    @Html.Hidden("UserId", (object)ViewBag.userId)
+    @Html.ValidationSummary(true)
+    <input type="text" class="form-control" placeholder="File Name" name="FileName">
+    @Html.ValidationMessageFor(model => model.FileName)
+    <div class="form-control-focus">
+    </div>
+</div>
+<div>
+    @(Html.Kendo().Upload()
+         .Name("files")
+         .Multiple(false).HtmlAttributes(new { accept = "image/*" })
+        .Async(a => a.Save("Save", "Documents")
+                      .Remove("Remove", "Documents")
+                      .AutoUpload(true)
+
+
+     ))
+</div>

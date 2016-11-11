@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Agenda.cs" />
+    <Compile Include="Entities\Attendance.cs" />
     <Compile Include="Entities\Borrow.cs" />
     <Compile Include="Entities\BorrowDistribution.cs" />
     <Compile Include="Entities\Branch.cs" />
@@ -95,16 +96,20 @@
     <Compile Include="Entities\DependencyAgenda.cs" />
     <Compile Include="Entities\Employee.cs" />
     <Compile Include="Entities\Job.cs" />
+    <Compile Include="Entities\Notifications.cs" />
     <Compile Include="Entities\OfficalHolidays.cs" />
     <Compile Include="Entities\Tasks.cs" />
     <Compile Include="Entities\UserDocuments.cs" />
     <Compile Include="Entities\Vacation.cs" />
+    <Compile Include="Entities\VacationsType.cs" />
     <Compile Include="MhgHrDataContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EfRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Service\Abstract\InotificationService.cs" />
     <Compile Include="Service\Abstract\IVacationService.cs" />
+    <Compile Include="Service\Abstract\IVacationTypes.cs" />
     <Compile Include="Service\DependencyAgendaService.cs" />
     <Compile Include="Service\Abstract\IAgendaService.cs" />
     <Compile Include="Service\Abstract\IBorrowService.cs" />
@@ -123,6 +128,7 @@
     <Compile Include="Service\BranchService.cs" />
     <Compile Include="Service\BrandService.cs" />
     <Compile Include="Service\JobsService.cs" />
+    <Compile Include="Service\NotificationService.cs" />
     <Compile Include="Service\OfficalHolidayService.cs" />
     <Compile Include="Service\RolesSerivce.cs" />
     <Compile Include="Service\TasksService.cs" />
@@ -130,6 +136,7 @@
     <Compile Include="Service\UserRolesService.cs" />
     <Compile Include="Service\DepartmentsService.cs" />
     <Compile Include="Service\VacationService.cs" />
+    <Compile Include="Service\VacationTypeService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

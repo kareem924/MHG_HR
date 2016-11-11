@@ -5,6 +5,7 @@ using Domain.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Domain
 {
@@ -13,7 +14,7 @@ namespace Domain
         public ApplicationUser()
         {
             userDocuemts = new HashSet<UserDocuments>();
-          
+
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -25,7 +26,7 @@ namespace Domain
         public bool IsActive { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual ICollection<UserDocuments> userDocuemts { get; set; }
-     
+
 
     }
     public class MhgHrDataContext : IdentityDbContext<ApplicationUser>
@@ -47,6 +48,8 @@ namespace Domain
         public IDbSet<UserDocuments> UsersDocument { get; set; }
         public IDbSet<OfficalHolidays> OfficalHolidays { get; set; }
         public IDbSet<Vacation> Vacations { get; set; }
+        public IDbSet<VacationsType> VacationsType { get; set; }
+        public IDbSet<Notifications> Notifications { get; set; }
         protected override void OnModelCreating(DbModelBuilder builder)
         {
 
@@ -68,7 +71,7 @@ namespace Domain
                 .HasRequired<Borrow>(s => s.Borrow)
                 .WithMany(s => s.BorrowDistributions)
                 .HasForeignKey(s => s.BorrowId);
-           
+            builder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             base.OnModelCreating(builder);
         }
         public static MhgHrDataContext Create()

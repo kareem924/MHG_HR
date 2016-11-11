@@ -45,9 +45,25 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Excel, Version=2.1.2.3, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
+      <HintPath>..\packages\ExcelDataReader.2.1.2.3\lib\net45\Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Kendo.Mvc, Version=2016.2.714.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\KENDOUIMVC\2016.2.714.545\Kendo.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -205,18 +221,22 @@
     <Compile Include="Controllers\EmployeeDirectoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\OfficalVacationController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VacationsController.cs" />
+    <Compile Include="Filter\NotificationFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="NotificationHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushNotification\NotificationComponent.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AgendaViewModel.cs" />
     <Compile Include="ViewModel\BorrowDistributionViewModel.cs" />
@@ -412,7 +432,6 @@
     <None Include="Properties\PublishProfiles\MHG_HR.pubxml" />
     <Content Include="Img\UserDocuments\1 GRUNGE DERBY.jpg" />
     <Content Include="Img\UserDocuments\3.png" />
-    <Content Include="Img\UserDocuments\favicon.jpg" />
     <Content Include="Scripts\additional-methods.min.js" />
     <Content Include="Scripts\bootstrap-colorpicker.js" />
     <Content Include="Scripts\bootstrap-hover-dropdown.min.js" />
@@ -443,6 +462,8 @@
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootstrap.wizard.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.1.min.js" />
     <Content Include="Scripts\jquery.slimscroll.min.js" />
     <Content Include="Scripts\jquery.uniform.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -597,12 +618,14 @@
     <Content Include="Views\Borrow\_LoanDetails.cshtml" />
     <Content Include="Views\Vacations\Index.cshtml" />
     <Content Include="Views\Vacations\_Create.cshtml" />
+    <Content Include="Views\Shared\_Notification.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UserDocuments\" />
     <Folder Include="Content\ProfileImages\" />
     <Folder Include="Img\flags\" />
     <Folder Include="Img\social\" />
+    <Folder Include="Views\Notifications\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

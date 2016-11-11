@@ -39,7 +39,7 @@
                             <th>
                                 Username
                             </th>
-                          
+
                             <th>
                                 Roles
                             </th>
@@ -63,32 +63,46 @@
                                 <td>
                                     @user.UserName
                                 </td>
-                              
+
                                 <td>
                                     @foreach (var role in user.Roles)
-                                        {
+                                    {
                                         <span>@role.RoleName</span> <span>/</span>
-                                        }
+                                    }
                                 </td>
                                 <td>
                                     @if (user.Active == true)
-                                        {
+                                    {
                                         <span class="label label-sm label-success">
                                             Active
                                         </span>
-                                        }
-                                        else
-                                        {
+                                    }
+                                    else
+                                    {
                                         <span class="label label-sm label-danger">
                                             Inactive
                                         </span>
-                                        }
+                                    }
                                 </td>
                                 <td>
                                     @Html.ActionLink("Edit", "EditUser", "Users", new { userid = user.UserId }, new { @class = "btn btn-xs btn-primary" }) |
                                     @Html.ActionLink("Change Role", "Edit", new { userid = user.UserId }, new { @class = "btn btn-xs btn-info" }) |
-                                    @Html.ActionLink("Change Status", "EditUser", "Account", new { Id = user.UserId }, new { @class = "btn btn-xs btn-default" }) |
-                                    @Html.ActionLink("Manage Documents", "Index", "Document", new { Id = user.UserId }, new { @class = "btn btn-xs btn-warning" })
+                                    @using (Html.BeginForm("UpdateActive", "Users", FormMethod.Post, new { style="display:inline" }))
+                                    {
+                                        if (user.Active == true)
+                                        {
+                                            @Html.Hidden("UserId", user.UserId)
+                                            <button class="btn btn-xs btn-danger" type="submit" name="name">Disactivate</button>
+                                        }
+                                        else
+                                        {
+                                            @Html.Hidden("UserId", user.UserId)
+                                            <button class="btn btn-xs btn-success" type="submit" name="name">Activate</button>
+
+                                        }
+                                    }
+                                    |
+                                    @Html.ActionLink("Manage Documents", "Index", "Documents", new { userId = user.UserId }, new { @class = "btn btn-xs btn-warning" })
                                 </td>
                             </tr>
 

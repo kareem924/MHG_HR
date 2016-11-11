@@ -12,15 +12,16 @@ namespace mhg_internalnet2.Controllers
     public class VacationsController : Controller
     {
         private readonly IVacationService _vacationService;
-
-        public VacationsController(IVacationService vacationService)
+        private readonly IVacationTypes _vacationTypesService;
+        public VacationsController(IVacationService vacationService, IVacationTypes vacationTypesService)
         {
             _vacationService = vacationService;
+            _vacationTypesService = vacationTypesService; 
         }
         // GET: Vacations
         public ActionResult Index()
         {
-            var model = _vacationService.GetAllVacationByUserId(1,1).Select(x => new VacationsModel()
+            var model = _vacationService.GetAllVacationByUserId(1, 1).Select(x => new VacationsModel()
             {
                 CreatedAt = x.CreatedAt,
                 IsApproved = x.IsApproved,
@@ -34,7 +35,7 @@ namespace mhg_internalnet2.Controllers
             return PartialView("_Create");
         }
         [HttpPost]
-       
+
         public ActionResult Create(VacationsModel model)
         {
             if (ModelState.IsValid)
@@ -45,10 +46,10 @@ namespace mhg_internalnet2.Controllers
                     CreatedAt = DateTime.Now,
                     CreatedBy = 1,
                     FromDate = model.FromDate,
-                    TypeId =1,
+                    TypeId = 1,
                     ToDate = model.ToDate,
                     Reason = model.Reason,
-                    
+
                 });
                 string url = Url.Action("Index", "Vacations");
 
@@ -56,6 +57,18 @@ namespace mhg_internalnet2.Controllers
             }
 
             return PartialView("_Create");
+        }
+
+        public ActionResult GetVacations()
+        {
+            var vacTypes = _vacationTypesService.GetAllVacationsType();
+            
+            return Json(vacTypes.Select(type => new VacationTypeModel()
+            {
+                VacationName = type.VacationName,
+                Id = type.Id
+
+            }), JsonRequestBehavior.AllowGet);
         }
     }
 }

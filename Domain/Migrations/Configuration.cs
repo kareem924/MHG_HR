@@ -29,7 +29,15 @@ namespace Domain.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            context.VacationsType.AddOrUpdate(p=>p.VacationName,
+                new VacationsType { VacationName = "Sick leave" },
+                new VacationsType { VacationName = "Occasional vacation" },
+                new VacationsType { VacationName = "Unusual vacation" },
+                new VacationsType { VacationName = "Maternity Leave" },
+                new VacationsType { VacationName = "Haj Vacation" }
 
+                );
+            
             context.Brands.AddOrUpdate(
                 p => p.BrandName,
                 new Brand()
@@ -43,7 +51,7 @@ namespace Domain.Migrations
 
                   });
 
-           
+
         }
     }
 }

@@ -20,10 +20,19 @@ namespace mhg_internalnet2.ViewModel
         [Required]
         [DisplayName("Vacation Reason")]
         public string Reason { get; set; }
+        [Required]
+        [DisplayName("Vacation Type")]
+        public int VacationType { get; set; }
         public string DisapprovalReason { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CreatedBy { get; set; }
         public byte TypeId { get; set; }
         public int EmployeeId { get; set; }
+    }
+
+    public class VacationTypeModel
+    {
+        public int Id { get; set; }
+        public string VacationName { get; set; }
     }
 }

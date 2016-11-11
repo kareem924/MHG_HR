@@ -17,9 +17,11 @@ namespace Domain.Entities
         public string DisapprovalReason { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CreatedBy { get; set; }
-        public byte TypeId { get; set; }
+        [ForeignKey("VactionType")]
+        public int TypeId { get; set; }
         [ForeignKey("Emp")]
         public int EmployeeId { get; set; }
         public virtual Employee Emp { get; set; }
+        public virtual VacationsType VactionType { get; set; }
     }
 }

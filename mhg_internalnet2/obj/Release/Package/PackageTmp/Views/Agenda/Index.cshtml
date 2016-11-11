@@ -1,0 +1,56 @@
+﻿@using mhg_internalnet2.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@(Html.Kendo().Gantt<AgendaViewModel, DependencyViewModel>()
+    .Name("gantt")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.AgendaId).Title("ID").Width(50);
+        columns.Bound("title").Editable(true).Sortable(true);
+        columns.Bound("start").Title("Start Time").Format("{0:MM/dd/yyyy}").Width(100).Editable(true).Sortable(true);
+        columns.Bound("end").Title("End Time").Format("{0:MM/dd/yyyy}").Width(100).Editable(true).Sortable(true);
+    })
+    .Views(views =>
+    {
+        views.DayView();
+        views.WeekView(weekView => weekView.Selected(true));
+        views.MonthView();
+    })
+    .Height(700)
+    .HtmlAttributes("width=100%")
+    .ShowWorkHours(false)
+    .ShowWorkDays(false)
+    .Snap(false)
+    .DataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.AgendaId);
+            m.ParentId(f => f.ParentId);
+            m.OrderId(f => f.OrderId);
+            m.Field(f => f.Expanded).DefaultValue(true);
+        })
+        .Read("ReadTasks", "Agenda")
+        .Create("CreateTask", "Agenda")
+        .Destroy("DestroyTask", "Agenda")
+        .Update("UpdateTask", "Agenda")
+    )
+
+   .DependenciesDataSource(d => d
+        .Model(m =>
+        {
+            m.Id(f => f.DependencyId);
+            m.PredecessorId(f => f.PredecessorId);
+            m.SuccessorId(f => f.SuccessorId);
+            m.Type(f => f.Type);
+        })
+        .Read("ReadDependencies", "Agenda")
+        .Create("CreateDependency", "Agenda")
+        .Destroy("DestroyDependency", "Agenda")
+    )
+)
+

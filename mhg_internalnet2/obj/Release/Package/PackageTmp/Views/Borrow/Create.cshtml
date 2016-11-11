@@ -1,0 +1,120 @@
+﻿@model mhg_internalnet2.ViewModel.BorrowViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!-- BEGIN SAMPLE FORM PORTLET-->
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-green-haze">
+                    <i class="icon-note font-green-haze"></i>
+                    <span class="caption-subject bold uppercase">Borrow</span>
+                </div>
+                <div class="actions">
+
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;" data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body form">
+                @using (Html.BeginForm("Create", "Borrow", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+
+
+                    <div class="form-body">
+                        <div class="form-group  form-md-floating-label has-info">
+                            <label class="col-md-2 control-label" for="form_control_1">Employee</label>
+                            <div class="col-md-10">
+
+                                @(Html.Kendo().ComboBoxFor(m => m.UserId)
+                                  .Placeholder("Please select")
+                                  .Name("UserId")
+                                  .DataTextField("FirstName")
+                                  .DataValueField("UserId")
+                                  
+                                 
+                                  .HtmlAttributes(new { @class = "form-control edited",style="width:85%" })
+                                  .Filter("contains")
+                                  .AutoBind(true)
+                                  .DataSource(source =>
+                                    {
+                                          source.Read(read =>
+                                              {
+                                                    read.Action("GetEmployees", "Borrow");
+                                             })
+                                         .ServerFiltering(true);
+                                   })
+                                )
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="form_control_1">Description</label>
+                            <div class="col-md-10">
+
+                                @Html.TextBoxFor(x => x.Describtion, new { @class = "form-control", placeholder = "Enter Description here" })
+                                <div class="form-control-focus">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="form_control_1">ِAmount</label>
+                            <div class="col-md-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon">$</span>
+
+                                    @Html.TextBoxFor(x => x.Amount, new { @class = "form-control", placeholder = "Enter Amount" })
+                                    <div class="form-control-focus">
+                                    </div>
+                                    <span class="input-group-addon">.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="form_control_1">From Date</label>
+                            <div class="col-md-10">
+                                @(Html.Kendo().DatePickerFor(x => x.FromDate)
+                                 .Name("FromDate")
+                                 .Format("MMMM yyyy")
+                                 .Start(CalendarView.Year)
+                                 .Depth(CalendarView.Year)
+                                 .HtmlAttributes(new { @class = "form-control", @for = "form_control_1", })
+                                )
+                                <div class="form-control-focus">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="form_control_1">To Date</label>
+                            <div class="col-md-10">
+                                @(Html.Kendo().DatePickerFor(x => x.ToDate)
+                                  .Name("ToDate")
+                                  .Format("MMMM yyyy")
+                                  .Start(CalendarView.Year)
+                                  .Depth(CalendarView.Year)
+                                  .HtmlAttributes(new { @class = "form-control", @for = "form_control_1", })
+                                )
+                                <div class="form-control-focus">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn default">Cancel</button>
+                                <button type="submit" class="btn blue">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </div>
+</div>

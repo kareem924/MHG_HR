@@ -38,6 +38,7 @@ namespace Domain.Entities
         public virtual ICollection<Employee> RealtedEmployees { get; set; }
         public virtual ICollection<Vacation> Vacations { get; set; }
         public virtual ApplicationUser User { get; set; }
+       
 
     }
 }
