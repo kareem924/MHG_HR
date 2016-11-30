@@ -399,14 +399,7 @@
                 }
 
                 @RenderBody()
-                @(Html.Kendo().Upload()
-        .Name("files")
-        .Async(a => a
-            .Save("Save", "Home")
-            .Remove("Remove", "Home")
-            .AutoUpload(true)
-        )
-                )
+               
             </div>
         </div>
         <!-- END CONTENT -->

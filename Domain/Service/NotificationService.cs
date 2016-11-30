@@ -29,8 +29,13 @@ namespace Domain.Service
                 throw new ArgumentNullException("notifications");
             _notificationRepository.Update(notifications);
         }
-
-       public Notifications GetNotificationById(int notificationId)
+        public void InsertNotification(Notifications notifications)
+        {
+            if (notifications == null)
+                throw new ArgumentNullException("notifications");
+            _notificationRepository.Insert(notifications);
+        }
+        public Notifications GetNotificationById(int notificationId)
        {
             return _notificationRepository.GetById(notificationId);
         }

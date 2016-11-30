@@ -13,10 +13,12 @@ namespace mhg_internalnet2.Controllers
     {
         private readonly IVacationService _vacationService;
         private readonly IVacationTypes _vacationTypesService;
-        public VacationsController(IVacationService vacationService, IVacationTypes vacationTypesService)
+        private readonly INotificationService _notificationService;
+        public VacationsController(IVacationService vacationService, IVacationTypes vacationTypesService, INotificationService notificationService)
         {
             _vacationService = vacationService;
-            _vacationTypesService = vacationTypesService; 
+            _vacationTypesService = vacationTypesService;
+            _notificationService = notificationService;
         }
         // GET: Vacations
         public ActionResult Index()
@@ -50,6 +52,10 @@ namespace mhg_internalnet2.Controllers
                     ToDate = model.ToDate,
                     Reason = model.Reason,
 
+                });
+                _notificationService.InsertNotification(new Notifications()
+                {
+                    
                 });
                 string url = Url.Action("Index", "Vacations");
 

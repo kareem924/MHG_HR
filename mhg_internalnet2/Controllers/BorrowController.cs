@@ -102,7 +102,8 @@ namespace mhg_internalnet2.Controllers
             {
                 FirstName = user.FirstName + " " + user.LastName,
                 UserId = user.EmployeeId.ToString(),
-                Color = user.Color
+                Color = user.Color,
+                FingerPrintNumber=user.FingerPrintNumber
 
             }), JsonRequestBehavior.AllowGet);
         }

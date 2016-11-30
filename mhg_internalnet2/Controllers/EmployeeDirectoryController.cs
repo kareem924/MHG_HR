@@ -57,6 +57,22 @@ namespace mhg_internalnet2.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-      
+
+        public ActionResult EmployeeHierarchy()
+        {
+            return View();
+        }
+        public JsonResult GetEmployeeDirectory()
+        {
+            var emps= _useresRolesServices.GetAllEmployees().OrderBy(a => a.FirstName).Select(item=>new
+            {
+                FirstName=item.FirstName,
+                LastName=item.LastName,
+                ReportsTo = item.ReportsTo ?? 0,
+                Title = "CEO",
+                EmployeeId=item.EmployeeId
+            });
+            return new JsonResult { Data = emps, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }

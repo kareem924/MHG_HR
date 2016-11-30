@@ -113,6 +113,7 @@ namespace mhg_internalnet2.Models
         public string Color { get; set; }
         public int? ReportsTo { get; set; }
         public bool HasChildren { get; set; }
+        public int FingerPrintNumber { get; set; }
     }
     public class EditUserViewModel
     {

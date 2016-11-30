@@ -215,6 +215,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BorrowController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
@@ -239,6 +240,7 @@
     <Compile Include="PushNotification\NotificationComponent.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\AgendaViewModel.cs" />
+    <Compile Include="ViewModel\AttendanceFormViewModel.cs" />
     <Compile Include="ViewModel\BorrowDistributionViewModel.cs" />
     <Compile Include="ViewModel\BorrowViewModel.cs" />
     <Compile Include="ViewModel\BranchModel.cs" />
@@ -619,6 +621,8 @@
     <Content Include="Views\Vacations\Index.cshtml" />
     <Content Include="Views\Vacations\_Create.cshtml" />
     <Content Include="Views\Shared\_Notification.cshtml" />
+    <Content Include="Views\EmployeeDirectory\EmployeeHierarchy.cshtml" />
+    <Content Include="Views\Attendance\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UserDocuments\" />

@@ -324,10 +324,14 @@ C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Antlr3.Runtime.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Domain.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\EntityFramework.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\EntityFramework.SqlServer.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Excel.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\ICSharpCode.SharpZipLib.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Kendo.Mvc.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.Identity.Core.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.Owin.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.Owin.Host.SystemWeb.dll
@@ -356,7 +360,10 @@ C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\System.Web.WebPages.Raz
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\WebActivator.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\WebGrease.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Domain.pdb
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Excel.pdb
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Kendo.Mvc.xml
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Ninject.pdb
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Ninject.xml
@@ -411,10 +418,3 @@ C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\zh-CN\Kendo.Mvc.resourc
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.csprojResolveAssemblyReference.cache
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.dll
 C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\obj\Debug\mhg_internalnet2.pdb
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.Core.dll
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.Core.xml
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Excel.dll
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\ICSharpCode.SharpZipLib.dll
-C:\Users\Kareem\Source\Repos\MHG_HR\mhg_internalnet2\bin\Excel.pdb

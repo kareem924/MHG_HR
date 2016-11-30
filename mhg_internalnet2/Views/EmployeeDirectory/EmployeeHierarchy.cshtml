@@ -1,0 +1,71 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
+<script src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart','orgchart']}]}"></script>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myController', ['$scope', '$http', function ($scope, $http) {
+        //here http get method for get data from database
+        $scope.chartData = [['Name', 'ReportsTo', 'tooltip']];
+        $http.get('/EmployeeDirectory/GetEmployeeDirectory').then(function (response) {
+            var newobject = [['Name', 'ReportsTo', 'tooltip']];
+            angular.forEach(response.data, function (val) {
+                newobject.push(
+                    [
+                        {
+                            v: val.EmployeeId.toString(),
+                            f: '<div class="customBox"><div>' + (val.FirstName + ' ' + val.LastName) + '</div><div class="titleChar">' + val.Title + '</div></div>'
+                        },
+                        (val.ReportsTo.toString() == "0" ? "" : val.ReportsTo.toString()),
+                        (val.FirstName + ' ' + val.LastName)
+                    ]
+                    );
+
+            })
+            $scope.chartData = newobject;
+        })
+    }])
+    app.directive('orgChart', function () {
+        function link($scope, element, attrs) {
+            var chart = new google.visualization.OrgChart(element[0]);
+            $scope.$watch('chartData', function (value, oldvalue) {
+                if (!value) {
+                    return;
+                }
+                var data = google.visualization.arrayToDataTable(value);
+                var options = {
+                    'title': '',
+                    'allowHtml': true
+                }
+                chart.draw(data, options);
+            })
+        }
+        return {
+            link: link
+        };
+    })
+</script>
+<div ng-app="myApp">
+    <div ng-controller="myController">
+        <h2>MHG </h2>
+        <div id="chart" ng-model="chartData" org-chart="chartData" style="text-align: center">
+            Please Wait...
+        </div>
+    </div>
+</div>
+<style>
+    #chart table {
+        border-spacing: 0;
+        border-collapse: separate;
+    }
+
+    #chart tr td {
+        line-height: 15px;
+    }
+
+    .titleChar {
+        color: red;
+    }
+
+    .google-visualization--orgchart-node-medium {
+        font-size: 13px;
+    }
+</style>

@@ -11,6 +11,7 @@ namespace Domain.Service.Abstract
     {
         IEnumerable<Notifications> GetAllNotificationes();
         void UpdateNotification(Notifications notifications);
+        void InsertNotification(Notifications notifications);
         Notifications GetNotificationById(int notificationId);
     }
 }
