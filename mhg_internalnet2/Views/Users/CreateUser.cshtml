@@ -174,6 +174,31 @@
                             </div>
 
                             <div class="form-group form-md-line-input">
+                                <label class="col-md-2 control-label" for="form_control_1">Report To</label>
+                                <div class="col-md-10">
+                                    @(Html.Kendo().ComboBoxFor(m => m.ReportsTo)
+                                  .Placeholder("Please select")
+                                  .Name("ReportsTo")
+                                  .DataTextField("FirstName")
+                                  .DataValueField("UserId")
+                                  .HtmlAttributes(new { @class = "form-control" })
+                                  .Filter("contains")
+                                  .AutoBind(true)
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetEmployees", "Borrow");
+                                      })
+                                     .ServerFiltering(true);
+                                  })
+                                    )
+                                    <div class="form-control-focus">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input">
                                 <label class="col-md-2 control-label" for="form_control_1">Department</label>
                                 <div class="col-md-10">
                                     @Html.DropDownListFor(m=>m.DepartmentId,(SelectList)ViewBag.Departments, "Choose Department", new { @class = "form-control", @onchange = "FillJoobs()" })

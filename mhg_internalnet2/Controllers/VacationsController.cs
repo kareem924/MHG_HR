@@ -55,7 +55,7 @@ namespace mhg_internalnet2.Controllers
                 });
                 _notificationService.InsertNotification(new Notifications()
                 {
-                    
+                    Details = "Employee Asked For Vacation"
                 });
                 string url = Url.Action("Index", "Vacations");
 

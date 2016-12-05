@@ -129,7 +129,9 @@ namespace mhg_internalnet2.Controllers
                         IsMale = model.IsMale,
                         BranchId = model.StoreId,
                         BankAccount = model.BankAccount,
-                        FingerPrintNumber = model.FingerPrintNumber
+                        FingerPrintNumber = model.FingerPrintNumber,
+                        ReportsTo =model.ReportsTo
+                        
 
                     }
                 };

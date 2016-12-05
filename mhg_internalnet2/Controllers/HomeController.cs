@@ -112,6 +112,42 @@ namespace mhg_internalnet2.Controllers
             // Return an empty string to signify success
             return Content("");
         }
+        public ActionResult OnlinePrecence()
+        {
+            return View();
+        }
+        public ActionResult CR7()
+        {
+            return View();
+        }
+        public FileResult DownloadPdf(int id)
+        {
+            if (id == 0)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("Brand Presentation" + ".pdf")), "application/pdf");
+            }
+            if (id == 1)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("mhg Hand book" + ".pdf")), "application/pdf");
+            }
+            if (id == 2)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("m" + ".pdf")), "application/pdf");
+            }
+            if (id == 3)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("c" + ".pdf")), "application/pdf");
+            }
+            if (id == 4)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("v" + ".pdf")), "application/pdf");
+            }
+            if (id == 5)
+            {
+                return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("SHOP IN SHOP" + ".pdf")), "application/pdf");
+            }
+            return File(Path.Combine(Server.MapPath("~/Content/PDF"), Path.GetFileName("mhg Hand book" + ".pdf")), "application/pdf");
+        }
 
     }
 }

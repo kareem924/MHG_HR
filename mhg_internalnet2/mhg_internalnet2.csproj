@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mhg_internalnet2</RootNamespace>
     <AssemblyName>mhg_internalnet2</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -99,9 +99,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -261,6 +261,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BrandsStyle.css" />
     <Content Include="Content\colorpicker.css" />
     <Content Include="Content\components-md.css" />
     <Content Include="Content\components-rounded.css" />
@@ -269,6 +270,63 @@
     <Content Include="Content\dataTables.bootstrap.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\grey.css" />
+    <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\1.png" />
+    <Content Include="Content\images\2.jpg" />
+    <Content Include="Content\images\3.jpg" />
+    <Content Include="Content\images\4.jpg" />
+    <Content Include="Content\images\5.jpg" />
+    <Content Include="Content\images\american-express.png" />
+    <Content Include="Content\images\back_disabled.png" />
+    <Content Include="Content\images\back_enabled.png" />
+    <Content Include="Content\images\back_enabled_hover.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\images\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\images\data.png" />
+    <Content Include="Content\images\favicon.ico" />
+    <Content Include="Content\images\forward_disabled.png" />
+    <Content Include="Content\images\forward_enabled.png" />
+    <Content Include="Content\images\forward_enabled_hover.png" />
+    <Content Include="Content\images\hero_slide_1.jpg" />
+    <Content Include="Content\images\hero_slide_2.jpg" />
+    <Content Include="Content\images\hero_slide_3.jpg" />
+    <Content Include="Content\images\icons.png" />
+    <Content Include="Content\images\img.jpg" />
+    <Content Include="Content\images\Imprensa CR7 A4 metade horizontal 1.jpg" />
+    <Content Include="Content\images\Imprensa CR7 A4 metade horizontal.jpg" />
+    <Content Include="Content\images\mastercard.png" />
+    <Content Include="Content\images\mhg karem.png" />
+    <Content Include="Content\images\mhg karem1.png" />
+    <Content Include="Content\images\mhg karemLogo.png" />
+    <Content Include="Content\images\parallax-bg.jpg" />
+    <Content Include="Content\images\pattern.png" />
+    <Content Include="Content\images\paypal2.png" />
+    <Content Include="Content\images\picture-2.jpg" />
+    <Content Include="Content\images\picture.jpg" />
+    <Content Include="Content\images\picture2.jpg" />
+    <Content Include="Content\images\POS CR7 A3 horizontal.jpg" />
+    <Content Include="Content\images\POS CR7 A4 horizontal.jpg" />
+    <Content Include="Content\images\prod1.jpg" />
+    <Content Include="Content\images\prod2.jpg" />
+    <Content Include="Content\images\prod3.jpg" />
+    <Content Include="Content\images\prod4.jpg" />
+    <Content Include="Content\images\prod5.jpg" />
+    <Content Include="Content\images\promo_image3.jpg" />
+    <Content Include="Content\images\promo_image5.jpg" />
+    <Content Include="Content\images\sort_asc.png" />
+    <Content Include="Content\images\sort_asc_disabled.png" />
+    <Content Include="Content\images\sort_both.png" />
+    <Content Include="Content\images\sort_desc.png" />
+    <Content Include="Content\images\sort_desc_disabled.png" />
+    <Content Include="Content\images\sprite-skin-flat.png" />
+    <Content Include="Content\images\sprite-skin-modern.png" />
+    <Content Include="Content\images\sprite-skin-nice.png" />
+    <Content Include="Content\images\sprite-skin-simple.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\visa.png" />
     <Content Include="Content\jasny-bootstrap.css" />
     <Content Include="Content\jasny-bootstrap.min.css" />
     <Content Include="Content\kendo\2016.2.714\Bootstrap\editor.png" />
@@ -431,6 +489,13 @@
     <Content Include="Content\kendo\2016.2.714\kendo.dataviz.bootstrap.min.css.map" />
     <Content Include="Content\kendo\2016.2.714\kendo.dataviz.min.css.map" />
     <Content Include="Content\kendo\2016.2.714\kendo.common.min.css.map" />
+    <Content Include="Content\PDF\Brand Presentation.pdf" />
+    <Content Include="Content\PDF\c.pdf" />
+    <Content Include="Content\PDF\m.pdf" />
+    <Content Include="Content\PDF\mhg Hand book.pdf" />
+    <Content Include="Content\PDF\SHOP IN SHOP.pdf" />
+    <Content Include="Content\PDF\v.pdf" />
+    <Content Include="Content\images\Sorting icons.psd" />
     <None Include="Properties\PublishProfiles\MHG_HR.pubxml" />
     <Content Include="Img\UserDocuments\1 GRUNGE DERBY.jpg" />
     <Content Include="Img\UserDocuments\3.png" />
@@ -623,6 +688,8 @@
     <Content Include="Views\Shared\_Notification.cshtml" />
     <Content Include="Views\EmployeeDirectory\EmployeeHierarchy.cshtml" />
     <Content Include="Views\Attendance\Index.cshtml" />
+    <Content Include="Views\Home\OnlinePrecence.cshtml" />
+    <Content Include="Views\Home\CR7.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\UserDocuments\" />

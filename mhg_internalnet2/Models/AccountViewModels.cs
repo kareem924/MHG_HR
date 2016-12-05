@@ -89,6 +89,7 @@ namespace mhg_internalnet2.Models
         public string ShortDescription { get; set; }
         public string Color { get; set; }
         public string BankAccount { get; set; }
+        public int? ReportsTo { get; set; }
         public string ProfilePicPath { get; set; }
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.")]

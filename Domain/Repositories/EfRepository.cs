@@ -52,7 +52,7 @@ namespace Domain.Repositories
             try
             {
                 if (entity == null)
-                    throw new ArgumentNullException(nameof(entity));
+                    throw new ArgumentNullException("entity");
 
                 Entities.Add(entity);
 
@@ -60,7 +60,7 @@ namespace Domain.Repositories
             }
             catch (DbEntityValidationException dbEx)
             {
-                var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + ($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine));
+                var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => string.Format("{0}{1}", current, ("Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine)));
 
                 var fail = new Exception(msg, dbEx);
                 throw fail;
@@ -112,7 +112,7 @@ namespace Domain.Repositories
             catch (DbEntityValidationException dbEx)
             {
                 var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + (Environment.NewLine +
-                                                                                                                                                                                         $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
+                                                                                                                                                                                         "Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
 
                 var fail = new Exception(msg, dbEx);
                 throw fail;
@@ -134,7 +134,7 @@ namespace Domain.Repositories
             }
             catch (DbEntityValidationException dbEx)
             {
-                var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + ($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine));
+                var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + ("Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}" + Environment.NewLine));
 
                 var fail = new Exception(msg, dbEx);
                 throw fail;
@@ -161,7 +161,7 @@ namespace Domain.Repositories
             catch (DbEntityValidationException dbEx)
             {
                 var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + (Environment.NewLine +
-                                                                                                                                                                                         $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
+                                                                                                                                                                                         "Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
 
                 var fail = new Exception(msg, dbEx);
                 throw fail;
@@ -187,7 +187,7 @@ namespace Domain.Repositories
             catch (DbEntityValidationException dbEx)
             {
                 var msg = dbEx.EntityValidationErrors.SelectMany(validationErrors => validationErrors.ValidationErrors).Aggregate(string.Empty, (current, validationError) => current + (Environment.NewLine +
-                                                                                                                                                                                         $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
+                                                                                                                                                                                         "Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
 
                 var fail = new Exception(msg, dbEx);
                 throw fail;
