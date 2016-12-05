@@ -21,19 +21,19 @@ namespace mhg_internalnet2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            SqlDependency.Start(_con);
+            //SqlDependency.Start(_con);
         }
         protected void Session_Start(object sender, EventArgs e)
         {
-            NotificationComponent NC = new NotificationComponent();
-            var currentTime = DateTime.Now;
-            HttpContext.Current.Session["LastUpdated"] = currentTime;
-            NC.RegisterNotification(currentTime);
+            //NotificationComponent NC = new NotificationComponent();
+            //var currentTime = DateTime.Now;
+            //HttpContext.Current.Session["LastUpdated"] = currentTime;
+            //NC.RegisterNotification(currentTime);
         }
         protected void Application_End()
         {
             //here we will stop Sql Dependency
-            SqlDependency.Stop(_con);
+            //SqlDependency.Stop(_con);
         }
     }
 }

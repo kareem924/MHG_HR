@@ -86,6 +86,10 @@ namespace mhg_internalnet2.Models
         public int FingerPrintNumber { get; set; }
         public DateTime? HireDate { get; set; }
         public int? StoreId { get; set; }
+         [DataType(DataType.Time)]
+        public DateTime? CheckIn { get; set; }
+         [DataType(DataType.Time)]
+        public DateTime? CheckOut { get; set; }
         public string ShortDescription { get; set; }
         public string Color { get; set; }
         public string BankAccount { get; set; }

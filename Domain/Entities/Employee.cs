@@ -27,6 +27,8 @@ namespace Domain.Entities
         public int? JobId { get; set; }
         public int FingerPrintNumber { get; set; }
         public DateTime? BirthDate { get; set; }
+        public DateTime? CheckIn { get; set; }
+        public DateTime? CheckOut { get; set; }
         public DateTime? HireDate { get; set; }
         public bool? IsMale { get; set; }
         public int? BranchId { get; set; }

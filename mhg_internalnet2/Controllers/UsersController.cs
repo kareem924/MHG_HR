@@ -130,7 +130,9 @@ namespace mhg_internalnet2.Controllers
                         BranchId = model.StoreId,
                         BankAccount = model.BankAccount,
                         FingerPrintNumber = model.FingerPrintNumber,
-                        ReportsTo =model.ReportsTo
+                        ReportsTo =model.ReportsTo,
+                        CheckIn = model.CheckIn,
+                        CheckOut = model.CheckOut
                         
 
                     }
@@ -139,7 +141,8 @@ namespace mhg_internalnet2.Controllers
                 {
                     var file = Request.Files[0];
                     model.ProfilePicPath = Guid.NewGuid().ToString();
-                    file?.SaveAs(Path.Combine(Server.MapPath("~/Content/ProfileImages"), model.ProfilePicPath + ".jpg"));
+                    if (file != null)
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Content/ProfileImages"), model.ProfilePicPath + ".jpg"));
                 }
                 _useresRolesServices.InsertUser(user);
                 ViewBag.SucessMessage = model.FirstName + " " + "Has been Add successfuly";
@@ -214,7 +217,8 @@ namespace mhg_internalnet2.Controllers
                 {
                     var file = Request.Files[0];
                     userToupdate.Employee.ProfilePicPath = Guid.NewGuid().ToString();
-                    file?.SaveAs(Path.Combine(Server.MapPath("~/Content/ProfileImages"), model.ProfilePicPath + ".jpg"));
+                    if (file != null)
+                        file.SaveAs(Path.Combine(Server.MapPath("~/Content/ProfileImages"), model.ProfilePicPath + ".jpg"));
                 }
                 _useresRolesServices.UpdateUser(userToupdate);
                 ViewBag.SucessMessage = model.FirstName + " " + "Has been Add successfuly";
@@ -251,7 +255,7 @@ namespace mhg_internalnet2.Controllers
             }
             else
             {
-                string message = $"User is already existed in {roleName} Role";
+                string message = "User is already existed in {roleName} Role";
                 result = new IdentityResult(message);
             }
             return result;
