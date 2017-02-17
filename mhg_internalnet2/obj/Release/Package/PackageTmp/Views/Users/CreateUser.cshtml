@@ -117,7 +117,7 @@
                                 <div class="col-md-10">
                                     <div class="md-radio-inline">
                                         <div class="md-radio has-warning">
-                                            <input type="radio" id="radio53" name="IsMale" class="md-radiobtn" value="true"  checked="checked">
+                                            <input type="radio" id="radio53" name="IsMale" class="md-radiobtn" value="true" checked="checked">
                                             <label for="radio53">
                                                 <span class="inc"></span>
                                                 <span class="check"></span>
@@ -174,9 +174,34 @@
                             </div>
 
                             <div class="form-group form-md-line-input">
+                                <label class="col-md-2 control-label" for="form_control_1">Report To</label>
+                                <div class="col-md-10">
+                                    @(Html.Kendo().ComboBoxFor(m => m.ReportsTo)
+                                  .Placeholder("Please select")
+                                  .Name("ReportsTo")
+                                  .DataTextField("FirstName")
+                                  .DataValueField("UserId")
+                                  .HtmlAttributes(new { @class = "form-control" })
+                                  .Filter("contains")
+                                  .AutoBind(true)
+                                  .DataSource(source =>
+                                  {
+                                      source.Read(read =>
+                                      {
+                                          read.Action("GetEmployees", "Borrow");
+                                      })
+                                     .ServerFiltering(true);
+                                  })
+                                    )
+                                    <div class="form-control-focus">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="form-group form-md-line-input">
                                 <label class="col-md-2 control-label" for="form_control_1">Department</label>
                                 <div class="col-md-10">
-                                    @Html.DropDownListFor(m=>m.DepartmentId,(SelectList)ViewBag.Departments, "Choose Department", new { @class = "form-control", @onchange = "FillJoobs()" })
+                                    @Html.DropDownListFor(m => m.DepartmentId, (SelectList)ViewBag.Departments, "Choose Department", new { @class = "form-control", @onchange = "FillJoobs()" })
                                     <div class="form-control-focus">
                                     </div>
                                 </div>
@@ -228,7 +253,30 @@
 
                                 </div>
                             </div>
+                        <div class="form-group form-md-line-input">
+                            <label class="col-md-2 control-label" for="form_control_1">Check In</label>
+                            <div class="col-md-10">
+                                @(Html.Kendo().TimePickerFor(x => x.CheckIn)
+                                      .Name("CheckIn")
+                                      .HtmlAttributes(new {@class = "form-control", @for = "form_control_1",})
+                                      )
+                                <div class="form-control-focus">
+                                </div>
 
+                            </div>
+                        </div>
+                            <div class="form-group form-md-line-input">
+                                <label class="col-md-2 control-label" for="form_control_1">Check Out</label>
+                                <div class="col-md-10">
+                                    @(Html.Kendo().TimePickerFor(x => x.CheckOut)
+                                           .Name("CheckOut")
+                                           .HtmlAttributes(new { @class = "form-control", @for = "form_control_1", })
+                                    )
+                                    <div class="form-control-focus">
+                                    </div>
+
+                                </div>
+                            </div>
                             <div class="form-group form-md-line-input">
                                 <h2 class="StepTitle">Choose your picture</h2>
                                 <div class="fileinput fileinput-new" data-provides="fileinput" style="margin-left: 360px">
@@ -276,11 +324,11 @@
             type: "GET",
             dataType: "JSON",
             data: { id: Id },
-            success: function(jobs) {
+            success: function (jobs) {
                 $("#JobId").html("");
                 $("#Brand").html("");
                 // clear before appending new list
-                $.each(jobs, function(i, JobId) {
+                $.each(jobs, function (i, JobId) {
                     $("#JobId").append(
                         $('<option></option>').val(JobId.Id).html(JobId.Name));
                 });

@@ -108,9 +108,9 @@ namespace mhg_internalnet2.Controllers
             }), JsonRequestBehavior.AllowGet);
         }
 
-        public string GetEmployeesName(string userId)
+        public string GetEmployeesName(int userId)
         {
-            var emps = _useresRolesServices.GetAllEmployees().FirstOrDefault(x => x.EmployeeId == int.Parse(userId));
+            var emps = _useresRolesServices.GetAllEmployees().FirstOrDefault(x => x.EmployeeId == userId);
             if (emps != null) return emps.FirstName + " " + emps.LastName;
             return String.Empty;
         }

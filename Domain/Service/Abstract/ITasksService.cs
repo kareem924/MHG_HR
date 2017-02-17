@@ -10,6 +10,6 @@ namespace Domain.Service.Abstract
         void Inserttask(Tasks task);
         void Updatetask(Tasks task);
         IEnumerable<Tasks> GetAlltasks();
-        IEnumerable<Tasks> GetAlltaskByUserId(string userId);
+        IEnumerable<Tasks> GetAlltaskByUserId(int userId);
     }
 }

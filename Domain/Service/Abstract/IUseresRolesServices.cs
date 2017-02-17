@@ -8,12 +8,12 @@ namespace Domain.Service.Abstract
 {
     public interface IUseresRolesServices
     {
-        IEnumerable<ApplicationUser> GetAllUsers();
+        IEnumerable<Users> GetAllUsers();
         IEnumerable<Employee> GetAllEmployees();
-        void InsertUser(ApplicationUser user);
-        void UpdateUser(ApplicationUser user);
-        void DeleteUser(ApplicationUser user);
-        ApplicationUser GetUser(string userId);
+        void InsertUser(Users user);
+        void UpdateUser(Users user);
+        void DeleteUser(Users user);
+        Users GetUser(string userId);
 
 
     }

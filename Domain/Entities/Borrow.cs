@@ -22,7 +22,7 @@ namespace Domain.Entities
         public DateTime BorrowDate { get; set; }
         public int PaymentNumber { get; set; }
         public decimal MonthlyInstallment { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
 

@@ -18,9 +18,9 @@ namespace Domain.Service
         {
             _userDocuementsRepository.Delete(userDocument);
         }
-        public IEnumerable<UserDocuments> GetAllUserDocumentByUserId(string UserId)
+        public IEnumerable<UserDocuments> GetAllUserDocumentByUserId(int userId)
         {
-            return _userDocuementsRepository.Table.Where(x => x.UserId == UserId);
+            return _userDocuementsRepository.Table.Where(x => x.UserId == userId);
         }
         public IEnumerable<UserDocuments> GetAllUserDocuments()
         {

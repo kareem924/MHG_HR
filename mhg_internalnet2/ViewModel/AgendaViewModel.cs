@@ -21,7 +21,7 @@ namespace mhg_internalnet2.ViewModel
         public bool Expanded { get; set; }
         public int OrderId { get; set; }
         public decimal PercentComplete { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedAt { get; set; }
     }

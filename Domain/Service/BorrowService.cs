@@ -21,7 +21,7 @@ namespace Domain.Service
         }
         public IEnumerable<Borrow> GetAllBorrowByUserId(int userId)
         {
-            return _borrowRepository.Table.Where(x => x.UserId == userId.ToString());
+            return _borrowRepository.Table.Where(x => x.UserId == userId);
         }
 
         public IEnumerable<Borrow> GetAllBorrows()

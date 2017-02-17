@@ -37,27 +37,14 @@ namespace mhg_internalnet2.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var roles = _rolesServices.GetAllRoles();
-            var allUsers = _useresRolesServices.GetAllUsers().Select(user => new UserRoleViewModel
-            {
-                Active = user.IsActive,
-                UserId = user.Id,
-                UserName = user.Employee.FirstName,
-                Roles = roles.Where(x => x.Users.Any(y => y.UserId == user.Id)).Select(role => new RoleViewModel
-                {
-                    RoleID = role.Id,
-                    RoleName = role.Name
-                }).ToList()
-
-            }).OrderBy(y => y.UserName);
-
-            return View(allUsers);
+           
+            return View();
         }
 
-        public ActionResult Edit(string userid)
+        public ActionResult Edit(int userid)
         {
             var roles = _rolesServices.GetAllRoles();
-            var selectedUser = _useresRolesServices.GetAllUsers().Where(user => user.Id == userid).Select(user => new UserRoleViewModel
+            var selectedUser = _useresRolesServices.GetAllUsers().Where(user => user.UserId == userid).Select(user => new UserRoleViewModel
             {
                 UserName = user.Employee.FirstName,
                 Roles = roles.Where(x => x.Users.Any(y => y.UserId == user.Id)).Select(role => new RoleViewModel
@@ -107,7 +94,7 @@ namespace mhg_internalnet2.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser()
+                var user = new Users()
                 {
                     UserName = model.Email,
                     Email = model.Email,

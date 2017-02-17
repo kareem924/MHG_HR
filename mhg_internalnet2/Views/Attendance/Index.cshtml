@@ -43,8 +43,8 @@
         <div class="form-group">
             <label for="exampleInputPassword2">Employee</label>
 
-            @(Html.Kendo().ComboBoxFor(m => m.FingerPrintNumber)
-                                  .Placeholder("Please select")
+            @(Html.Kendo().DropDownListFor(m => m.FingerPrintNumber)
+                                  .OptionLabel("Please select")
                                   .Name("FingerPrintNumber")
                                   .DataTextField("FirstName")
                                   .DataValueField("FingerPrintNumber")

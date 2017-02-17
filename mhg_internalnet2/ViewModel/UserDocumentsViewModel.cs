@@ -12,6 +12,6 @@ namespace mhg_internalnet2.ViewModel
         public string FileName { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public string UserId { get; set; }
+        public int UserId { get; set; }
     }
 }

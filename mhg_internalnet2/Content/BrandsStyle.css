@@ -1,0 +1,20 @@
+﻿.carousel {
+        margin-left: -20px;
+    margin-right: -20px;
+    top: -10px;
+
+}
+
+  .carousel-control{top:5px}
+@media (max-width: 991px) {
+ 
+  .carousel-control{top:118px}
+}
+
+.btn-danger{
+    background: #D71921;
+    border-color: #D71921;
+}
+.btn-group, .btn-group-vertical{
+    vertical-align: baseline;
+}

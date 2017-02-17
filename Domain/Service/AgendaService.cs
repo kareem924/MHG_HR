@@ -45,7 +45,7 @@ namespace Domain.Service
             return _agendaRepository.Table;
         }
 
-        public IEnumerable<Agenda> GetAllAgendaByUserId(string userId)
+        public IEnumerable<Agenda> GetAllAgendaByUserId(int userId)
         {
             return _agendaRepository.Table.Where(x => x.UserId == userId);
         }

@@ -133,3 +133,57 @@ F:\MHG_HR-master\MHG_HR\Domain\bin\Debug\System.Web.Razor.xml
 F:\MHG_HR-master\MHG_HR\Domain\bin\Debug\System.Web.WebPages.xml
 F:\MHG_HR-master\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Deployment.xml
 F:\MHG_HR-master\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Razor.xml
+H:\MHG_HR\Domain\bin\Debug\Domain.dll.config
+H:\MHG_HR\Domain\bin\Debug\Domain.dll
+H:\MHG_HR\Domain\bin\Debug\Domain.pdb
+H:\MHG_HR\Domain\bin\Debug\EntityFramework.dll
+H:\MHG_HR\Domain\bin\Debug\EntityFramework.SqlServer.dll
+H:\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+H:\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+H:\MHG_HR\Domain\bin\Debug\Microsoft.Web.Infrastructure.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.Helpers.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.Mvc.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.Razor.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Deployment.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.dll
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Razor.dll
+H:\MHG_HR\Domain\bin\Debug\EntityFramework.xml
+H:\MHG_HR\Domain\bin\Debug\EntityFramework.SqlServer.xml
+H:\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+H:\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.Helpers.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.Mvc.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.Razor.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Deployment.xml
+H:\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Razor.xml
+H:\MHG_HR\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+H:\MHG_HR\Domain\obj\Debug\Domain.dll
+H:\MHG_HR\Domain\obj\Debug\Domain.pdb
+G:\Github Source\MHG_HR\Domain\bin\Debug\Domain.dll.config
+G:\Github Source\MHG_HR\Domain\bin\Debug\Domain.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\Domain.pdb
+G:\Github Source\MHG_HR\Domain\bin\Debug\EntityFramework.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\EntityFramework.SqlServer.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\Microsoft.Web.Infrastructure.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Helpers.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Mvc.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Razor.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Deployment.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Razor.dll
+G:\Github Source\MHG_HR\Domain\bin\Debug\EntityFramework.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\EntityFramework.SqlServer.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Helpers.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Mvc.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.Razor.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Deployment.xml
+G:\Github Source\MHG_HR\Domain\bin\Debug\System.Web.WebPages.Razor.xml
+G:\Github Source\MHG_HR\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache
+G:\Github Source\MHG_HR\Domain\obj\Debug\Domain.dll
+G:\Github Source\MHG_HR\Domain\obj\Debug\Domain.pdb

@@ -62,12 +62,7 @@ namespace mhg_internalnet2.Controllers
                         }
 
                         var lastOrDefault = attendanceDay.LastOrDefault();
-                        if (lastOrDefault != null)
-                        { attendanceModel.CheckOut = lastOrDefault.CheckedInAt.ToString(); }
-                        else
-                        {
-                            attendanceModel.CheckOut = "Absence";
-                        }
+                        attendanceModel.CheckOut = lastOrDefault != null ? lastOrDefault.CheckedInAt.ToString() : "Absence";
                         if (lastOrDefault!=null && firstOrDefault!=null)
                         {
                             attendanceModel.WorkingHours = (lastOrDefault.CheckedInAt.TimeOfDay.Subtract(firstOrDefault.CheckedInAt.TimeOfDay)).ToString();

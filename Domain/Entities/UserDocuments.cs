@@ -18,8 +18,8 @@ namespace Domain.Entities
         public string FileName { get; set; }
         public DateTime CreatedAt { get; set; }
         public string CreatedBy { get; set; }
-        public string UserId { get; set; }
-        public virtual ApplicationUser user { get; set; }
+        public int UserId { get; set; }
+        public virtual Users user { get; set; }
 
     }
 }

@@ -10,6 +10,6 @@ namespace Domain.Service.Abstract
         void InsertAgenda(Agenda agenda);
         void UpdateAgenda(Agenda agenda);
         IEnumerable<Agenda> GetAllAgendas();
-        IEnumerable<Agenda> GetAllAgendaByUserId(string userId);
+        IEnumerable<Agenda> GetAllAgendaByUserId(int userId);
     }
 }

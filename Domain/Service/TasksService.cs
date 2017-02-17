@@ -44,7 +44,7 @@ namespace Domain.Service
             return _tasksRepository.Table;
         }
 
-        public IEnumerable<Tasks> GetAlltaskByUserId(string userId)
+        public IEnumerable<Tasks> GetAlltaskByUserId(int userId)
         {
             return _tasksRepository.Table.Where(x => x.UserId == userId);
         }

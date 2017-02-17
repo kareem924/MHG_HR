@@ -27,7 +27,7 @@ namespace mhg_internalnet2.Controllers
             Session["UserId"] = userId;
             return View();
         }
-        public ActionResult Read([DataSourceRequest] DataSourceRequest request, string userId)
+        public ActionResult Read([DataSourceRequest] DataSourceRequest request, int userId)
         {
             var model = new List<UserDocumentsViewModel>();
             foreach (var item in _UserDocumentsService.GetAllUserDocumentByUserId(userId))
@@ -56,7 +56,7 @@ namespace mhg_internalnet2.Controllers
                     CreatedAt = DateTime.Now,
                     CreatedBy = User.Identity.GetUserId(),
                     FileName = userDocumentModel.FileName,
-                    UserId = Session["UserId"].ToString(),
+                    UserId = (int)Session["UserId"],
                     DocumentName= Session["filename"].ToString(),
                 };
                 _UserDocumentsService.InsertUserDocument(userDocument);

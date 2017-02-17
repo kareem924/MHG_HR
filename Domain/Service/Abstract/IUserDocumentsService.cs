@@ -14,6 +14,6 @@ namespace Domain.Service.Abstract
         void InsertUserDocument(UserDocuments userDocument);
         void UpdateUserDocument(UserDocuments userDocument);
         IEnumerable<UserDocuments> GetAllUserDocuments();
-        IEnumerable<UserDocuments> GetAllUserDocumentByUserId(string UserId);
+        IEnumerable<UserDocuments> GetAllUserDocumentByUserId(int userId);
     }
 }

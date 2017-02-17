@@ -120,6 +120,10 @@ namespace mhg_internalnet2.Controllers
         {
             return View();
         }
+        public ActionResult Policy()
+        {
+            return View();
+        }
         public FileResult DownloadPdf(int id)
         {
             if (id == 0)

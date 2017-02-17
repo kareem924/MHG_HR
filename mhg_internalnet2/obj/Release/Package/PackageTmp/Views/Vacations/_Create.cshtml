@@ -16,7 +16,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.Kendo().DatePickerFor(x=>x.FromDate).HtmlAttributes(new {@class= "form-control",style="width:75%" })
+                    @Html.Kendo().DatePickerFor(x => x.FromDate).HtmlAttributes(new { @class = "form-control", style = "width:75%" })
                     @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -25,6 +25,23 @@
                 @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.Kendo().DatePickerFor(x => x.ToDate).HtmlAttributes(new { @class = "form-control", style = "width:75%" })
+                    @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.VacationType, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @(Html.Kendo().ComboBox().Name("VacationType").DataTextField("VacationName").DataValueField("Id").Filter("contains")
+                             .DataSource(source =>
+                             {
+                                 source.Read(read =>
+                                 {
+                                     read.Action("GetVacations", "Vacations");
+                                 })
+                                 .ServerFiltering(false);
+                             })
+                            .HtmlAttributes(new { style = "width:75%;" })
+                    )
                     @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
                 </div>
             </div>

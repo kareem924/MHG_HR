@@ -10,22 +10,22 @@ namespace Domain.Service
     {
         #region fields
 
-        private readonly IRepository<ApplicationUser> _usersRepository;
+        private readonly IRepository<Users> _usersRepository;
         private readonly IRepository<Employee> _employeeRepository;
 
-        public UserRolesService(IRepository<ApplicationUser> usersRepository, IRepository<Employee> employeeRepository)
+        public UserRolesService(IRepository<Users> usersRepository, IRepository<Employee> employeeRepository)
         {
             _usersRepository = usersRepository;
             _employeeRepository = employeeRepository;
         }
 
-        public void DeleteUser(ApplicationUser user)
+        public void DeleteUser(Users user)
         {
             
         }
 
         #endregion
-        public IEnumerable<ApplicationUser> GetAllUsers()
+        public IEnumerable<Users> GetAllUsers()
         {
             return _usersRepository.Table;
         }
@@ -34,16 +34,16 @@ namespace Domain.Service
         {
             return _employeeRepository.Table;
         }
-        public ApplicationUser GetUser(string userId)
+        public Users GetUser(string userId)
         {
             return _usersRepository.GetById(userId);
         }
 
         /// <summary>
-        /// Inserts an User
+        /// Inserts an Users
         /// </summary>
         /// <param name="user">user</param>
-        public virtual void InsertUser(ApplicationUser user)
+        public virtual void InsertUser(Users user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");
@@ -54,7 +54,7 @@ namespace Domain.Service
         /// Updates the blog post
         /// </summary>
         /// <param name="user">user</param>
-        public virtual void UpdateUser(ApplicationUser user)
+        public virtual void UpdateUser(Users user)
         {
             if (user == null)
                 throw new ArgumentNullException("user");

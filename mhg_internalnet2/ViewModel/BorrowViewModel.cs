@@ -26,7 +26,7 @@ namespace mhg_internalnet2.ViewModel
         public decimal MonthlyInstallment => Amount / PaymentNumber;
 
         [Required]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public List<BorrowDistributionViewModel> BorrowDistributions { get; set; }
 
         public int MonthDifference(DateTime lValue, DateTime rValue)

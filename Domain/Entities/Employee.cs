@@ -10,7 +10,8 @@ namespace Domain.Entities
     {
         public Employee()
         {
-        
+            RealtedEmployees=new HashSet<Employee> ();
+            Vacations = new HashSet<Vacation>();
         }
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
@@ -39,7 +40,7 @@ namespace Domain.Entities
         public int? ReportsTo { get; set; }
         public virtual ICollection<Employee> RealtedEmployees { get; set; }
         public virtual ICollection<Vacation> Vacations { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual Users Users { get; set; }
        
 
     }
